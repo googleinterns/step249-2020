@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Piece of Cake!</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <nav id="header" class="navbar justify-content-end">
+        <a href="/index.html" class="nav-item mx-3">LOGO</a>
+        <form action="/search.html" class="form-inline">
+             <input type="text" class="form-control" id="searchbar" placeholder="Type recipe title" name="searchterm">
+             <button type="submit" class="btn btn-secondary mx-3" value="search">search</button>
+        </form>
+        <a class="nav-item mx-3">post a recipe</a>
+        <a class="nav-item mx-3">log in/sign up</a>
+    </nav> 
+    <div id="content" class="container w-75">
+        <h1>Recipe Title</h1>
+        <img src="images/cover.png" class="img-fluid my-3" alt="Recipe Image">
+        <ul id="ingredients" class="list-group w-25" >
+            <li class="list-group-item"> Ingredint 1</li>
+            <li class="list-group-item"> Ingredint 2</li>
+            <li class="list-group-item"> Ingredint 3</li>
+        </ul>
+        <ul id="steps" class="list-group list-group-flush" >
+            <li id="step1" class="list-group-item">
+                <p><b>STEP 1:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </li>
+            <li id="step2" class="list-group-item">
+                <p><b>STEP 2:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </li>
+            <li id="step3" class="list-group-item">
+                <p><b>STEP 3:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </li>
+        </ul>
+    </div>
+    <nav id="footer" class="navbar justify-content-start">
+        <a class="nav-item mx-3">about</a>
+        <a class="nav-item mx-3">how the search works</a>
+        <a class="nav-item mx-3">terms</a>
+    </nav> 
+  </body>
+</html>
