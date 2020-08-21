@@ -7,15 +7,17 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <nav id="header" class="navbar justify-content-end">
-        <a href="/index.html" class="nav-item mx-3">LOGO</a>
+     <nav id="header" class="navbar">
+        <a href="/index.html" class="nav-item mx-3 float-left">LOGO</a>
         <form action="/search.html" class="form-inline">
              <input type="text" class="form-control" id="searchbar" placeholder="Type recipe title" name="searchterm">
              <button type="submit" class="btn btn-secondary mx-3" value="search">search</button>
         </form>
-        <a class="nav-item mx-3">post a recipe</a>
-        <a class="nav-item mx-3">log in/sign up</a>
-    </nav> 
+        <div class="float-right">
+          <a class="nav-item mx-3">post a recipe</a>
+          <a class="nav-item mx-3">log in/sign up</a>
+        </div>
+     </nav> 
     <div id="content" class="container w-75">
         <h1>Recipe Title</h1>
         <img src="images/cover.png" class="img-fluid my-3" alt="Recipe Image">
