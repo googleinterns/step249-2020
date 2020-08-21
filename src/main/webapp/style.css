@@ -1,0 +1,31 @@
+nav{
+  background-color: #A9A9A9;
+  height: 10vh;
+}
+
+#home-page{
+  align-items: center;
+  justify-content: center;
+}
+
+#searchbar{
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  min-height: 60vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right: 10vw;
+  margin-left: 10vw;
+}
+
+#links{
+  color: black;
+  text-transform: uppercase;
+}

@@ -3,26 +3,32 @@
   <head>
     <meta charset="UTF-8">
     <title>Piece of Cake!</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="script.js"></script>
   </head>
   <body>
     <nav id="header" class="navbar justify-content-end">
+      <div id="links">
         <a class="nav-item mx-3">post a recipe</a>
         <a class="nav-item mx-3">log in/sign up</a>
+      </div>
     </nav>  
-    <div id="content" class="container w-75">
-        <h3>Welcome to Piece of Cake!</h3>
-        <form action="/search.html">
+    <div id="home-page" class="content">
+        <h3 class="m-3">Welcome to Piece of Cake!</h3>
+
+        <form id="searchbar" action="/search.html">
              <input type="text" class="form-control" id="searchbar" placeholder="Type recipe title" name="searchterm">
              <button type="submit" class="btn btn-secondary my-3" value="search">search</button>
+             <a href="/recipe.html" class="btn btn-secondary my-3">random recipe</a>
         </form>
-        <a href="/recipe.html"><button class="btn btn-secondary my-3" value="random">random recipe</button></a>
     </div>
-    <nav id="footer" class="navbar justify-content-start">
+    <nav id="footer" class="navbar">
+      <div id="links">
         <a class="nav-item mx-3">about</a>
         <a class="nav-item mx-3">how the search works</a>
         <a class="nav-item mx-3">terms</a>
-    </nav>
+      </div>
+    </nav> 
   </body>
 </html>

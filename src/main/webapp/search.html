@@ -3,22 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <title>Piece of Cake!</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="script.js"></script>
   </head>
   <body>
     <nav id="header" class="navbar">
-        <a href="/index.html" class="nav-item mx-3 float-left">LOGO</a>
+        <a href="/index.html" class="nav-item mx-3">LOGO</a>
         <form action="/search.html" class="form-inline">
              <input type="text" class="form-control" id="searchbar" placeholder="Type recipe title" name="searchterm">
              <button type="submit" class="btn btn-secondary mx-3" value="search">search</button>
         </form>
-        <div class="float-right">
+        <div id="links">
           <a class="nav-item mx-3">post a recipe</a>
           <a class="nav-item mx-3">log in/sign up</a>
         </div>
     </nav> 
-    <div id="content" class="container w-75">
+    <div class="content">
         <ul id="results" class="list-group list-group-flush">
             <li class="list-group-item">
                  <img src="images/default.png" class="img-thumbnail my-3 mr-3 float-left" style="width: 200px; height: 200px" alt="Recipe Image">
@@ -85,10 +86,12 @@
             </li>
         </ul>
     </div>
-    <nav id="footer" class="navbar justify-content-start">
+    <nav id="footer" class="navbar">
+      <div id="links">
         <a class="nav-item mx-3">about</a>
         <a class="nav-item mx-3">how the search works</a>
         <a class="nav-item mx-3">terms</a>
+      </div>
     </nav> 
   </body>
 </html>

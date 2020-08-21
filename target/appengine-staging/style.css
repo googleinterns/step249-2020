@@ -9,8 +9,6 @@ nav{
 }
 
 #searchbar{
-  display: flex;
-  flex-direction: column;
   width: 40vw;
 }
 
@@ -26,6 +24,5 @@ nav{
 }
 
 #links{
-  color: black;
   text-transform: uppercase;
 }
