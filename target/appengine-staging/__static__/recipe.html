@@ -8,17 +8,19 @@
     <script src="script.js"></script>
   </head>
   <body>
-     <nav id="header" class="navbar">
-        <a href="/index.html" class="nav-item mx-3">LOGO</a>
-        <form action="/search.html" class="form-inline">
+    <div id="header" class="wrapper">
+     <nav class="navbar">
+        <a href="/index.html" class="link nav-item mx-3">LOGO</a>
+        <form action="/search.html" class="form-line">
              <input type="text" class="form-control" id="searchbar" placeholder="Type recipe title" name="searchterm">
              <button type="submit" class="btn btn-secondary mx-3" value="search">search</button>
         </form>
         <div id="links">
-          <a class="nav-item mx-3">post a recipe</a>
-          <a class="nav-item mx-3">log in/sign up</a>
+          <a class="link nav-item mx-3">post a recipe</a>
+          <a class="link nav-item mx-3">log in/sign up</a>
         </div>
      </nav> 
+    </div>
     <div class="content">
         <h1>Recipe Title</h1>
         <img src="images/cover.png" class="img-fluid my-3" alt="Recipe Image">
@@ -39,12 +41,14 @@
             </li>
         </ul>
     </div>
-    <nav id="footer" class="navbar">
-      <div id="links">
-        <a class="nav-item mx-3">about</a>
-        <a class="nav-item mx-3">how the search works</a>
-        <a class="nav-item mx-3">terms</a>
-      </div>
-    </nav> 
+    <div id="footer" class="wrapper">
+      <nav class="navbar">
+        <div id="links">
+          <a class="link nav-item mx-3">about</a>
+          <a class="link nav-item mx-3">how the search works</a>
+          <a class="link nav-item mx-3">terms</a>
+        </div>
+      </nav> 
+    </div>
   </body>
 </html>

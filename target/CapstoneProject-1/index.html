@@ -8,14 +8,16 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <nav id="header" class="navbar justify-content-end">
-      <div id="links">
-        <a class="link nav-item mx-3">post a recipe</a>
-        <a class="link nav-item mx-3">log in/sign up</a>
-      </div>
-    </nav>  
+    <div id="header" class="wrapper">
+      <nav class="navbar justify-content-end">
+        <div id="links">
+          <a class="link nav-item mx-3">post a recipe</a>
+          <a class="link nav-item mx-3">log in/sign up</a>
+        </div>
+      </nav>
+    </div>  
     <div id="home-page" class="content">
-        <h3 class="m-3">Welcome to Piece of Cake!</h3>
+        <h1 id="welcome">Welcome to Piece of Cake!</h1>
 
         <form id="searchbar" action="/search.html">
              <input type="text" class="form-control" id="searchbar" placeholder="Type recipe title" name="searchterm">
@@ -25,12 +27,14 @@
              </div>
         </form>
     </div>
-    <nav id="footer" class="navbar">
-      <div id="links">
-        <a class="link nav-item mx-3">about</a>
-        <a class="link nav-item mx-3">how the search works</a>
-        <a class="link nav-item mx-3">terms</a>
-      </div>
-    </nav> 
+    <div id="footer" class="wrapper">
+      <nav class="navbar">
+        <div id="links">
+          <a class="link nav-item mx-3">about</a>
+          <a class="link nav-item mx-3">how the search works</a>
+          <a class="link nav-item mx-3">terms</a>
+        </div>
+      </nav>
+    </div> 
   </body>
 </html>
