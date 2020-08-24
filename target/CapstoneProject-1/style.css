@@ -1,6 +1,13 @@
 nav{
   background-color: #A9A9A9;
-  height: 10vh;
+  height: 8vh;
+}
+
+.link{
+  color: black;
+}
+.link:hover{
+  color: black;
 }
 
 #home-page{
@@ -14,11 +21,22 @@ nav{
   width: 40vw;
 }
 
+.buttonline{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn{
+  margin: 0 0 0 8px;
+  height: 38px;
+}
+
 .content{
   display: flex;
   flex-direction: column;
   width: 75%;
-  min-height: 60vh;
+  min-height: 64vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
   margin-right: 10vw;
