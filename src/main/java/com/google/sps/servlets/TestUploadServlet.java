@@ -77,7 +77,7 @@ public class TestUploadServlet extends HttpServlet {
 
        currentLineIndex += 2;
        ArrayList<String> steps = new ArrayList<String>();
-       while ((!lines.get(currentLineIndex).isBlank()) && (currentLineIndex < lines.size())){
+       while ((currentLineIndex < lines.size()) && (!lines.get(currentLineIndex).isBlank())){
             steps.add(lines.get(currentLineIndex)); 
             currentLineIndex += 1;
        }
@@ -85,15 +85,19 @@ public class TestUploadServlet extends HttpServlet {
     
     }
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   @Override
+   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
     try{
-     String nameFile = request.getParameter("file");
-     parseRecipe(nameFile);
+
+     for ( int i = 1; i <= 60; i++) {
+       String nameFile = Integer.toString(i)+".txt";
+       parseRecipe(nameFile);
+     }
     } catch (Exception e) {
     e.printStackTrace();
     }
+   
    
   }
 }
