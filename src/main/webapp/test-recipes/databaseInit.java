@@ -8,6 +8,7 @@
 //  STEP2: Go to line 77 and  change the string to your absolute path to where your recipe folder is (mine is /home/beatricemarch/capstone/step249-2020/src/main/webapp/test-recipes/recipe/ )
 //  STEP3: Copy and paste the code below in the TestUploadServlet.java
 //  STEP4: Run the script from the url "/test" (you can run it both on localhost and in the deployed version)
+//  STEP5: Delete the servlet.
 //
 //  +++++++++++++++++++++++
 // 
