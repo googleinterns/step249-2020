@@ -10,6 +10,17 @@
 //  STEP4: Run the script from the url "/test" (you can run it both on localhost and in the deployed version)
 //  STEP5: Delete the servlet.
 //
+//  Trobleshooting
+//
+//  If you have errors relating to 'isBlank()' try the following:
+//  + add this to the imports "import org.apache.commons.lang3.StringUtils.isBlank"
+//  + add this dependncy to the pom.xl: 
+//  <dependency>
+//       <groupId>org.apache.commons</groupId>
+//        <artifactId>commons-lang3</artifactId>
+//        <version>3.11</version>
+//  </dependency>
+//
 //  +++++++++++++++++++++++
 // 
 // Copyright 2019 Google LLC
