@@ -20,6 +20,7 @@
 //        <artifactId>commons-lang3</artifactId>
 //        <version>3.11</version>
 //  </dependency>
+//  + sustitute isBlank by StringUtils.isBlank in the code
 //
 //  +++++++++++++++++++++++
 // 
@@ -65,6 +66,9 @@ import java.nio.file.Files;
 @WebServlet("/test")
 public class TestUploadServlet extends HttpServlet {
 
+    /**
+      * upload takes the several properties of a recipes, uses them in creating a new recipe entity and upload thi entity to the database
+     **/
     public void upload(String  title, String imgURL, ArrayList<String> ingredients, ArrayList<String> stepList) throws Exception, IOException {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     
@@ -78,6 +82,9 @@ public class TestUploadServlet extends HttpServlet {
         datastore.put(recipeEntity);
     }
 
+    /**
+      * readFileInList reads a text file in a list of strings, each string being a line in the original file
+     **/
     public static List<String> readFileInList(String fileName) throws Exception, IOException  { 
   
          List<String> lines = Collections.emptyList(); 
@@ -85,6 +92,9 @@ public class TestUploadServlet extends HttpServlet {
          return lines; 
     } 
 
+    /**
+      * parseRecipe calls 'readFileInList' on a given text file, extrapolates all the recipes properties from the list of lines, and inputes them in 'upload'
+     **/
     public void parseRecipe(String fileName) throws Exception, IOException  {
 
        List<String> lines = readFileInList("INSERT ABSOLUTE PATH HERE"+fileName);
@@ -108,6 +118,9 @@ public class TestUploadServlet extends HttpServlet {
     
     }
 
+   /**
+     * doGet loops trough all the 60 text files in the recipe folder an calls 'parseRecipe' on them
+    **/
    @Override
    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
