@@ -5,7 +5,7 @@
 <t:genericpage>
     <jsp:body>
       <div class="content">
-        <ul id="results" class="list-group list-group-flush">
+        <ul class="list-group list-group-flush">
             <c:forEach items="${recipesList}" var="recipe">
                 <li class="list-group-item">
                     <img src="images/default.png" class="img-thumbnail my-3 mr-3 float-left" style="width: 200px; height: 200px" alt="Recipe Image">
