@@ -1,0 +1,1077 @@
+Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Maven home: /opt/maven
+Java version: 11.0.8, vendor: Debian, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.19.112+", arch: "amd64", family: "unix"
+[DEBUG] Created new class realm maven.api
+[DEBUG] Importing foreign packages into class realm maven.api
+[DEBUG]   Imported: javax.annotation.* < plexus.core
+[DEBUG]   Imported: javax.annotation.security.* < plexus.core
+[DEBUG]   Imported: javax.enterprise.inject.* < plexus.core
+[DEBUG]   Imported: javax.enterprise.util.* < plexus.core
+[DEBUG]   Imported: javax.inject.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.artifact < plexus.core
+[DEBUG]   Imported: org.apache.maven.classrealm < plexus.core
+[DEBUG]   Imported: org.apache.maven.cli < plexus.core
+[DEBUG]   Imported: org.apache.maven.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.exception < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution.scope < plexus.core
+[DEBUG]   Imported: org.apache.maven.lifecycle < plexus.core
+[DEBUG]   Imported: org.apache.maven.model < plexus.core
+[DEBUG]   Imported: org.apache.maven.monitor < plexus.core
+[DEBUG]   Imported: org.apache.maven.plugin < plexus.core
+[DEBUG]   Imported: org.apache.maven.profiles < plexus.core
+[DEBUG]   Imported: org.apache.maven.project < plexus.core
+[DEBUG]   Imported: org.apache.maven.reporting < plexus.core
+[DEBUG]   Imported: org.apache.maven.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.rtinfo < plexus.core
+[DEBUG]   Imported: org.apache.maven.settings < plexus.core
+[DEBUG]   Imported: org.apache.maven.toolchain < plexus.core
+[DEBUG]   Imported: org.apache.maven.usability < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.events < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.observers < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.resource < plexus.core
+[DEBUG]   Imported: org.codehaus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.* < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.component < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.configuration < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.container < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.context < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.logging < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.personality < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.* < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.artifact < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.collection < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.deployment < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.graph < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.installation < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.internal.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.metadata < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.repository < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.resolution < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.spi < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.transfer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.version < plexus.core
+[DEBUG]   Imported: org.fusesource.jansi.* < plexus.core
+[DEBUG]   Imported: org.slf4j.* < plexus.core
+[DEBUG]   Imported: org.slf4j.event.* < plexus.core
+[DEBUG]   Imported: org.slf4j.helpers.* < plexus.core
+[DEBUG]   Imported: org.slf4j.spi.* < plexus.core
+[DEBUG] Populating class realm maven.api
+[INFO] Error stacktraces are turned on.
+[DEBUG] Message scheme: color
+[DEBUG] Message styles: debug info warning error success failure strong mojo project
+[DEBUG] Reading global settings from /opt/maven/conf/settings.xml
+[DEBUG] Reading user settings from /home/beatricemarch/.m2/settings.xml
+[DEBUG] Reading global toolchains from /opt/maven/conf/toolchains.xml
+[DEBUG] Reading user toolchains from /home/beatricemarch/.m2/toolchains.xml
+[DEBUG] Using local repository at /home/beatricemarch/.m2/repository
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10.0 for /home/beatricemarch/.m2/repository
+[INFO] Scanning for projects...
+[DEBUG] Extension realms for project com.google.sps:CapstoneProject:war:1: (none)
+[DEBUG] Looking up lifecycle mappings for packaging war from ClassRealm[plexus.core, parent: null]
+[DEBUG] Resolving plugin prefix appengine from [org.apache.maven.plugins, org.codehaus.mojo]
+[DEBUG] Resolved plugin prefix appengine to com.google.cloud.tools:appengine-maven-plugin from POM com.google.sps:CapstoneProject:war:1
+[DEBUG] === REACTOR BUILD PLAN ================================================
+[DEBUG] Project: com.google.sps:CapstoneProject:war:1
+[DEBUG] Tasks:   [package, appengine:deploy]
+[DEBUG] Style:   Regular
+[DEBUG] =======================================================================
+[INFO] 
+[INFO] -------------------< com.google.sps:CapstoneProject >-------------------
+[INFO] Building CapstoneProject 1
+[INFO] --------------------------------[ war ]---------------------------------
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Resolving plugin prefix appengine from [org.apache.maven.plugins, org.codehaus.mojo]
+[DEBUG] Resolved plugin prefix appengine to com.google.cloud.tools:appengine-maven-plugin from POM com.google.sps:CapstoneProject:war:1
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       com.google.sps:CapstoneProject:1
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [compile, runtime, test]
+[DEBUG] Repositories (dependencies): [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] Repositories (plugins)     : [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:2.6:resources (default-resources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <buildFilters default-value="${project.build.filters}"/>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <escapeString>${maven.resources.escapeString}</escapeString>
+  <escapeWindowsPaths default-value="true">${maven.resources.escapeWindowsPaths}</escapeWindowsPaths>
+  <includeEmptyDirs default-value="false">${maven.resources.includeEmptyDirs}</includeEmptyDirs>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <overwrite default-value="false">${maven.resources.overwrite}</overwrite>
+  <project default-value="${project}"/>
+  <resources default-value="${project.resources}"/>
+  <session default-value="${session}"/>
+  <supportMultiLineFiltering default-value="false">${maven.resources.supportMultiLineFiltering}</supportMultiLineFiltering>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.1:compile (default-compile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <classpathElements default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution>${mojoExecution}</mojoExecution>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="false">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.5">${maven.compiler.source}</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.5">${maven.compiler.target}</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+  <mavenSession default-value="${session}"/>
+  <session default-value="${session}"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:2.6:testResources (default-testResources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <buildFilters default-value="${project.build.filters}"/>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <escapeString>${maven.resources.escapeString}</escapeString>
+  <escapeWindowsPaths default-value="true">${maven.resources.escapeWindowsPaths}</escapeWindowsPaths>
+  <includeEmptyDirs default-value="false">${maven.resources.includeEmptyDirs}</includeEmptyDirs>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <overwrite default-value="false">${maven.resources.overwrite}</overwrite>
+  <project default-value="${project}"/>
+  <resources default-value="${project.testResources}"/>
+  <session default-value="${session}"/>
+  <skip>${maven.test.skip}</skip>
+  <supportMultiLineFiltering default-value="false">${maven.resources.supportMultiLineFiltering}</supportMultiLineFiltering>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile (default-testCompile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <classpathElements default-value="${project.testClasspathElements}"/>
+  <compileSourceRoots default-value="${project.testCompileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedTestSourcesDirectory default-value="${project.build.directory}/generated-test-sources/test-annotations"/>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution>${mojoExecution}</mojoExecution>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="false">${maven.compiler.showWarnings}</showWarnings>
+  <skip>${maven.test.skip}</skip>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.5">${maven.compiler.source}</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.5">${maven.compiler.target}</target>
+  <testSource>${maven.compiler.testSource}</testSource>
+  <testTarget>${maven.compiler.testTarget}</testTarget>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+  <mavenSession default-value="${session}"/>
+  <session default-value="${session}"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test (default-test)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <argLine>${argLine}</argLine>
+  <basedir default-value="${basedir}"/>
+  <childDelegation default-value="false">${childDelegation}</childDelegation>
+  <classesDirectory default-value="${project.build.outputDirectory}"/>
+  <debugForkedProcess>${maven.surefire.debug}</debugForkedProcess>
+  <disableXmlReport default-value="false">${disableXmlReport}</disableXmlReport>
+  <enableAssertions default-value="true">${enableAssertions}</enableAssertions>
+  <excludedGroups>${excludedGroups}</excludedGroups>
+  <failIfNoSpecifiedTests>${surefire.failIfNoSpecifiedTests}</failIfNoSpecifiedTests>
+  <failIfNoTests>${failIfNoTests}</failIfNoTests>
+  <forkMode default-value="once">${forkMode}</forkMode>
+  <forkedProcessTimeoutInSeconds>${surefire.timeout}</forkedProcessTimeoutInSeconds>
+  <groups>${groups}</groups>
+  <junitArtifactName default-value="junit:junit">${junitArtifactName}</junitArtifactName>
+  <jvm>${jvm}</jvm>
+  <localRepository default-value="${localRepository}"/>
+  <objectFactory>${objectFactory}</objectFactory>
+  <parallel>${parallel}</parallel>
+  <parallelMavenExecution default-value="${session.parallel}"/>
+  <perCoreThreadCount default-value="true">${perCoreThreadCount}</perCoreThreadCount>
+  <pluginArtifactMap>${plugin.artifactMap}</pluginArtifactMap>
+  <pluginDescriptor default-value="${plugin}"/>
+  <printSummary default-value="true">${surefire.printSummary}</printSummary>
+  <projectArtifactMap>${project.artifactMap}</projectArtifactMap>
+  <redirectTestOutputToFile default-value="false">${maven.test.redirectTestOutputToFile}</redirectTestOutputToFile>
+  <remoteRepositories default-value="${project.pluginArtifactRepositories}"/>
+  <reportFormat default-value="brief">${surefire.reportFormat}</reportFormat>
+  <reportNameSuffix default-value="">${surefire.reportNameSuffix}</reportNameSuffix>
+  <reportsDirectory default-value="${project.build.directory}/surefire-reports"/>
+  <runOrder default-value="filesystem"/>
+  <skip default-value="false">${maven.test.skip}</skip>
+  <skipExec>${maven.test.skip.exec}</skipExec>
+  <skipTests default-value="false">${skipTests}</skipTests>
+  <test>${test}</test>
+  <testClassesDirectory default-value="${project.build.testOutputDirectory}"/>
+  <testFailureIgnore default-value="false">${maven.test.failure.ignore}</testFailureIgnore>
+  <testNGArtifactName default-value="org.testng:testng">${testNGArtifactName}</testNGArtifactName>
+  <testSourceDirectory default-value="${project.build.testSourceDirectory}"/>
+  <threadCount>${threadCount}</threadCount>
+  <trimStackTrace default-value="true">${trimStackTrace}</trimStackTrace>
+  <useFile default-value="true">${surefire.useFile}</useFile>
+  <useManifestOnlyJar default-value="true">${surefire.useManifestOnlyJar}</useManifestOnlyJar>
+  <useSystemClassLoader default-value="true">${surefire.useSystemClassLoader}</useSystemClassLoader>
+  <useUnlimitedThreads default-value="false">${useUnlimitedThreads}</useUnlimitedThreads>
+  <workingDirectory>${basedir}</workingDirectory>
+  <project default-value="${project}"/>
+  <session default-value="${session}"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-war-plugin:2.2:war (default-war)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <archiveClasses default-value="false">${archiveClasses}</archiveClasses>
+  <attachClasses default-value="false"/>
+  <cacheFile default-value="${project.build.directory}/war/work/webapp-cache.xml"/>
+  <classesClassifier default-value="classes"/>
+  <classesDirectory default-value="${project.build.outputDirectory}"/>
+  <containerConfigXML>${maven.war.containerConfigXML}</containerConfigXML>
+  <escapeString>${maven.war.escapeString}</escapeString>
+  <escapedBackslashesInFilePath default-value="false">${maven.war.escapedBackslashesInFilePath}</escapedBackslashesInFilePath>
+  <failOnMissingWebXml default-value="true">${failOnMissingWebXml}</failOnMissingWebXml>
+  <filteringDeploymentDescriptors default-value="false">${maven.war.filteringDeploymentDescriptors}</filteringDeploymentDescriptors>
+  <outputDirectory default-value="${project.build.directory}"/>
+  <primaryArtifact default-value="true">${primaryArtifact}</primaryArtifact>
+  <project default-value="${project}"/>
+  <session default-value="${session}"/>
+  <useCache default-value="false">${useCache}</useCache>
+  <warName default-value="${project.build.finalName}"/>
+  <warSourceDirectory default-value="${basedir}/src/main/webapp"/>
+  <warSourceIncludes default-value="**"/>
+  <webXml>${maven.war.webxml}</webXml>
+  <webappDirectory default-value="${project.build.directory}/${project.build.finalName}"/>
+  <workDirectory default-value="${project.build.directory}/war/work"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          com.google.cloud.tools:appengine-maven-plugin:2.2.0:deploy (default-cli)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appEngineDirectory default-value="${basedir}/src/main/appengine">${app.stage.appEngineDirectory}</appEngineDirectory>
+  <artifact default-value="${project.build.directory}/${project.build.finalName}.${project.packaging}">${app.stage.artifact}</artifact>
+  <bucket>${app.deploy.bucket}</bucket>
+  <cloudSdkHome>${cloudSdkHome}</cloudSdkHome>
+  <cloudSdkVersion>${cloudSdkVersion}</cloudSdkVersion>
+  <compileEncoding>${app.stage.compileEncoding}</compileEncoding>
+  <deleteJsps>${app.stage.deleteJsps}</deleteJsps>
+  <disableJarJsps>${app.stage.disableJarJsps}</disableJarJsps>
+  <dockerDirectory default-value="${basedir}/src/main/docker/">${app.stage.dockerDirectory}</dockerDirectory>
+  <dockerfile>${app.stage.dockerfile}</dockerfile>
+  <dockerfilePrimaryDefaultLocation default-value="${basedir}/src/main/docker/Dockerfile"/>
+  <dockerfileSecondaryDefaultLocation default-value="${basedir}/src/main/appengine/Dockerfile"/>
+  <enableJarClasses>${app.stage.enableJarClasses}</enableJarClasses>
+  <enableJarSplitting>${app.stage.enableJarSplitting}</enableJarSplitting>
+  <enableQuickstart>${app.stage.enableQuickstart}</enableQuickstart>
+  <extraFilesDirectories>${app.stage.extraFilesDirectories}</extraFilesDirectories>
+  <gcloudMode>${app.deploy.gcloudMode}</gcloudMode>
+  <imageUrl>${app.deploy.imageUrl}</imageUrl>
+  <jarSplittingExcludes>${app.stage.jarSplittingExcludes}</jarSplittingExcludes>
+  <mavenProject default-value="${project}"/>
+  <mavenSession default-value="${session}"/>
+  <pluginDescriptor default-value="${plugin}"/>
+  <project>${app.deploy.project}</project>
+  <projectId>YOUR_PROJECT_ID_HERE</projectId>
+  <promote>${app.deploy.promote}</promote>
+  <server>${app.deploy.server}</server>
+  <serviceAccountKeyFile>${serviceAccountKeyFile}</serviceAccountKeyFile>
+  <skip default-value="false"/>
+  <sourceDirectory default-value="${project.build.directory}/${project.build.finalName}">${app.stage.sourceDirectory}</sourceDirectory>
+  <stagingDirectory default-value="${project.build.directory}/appengine-staging">${app.stage.stagingDirectory}</stagingDirectory>
+  <stopPreviousVersion>${app.deploy.stopPreviousVersion}</stopPreviousVersion>
+  <version>1</version>
+</configuration>
+[DEBUG] =======================================================================
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=765602, ConflictMarker.markTime=150765, ConflictMarker.nodeCount=2, ConflictIdSorter.graphTime=447027, ConflictIdSorter.topsortTime=360068, ConflictIdSorter.conflictIdCount=1, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=3041700, ConflictResolver.conflictItemCount=1, DefaultDependencyCollector.collectTime=11558562, DefaultDependencyCollector.transformTime=6953218}
+[DEBUG] com.google.sps:CapstoneProject:war:1
+[DEBUG]    javax.servlet:javax.servlet-api:jar:4.0.1:provided
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ CapstoneProject ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=2256256, ConflictMarker.markTime=397877, ConflictMarker.nodeCount=77, ConflictIdSorter.graphTime=662703, ConflictIdSorter.topsortTime=54676, ConflictIdSorter.conflictIdCount=26, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=8521083, ConflictResolver.conflictItemCount=74, DefaultDependencyCollector.collectTime=239281698, DefaultDependencyCollector.transformTime=12034680}
+[DEBUG] org.apache.maven.plugins:maven-resources-plugin:jar:2.6
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-project:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-profile:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-artifact-manager:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-plugin-registry:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-core:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.6:compile
+[DEBUG]       org.apache.maven.reporting:maven-reporting-api:jar:2.0.6:compile
+[DEBUG]          org.apache.maven.doxia:doxia-sink-api:jar:1.0-alpha-7:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-error-diagnostics:jar:2.0.6:compile
+[DEBUG]       commons-cli:commons-cli:jar:1.0:compile
+[DEBUG]       org.apache.maven:maven-plugin-descriptor:jar:2.0.6:compile
+[DEBUG]       org.codehaus.plexus:plexus-interactivity-api:jar:1.0-alpha-4:compile
+[DEBUG]       classworlds:classworlds:jar:1.1:compile
+[DEBUG]    org.apache.maven:maven-artifact:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-settings:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-model:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-monitor:jar:2.0.6:compile
+[DEBUG]    org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9-stable-1:compile
+[DEBUG]       junit:junit:jar:3.8.1:compile
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:2.0.5:compile
+[DEBUG]    org.apache.maven.shared:maven-filtering:jar:1.1:compile
+[DEBUG]       org.sonatype.plexus:plexus-build-api:jar:0.0.4:compile
+[DEBUG]    org.codehaus.plexus:plexus-interpolation:jar:1.13:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-resources-plugin:2.6
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-resources-plugin:2.6
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-resources-plugin:2.6
+[DEBUG]   Included: org.apache.maven.plugins:maven-resources-plugin:jar:2.6
+[DEBUG]   Included: org.apache.maven.reporting:maven-reporting-api:jar:2.0.6
+[DEBUG]   Included: org.apache.maven.doxia:doxia-sink-api:jar:1.0-alpha-7
+[DEBUG]   Included: commons-cli:commons-cli:jar:1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-interactivity-api:jar:1.0-alpha-4
+[DEBUG]   Included: junit:junit:jar:3.8.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:2.0.5
+[DEBUG]   Included: org.apache.maven.shared:maven-filtering:jar:1.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-build-api:jar:0.0.4
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.13
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-resources-plugin:2.6:resources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:2.6, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-resources-plugin:2.6:resources' with basic configurator -->
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = /home/beatricemarch/capstone/step249-2020/target/classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: com.google.sps:CapstoneProject:1 @ /home/beatricemarch/capstone/step249-2020/pom.xml
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: false, FileSet {directory: /home/beatricemarch/capstone/step249-2020/src/main/resources, PatternSet [includes: {}, excludes: {}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = true
+[DEBUG] -- end configuration --
+[DEBUG] properties used {env.TERM=screen, env.DEVSHELL_CLIENTS_DIR=/var/run/google/devshell, java.specification.version=11, sun.cpu.isalist=, sun.arch.data.model=64, env.GEM_HOME=/home/beatricemarch/.gems, java.vendor.url=https://tracker.debian.org/openjdk-11, env.ASPNETCORE_URLS=http://*:8080, env.GOPATH=/home/beatricemarch/gopath:/google/gopath, sun.boot.library.path=/usr/lib/jvm/java-11-openjdk-amd64/lib, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher package appengine:deploy -X, jdk.debug=release, maven.version=3.6.3, java.specification.vendor=Oracle Corporation, java.version.date=2020-07-14, java.home=/usr/lib/jvm/java-11-openjdk-amd64, env.DEVSHELL_PROJECT_ID=beatricemarch-step-2020, java.specification.name=Java Platform API Specification, java.vm.specification.vendor=Oracle Corporation, env.DOCKER_HOST=unix:///var/run/docker.sock, sun.management.compiler=HotSpot 64-Bit Tiered Compilers, env.DEVSHELL_CLIENT_PORT=8998, java.runtime.version=11.0.8+10-post-Debian-1deb10u1, env.rvm_version=1.29.10 (latest), env.PATH=/home/beatricemarch/.gems/bin:/usr/local/rvm/bin:/usr/local/go/bin:/opt/gradle/bin:/opt/maven/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/nvm/versions/node/v10.14.2/bin:/usr/local/rvm/bin:/google/go_appengine:/google/google_appengine:/home/beatricemarch/gopath/bin:/google/gopath/bin:/google/migrate/anthos/, env.CREDENTIALS_SERVICE_PORT=8998, env.LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:, file.encoding=UTF-8, env.CLOUD_SHELL=true, env.SHLVL=3, java.io.tmpdir=/tmp, env.__TMP_CLOUDSDK_CONFIG=/tmp/tmp.RkMigHNGIY, java.version=11.0.8, java.vm.specification.name=Java Virtual Machine Specification, java.awt.printerjob=sun.print.PSPrinterJob, env.SDKMAN_PLATFORM=Linux64, java.library.path=/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib, java.vendor=Debian, classworlds.conf=/opt/maven/bin/m2.conf, sun.io.unicode.encoding=UnicodeLittle, env.LANG=en_US.UTF-8, env.rvm_path=/usr/local/rvm, env.BROWSER=echo, env.SSH_CLIENT=127.0.0.1 38896 22, user.timezone=, env.CLOUDSDK_DIAGNOSTICS_HIDDEN_PROPERTY_WHITELIST=compute/gce_metadata_read_timeout_sec, os.name=Linux, java.vm.specification.version=11, maven.compiler.source=1.8, user.home=/home/beatricemarch, env.DEVSHELL_GCLOUD_CONFIG=cloudshell-14703, env.SSH_CONNECTION=127.0.0.1 38896 127.0.0.1 22, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, path.separator=:, os.version=4.19.112+, env.GEM_PATH=/home/beatricemarch/.gems:/usr/local/lib/ruby/gems/2.5.0/, env.MAIL=/var/mail/beatricemarch, java.vm.name=OpenJDK 64-Bit Server VM, env.SHELL=/bin/bash, env.HISTSIZE=1000, env.TMUX_PANE=%0, env.DEVSHELL_SERVER_URL=https://ssh.cloud.google.com, os.arch=amd64, env.HISTFILESIZE=1000, maven.multiModuleProjectDirectory=/home/beatricemarch/capstone/step249-2020, env.PROMPT_COMMAND=history -a;update_devshell_project_id &> /dev/null, env.API_DOGFOOD=, env.USE_CLOUD_SDK_PYTHON3=true, env.MAVEN_PROJECTBASEDIR=/home/beatricemarch/capstone/step249-2020, java.vm.info=mixed mode, sharing, env.USER=beatricemarch, java.class.version=55.0, env.BASHRC_GOOGLE_PATH=/google/devshell/bashrc.google, awt.toolkit=sun.awt.X11.XToolkit, env.rvm_bin_path=/usr/local/rvm/bin, sun.jnu.encoding=UTF-8, env.SDKMAN_CANDIDATES_API=https://api.sdkman.io/2, env.CLOUDSHELL_OPEN_DIR=cloudshell_open, maven.build.version=Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f), maven.home=/opt/maven, env.DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1, env.JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64, file.separator=/, java.vm.compressedOopsMode=32-bit, line.separator=
+, env.SSH_TTY=/dev/pts/1, env.ACTIVE_CUSTOM_IMAGE=, user.name=beatricemarch, env.CUSTOM_ENVIRONMENT=, env.LOGNAME=beatricemarch, env.BASHRC_PATH=/home/beatricemarch/.bashrc, env.rvm_prefix=/usr/local, env.DEVSHELL_IP_ADDRESS=, sun.os.patch.level=unknown, env.SDKMAN_DIR=/usr/local/sdkman/, maven.compiler.target=1.8, library.jansi.path=/opt/maven/lib/jansi-native, env.SDKMAN_CANDIDATES_DIR=/usr/local/sdkman//candidates, env.OLDPWD=/home/beatricemarch/capstone/step249-2020, env.PWD=/home/beatricemarch/capstone/step249-2020, failOnMissingWebXml=false, java.class.path=/opt/maven/boot/plexus-classworlds-2.6.0.jar, env.HOME=/home/beatricemarch, java.vm.vendor=Debian, maven.conf=/opt/maven/conf, sun.java.launcher=SUN_STANDARD, user.country=US, env.GCE_METADATA_HOST=169.254.169.254, sun.cpu.endian=little, user.language=en, env.TRUSTED_ENVIRONMENT=true, env.DISABLE_DIRECT_CREDENTIAL_RETRIEVAL=, env.CLOUDSDK_PYTHON=python3, env.CLOUDSDK_CONFIG=/tmp/tmp.RkMigHNGIY, env.GOOGLE_CLOUD_PROJECT=beatricemarch-step-2020, env.CLOUD_SHELL_IMAGE_VERSION=, java.runtime.name=OpenJDK Runtime Environment, project.build.sourceEncoding=UTF-8, env.MAVEN_CMD_LINE_ARGS= package appengine:deploy -X, java.vendor.url.bug=https://bugs.debian.org/openjdk-11, user.dir=/home/beatricemarch/capstone/step249-2020, env.SDKMAN_VERSION=5.9.0+555, env.TMUX=/tmp/tmux-1000/default,690,0, java.vm.version=11.0.8+10-post-Debian-1deb10u1}
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] resource with targetPath null
+directory /home/beatricemarch/capstone/step249-2020/src/main/resources
+excludes []
+includes []
+[INFO] skip non existing resourceDirectory /home/beatricemarch/capstone/step249-2020/src/main/resources
+[DEBUG] no use filter components
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ CapstoneProject ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=942211, ConflictMarker.markTime=489517, ConflictMarker.nodeCount=160, ConflictIdSorter.graphTime=356883, ConflictIdSorter.topsortTime=107936, ConflictIdSorter.conflictIdCount=43, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=2206911, ConflictResolver.conflictItemCount=63, DefaultDependencyCollector.collectTime=421216510, DefaultDependencyCollector.transformTime=4176434}
+[DEBUG] org.apache.maven.plugins:maven-compiler-plugin:jar:3.1
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-artifact:jar:2.0.9:compile
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.5.1:compile
+[DEBUG]    org.apache.maven:maven-core:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-profile:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-model:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-error-diagnostics:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-project:jar:2.0.9:compile
+[DEBUG]          org.apache.maven:maven-plugin-registry:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-plugin-descriptor:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-artifact-manager:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-monitor:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-toolchain:jar:1.0:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:0.1:compile
+[DEBUG]       com.google.code.findbugs:jsr305:jar:2.0.1:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-incremental:jar:1.1:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.5.5:compile (version managed from default)
+[DEBUG]    org.codehaus.plexus:plexus-compiler-api:jar:2.2:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-manager:jar:2.2:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-javac:jar:2.2:runtime
+[DEBUG]    org.codehaus.plexus:plexus-container-default:jar:1.5.5:compile
+[DEBUG]       org.codehaus.plexus:plexus-classworlds:jar:2.2.2:compile
+[DEBUG]       org.apache.xbean:xbean-reflect:jar:3.4:compile
+[DEBUG]          log4j:log4j:jar:1.2.12:compile
+[DEBUG]          commons-logging:commons-logging-api:jar:1.1:compile
+[DEBUG]       com.google.collections:google-collections:jar:1.0:compile
+[DEBUG]       junit:junit:jar:3.8.2:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-compiler-plugin:jar:3.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:1.5.1
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:0.1
+[DEBUG]   Included: com.google.code.findbugs:jsr305:jar:2.0.1
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-incremental:jar:1.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.5.5
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-api:jar:2.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-manager:jar:2.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-javac:jar:2.2
+[DEBUG]   Included: org.apache.xbean:xbean-reflect:jar:3.4
+[DEBUG]   Included: log4j:log4j:jar:1.2.12
+[DEBUG]   Included: commons-logging:commons-logging-api:jar:1.1
+[DEBUG]   Included: com.google.collections:google-collections:jar:1.0
+[DEBUG]   Included: junit:junit:jar:3.8.2
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-compiler-plugin:3.1:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-compiler-plugin:3.1:compile' with basic configurator -->
+[DEBUG]   (f) basedir = /home/beatricemarch/capstone/step249-2020
+[DEBUG]   (f) buildDirectory = /home/beatricemarch/capstone/step249-2020/target
+[DEBUG]   (f) classpathElements = [/home/beatricemarch/capstone/step249-2020/target/classes, /home/beatricemarch/.m2/repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar]
+[DEBUG]   (f) compileSourceRoots = [/home/beatricemarch/capstone/step249-2020/src/main/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedSourcesDirectory = /home/beatricemarch/capstone/step249-2020/target/generated-sources/annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.1:compile {execution: default-compile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /home/beatricemarch/capstone/step249-2020/target/classes
+[DEBUG]   (f) projectArtifact = com.google.sps:CapstoneProject:war:1
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = false
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 1.8
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (f) target = 1.8
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG]   (f) mavenSession = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Source directories: [/home/beatricemarch/capstone/step249-2020/src/main/java]
+[DEBUG] Classpath: [/home/beatricemarch/capstone/step249-2020/target/classes
+ /home/beatricemarch/.m2/repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar]
+[DEBUG] Output directory: /home/beatricemarch/capstone/step249-2020/target/classes
+[DEBUG] CompilerReuseStrategy: reuseCreated
+[DEBUG] useIncrementalCompilation enabled
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ CapstoneProject ---
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-resources-plugin:2.6:testResources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:2.6, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-resources-plugin:2.6:testResources' with basic configurator -->
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = /home/beatricemarch/capstone/step249-2020/target/test-classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: com.google.sps:CapstoneProject:1 @ /home/beatricemarch/capstone/step249-2020/pom.xml
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: false, FileSet {directory: /home/beatricemarch/capstone/step249-2020/src/test/resources, PatternSet [includes: {}, excludes: {}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = true
+[DEBUG] -- end configuration --
+[DEBUG] properties used {env.TERM=screen, env.DEVSHELL_CLIENTS_DIR=/var/run/google/devshell, java.specification.version=11, sun.cpu.isalist=, sun.arch.data.model=64, env.GEM_HOME=/home/beatricemarch/.gems, java.vendor.url=https://tracker.debian.org/openjdk-11, env.ASPNETCORE_URLS=http://*:8080, env.GOPATH=/home/beatricemarch/gopath:/google/gopath, sun.boot.library.path=/usr/lib/jvm/java-11-openjdk-amd64/lib, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher package appengine:deploy -X, jdk.debug=release, maven.version=3.6.3, java.specification.vendor=Oracle Corporation, java.version.date=2020-07-14, java.home=/usr/lib/jvm/java-11-openjdk-amd64, env.DEVSHELL_PROJECT_ID=beatricemarch-step-2020, java.specification.name=Java Platform API Specification, java.vm.specification.vendor=Oracle Corporation, env.DOCKER_HOST=unix:///var/run/docker.sock, sun.management.compiler=HotSpot 64-Bit Tiered Compilers, env.DEVSHELL_CLIENT_PORT=8998, java.runtime.version=11.0.8+10-post-Debian-1deb10u1, env.rvm_version=1.29.10 (latest), env.PATH=/home/beatricemarch/.gems/bin:/usr/local/rvm/bin:/usr/local/go/bin:/opt/gradle/bin:/opt/maven/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/nvm/versions/node/v10.14.2/bin:/usr/local/rvm/bin:/google/go_appengine:/google/google_appengine:/home/beatricemarch/gopath/bin:/google/gopath/bin:/google/migrate/anthos/, env.CREDENTIALS_SERVICE_PORT=8998, env.LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:, file.encoding=UTF-8, env.CLOUD_SHELL=true, env.SHLVL=3, java.io.tmpdir=/tmp, env.__TMP_CLOUDSDK_CONFIG=/tmp/tmp.RkMigHNGIY, java.version=11.0.8, java.vm.specification.name=Java Virtual Machine Specification, java.awt.printerjob=sun.print.PSPrinterJob, env.SDKMAN_PLATFORM=Linux64, java.library.path=/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib, java.vendor=Debian, classworlds.conf=/opt/maven/bin/m2.conf, sun.io.unicode.encoding=UnicodeLittle, env.LANG=en_US.UTF-8, env.rvm_path=/usr/local/rvm, env.BROWSER=echo, env.SSH_CLIENT=127.0.0.1 38896 22, user.timezone=, env.CLOUDSDK_DIAGNOSTICS_HIDDEN_PROPERTY_WHITELIST=compute/gce_metadata_read_timeout_sec, os.name=Linux, java.vm.specification.version=11, maven.compiler.source=1.8, user.home=/home/beatricemarch, env.DEVSHELL_GCLOUD_CONFIG=cloudshell-14703, env.SSH_CONNECTION=127.0.0.1 38896 127.0.0.1 22, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, path.separator=:, os.version=4.19.112+, env.GEM_PATH=/home/beatricemarch/.gems:/usr/local/lib/ruby/gems/2.5.0/, env.MAIL=/var/mail/beatricemarch, java.vm.name=OpenJDK 64-Bit Server VM, env.SHELL=/bin/bash, env.HISTSIZE=1000, env.TMUX_PANE=%0, env.DEVSHELL_SERVER_URL=https://ssh.cloud.google.com, os.arch=amd64, env.HISTFILESIZE=1000, maven.multiModuleProjectDirectory=/home/beatricemarch/capstone/step249-2020, env.PROMPT_COMMAND=history -a;update_devshell_project_id &> /dev/null, env.API_DOGFOOD=, env.USE_CLOUD_SDK_PYTHON3=true, env.MAVEN_PROJECTBASEDIR=/home/beatricemarch/capstone/step249-2020, java.vm.info=mixed mode, sharing, env.USER=beatricemarch, java.class.version=55.0, env.BASHRC_GOOGLE_PATH=/google/devshell/bashrc.google, awt.toolkit=sun.awt.X11.XToolkit, env.rvm_bin_path=/usr/local/rvm/bin, sun.jnu.encoding=UTF-8, env.SDKMAN_CANDIDATES_API=https://api.sdkman.io/2, env.CLOUDSHELL_OPEN_DIR=cloudshell_open, maven.build.version=Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f), maven.home=/opt/maven, env.DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1, env.JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64, file.separator=/, java.vm.compressedOopsMode=32-bit, line.separator=
+, env.SSH_TTY=/dev/pts/1, env.ACTIVE_CUSTOM_IMAGE=, user.name=beatricemarch, env.CUSTOM_ENVIRONMENT=, env.LOGNAME=beatricemarch, env.BASHRC_PATH=/home/beatricemarch/.bashrc, env.rvm_prefix=/usr/local, env.DEVSHELL_IP_ADDRESS=, sun.os.patch.level=unknown, env.SDKMAN_DIR=/usr/local/sdkman/, maven.compiler.target=1.8, library.jansi.path=/opt/maven/lib/jansi-native, env.SDKMAN_CANDIDATES_DIR=/usr/local/sdkman//candidates, env.OLDPWD=/home/beatricemarch/capstone/step249-2020, env.PWD=/home/beatricemarch/capstone/step249-2020, failOnMissingWebXml=false, java.class.path=/opt/maven/boot/plexus-classworlds-2.6.0.jar, env.HOME=/home/beatricemarch, java.vm.vendor=Debian, maven.conf=/opt/maven/conf, sun.java.launcher=SUN_STANDARD, user.country=US, env.GCE_METADATA_HOST=169.254.169.254, sun.cpu.endian=little, user.language=en, env.TRUSTED_ENVIRONMENT=true, env.DISABLE_DIRECT_CREDENTIAL_RETRIEVAL=, env.CLOUDSDK_PYTHON=python3, env.CLOUDSDK_CONFIG=/tmp/tmp.RkMigHNGIY, env.GOOGLE_CLOUD_PROJECT=beatricemarch-step-2020, env.CLOUD_SHELL_IMAGE_VERSION=, java.runtime.name=OpenJDK Runtime Environment, project.build.sourceEncoding=UTF-8, env.MAVEN_CMD_LINE_ARGS= package appengine:deploy -X, java.vendor.url.bug=https://bugs.debian.org/openjdk-11, user.dir=/home/beatricemarch/capstone/step249-2020, env.SDKMAN_VERSION=5.9.0+555, env.TMUX=/tmp/tmux-1000/default,690,0, java.vm.version=11.0.8+10-post-Debian-1deb10u1}
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] resource with targetPath null
+directory /home/beatricemarch/capstone/step249-2020/src/test/resources
+excludes []
+includes []
+[INFO] skip non existing resourceDirectory /home/beatricemarch/capstone/step249-2020/src/test/resources
+[DEBUG] no use filter components
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ CapstoneProject ---
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile' with basic configurator -->
+[DEBUG]   (f) basedir = /home/beatricemarch/capstone/step249-2020
+[DEBUG]   (f) buildDirectory = /home/beatricemarch/capstone/step249-2020/target
+[DEBUG]   (f) classpathElements = [/home/beatricemarch/capstone/step249-2020/target/test-classes, /home/beatricemarch/capstone/step249-2020/target/classes, /home/beatricemarch/.m2/repository/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar]
+[DEBUG]   (f) compileSourceRoots = [/home/beatricemarch/capstone/step249-2020/src/test/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedTestSourcesDirectory = /home/beatricemarch/capstone/step249-2020/target/generated-test-sources/test-annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile {execution: default-testCompile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /home/beatricemarch/capstone/step249-2020/target/test-classes
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = false
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 1.8
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (f) target = 1.8
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG]   (f) mavenSession = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ CapstoneProject ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=448798, ConflictMarker.markTime=151273, ConflictMarker.nodeCount=132, ConflictIdSorter.graphTime=245636, ConflictIdSorter.topsortTime=44405, ConflictIdSorter.conflictIdCount=27, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=3426058, ConflictResolver.conflictItemCount=77, DefaultDependencyCollector.collectTime=64663273, DefaultDependencyCollector.transformTime=4379404}
+[DEBUG] org.apache.maven.plugins:maven-surefire-plugin:jar:2.12.4
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:2.0.9:compile
+[DEBUG]    org.apache.maven.surefire:surefire-booter:jar:2.12.4:compile
+[DEBUG]       org.apache.maven.surefire:surefire-api:jar:2.12.4:compile (version managed from default)
+[DEBUG]    org.apache.maven.surefire:maven-surefire-common:jar:2.12.4:compile
+[DEBUG]       org.apache.commons:commons-lang3:jar:3.1:compile (version managed from default)
+[DEBUG]       org.apache.maven.shared:maven-common-artifact-filters:jar:1.3:compile
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.0.8:compile
+[DEBUG]    org.apache.maven:maven-artifact:jar:2.0.9:compile
+[DEBUG]    org.apache.maven:maven-project:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-profile:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-model:jar:2.0.9:compile (version managed from default)
+[DEBUG]       org.apache.maven:maven-artifact-manager:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-plugin-registry:jar:2.0.9:compile
+[DEBUG]       org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9-stable-1:compile
+[DEBUG]          junit:junit:jar:3.8.1:test (scope managed from default) (version managed from default)
+[DEBUG]    org.apache.maven:maven-core:jar:2.0.9:compile (exclusions managed from default)
+[DEBUG]       org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.9:compile
+[DEBUG]       org.apache.maven.reporting:maven-reporting-api:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-error-diagnostics:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-plugin-descriptor:jar:2.0.9:compile
+[DEBUG]       org.apache.maven:maven-monitor:jar:2.0.9:compile
+[DEBUG]       classworlds:classworlds:jar:1.1:compile
+[DEBUG]    org.apache.maven:maven-toolchain:jar:2.0.9:compile
+[DEBUG]    org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.1:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-surefire-plugin:2.12.4
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-surefire-plugin:2.12.4
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-surefire-plugin:2.12.4
+[DEBUG]   Included: org.apache.maven.plugins:maven-surefire-plugin:jar:2.12.4
+[DEBUG]   Included: org.apache.maven.surefire:surefire-booter:jar:2.12.4
+[DEBUG]   Included: org.apache.maven.surefire:surefire-api:jar:2.12.4
+[DEBUG]   Included: org.apache.maven.surefire:maven-surefire-common:jar:2.12.4
+[DEBUG]   Included: org.apache.commons:commons-lang3:jar:3.1
+[DEBUG]   Included: org.apache.maven.shared:maven-common-artifact-filters:jar:1.3
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.0.8
+[DEBUG]   Included: org.apache.maven.reporting:maven-reporting-api:jar:2.0.9
+[DEBUG]   Included: org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.1
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-surefire-plugin:2.12.4, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test' with basic configurator -->
+[DEBUG]   (s) basedir = /home/beatricemarch/capstone/step249-2020
+[DEBUG]   (s) childDelegation = false
+[DEBUG]   (s) classesDirectory = /home/beatricemarch/capstone/step249-2020/target/classes
+[DEBUG]   (s) disableXmlReport = false
+[DEBUG]   (s) enableAssertions = true
+[DEBUG]   (s) forkMode = once
+[DEBUG]   (s) junitArtifactName = junit:junit
+[DEBUG]   (s) localRepository =       id: local
+      url: file:///home/beatricemarch/.m2/repository/
+   layout: default
+snapshots: [enabled => true, update => always]
+ releases: [enabled => true, update => always]
+
+[DEBUG]   (f) parallelMavenExecution = false
+[DEBUG]   (s) perCoreThreadCount = true
+[DEBUG]   (s) pluginArtifactMap = {org.apache.maven.plugins:maven-surefire-plugin=org.apache.maven.plugins:maven-surefire-plugin:maven-plugin:2.12.4:, org.apache.maven:maven-plugin-api=org.apache.maven:maven-plugin-api:jar:2.0.9:compile, org.apache.maven.surefire:surefire-booter=org.apache.maven.surefire:surefire-booter:jar:2.12.4:compile, org.apache.maven.surefire:surefire-api=org.apache.maven.surefire:surefire-api:jar:2.12.4:compile, org.apache.maven.surefire:maven-surefire-common=org.apache.maven.surefire:maven-surefire-common:jar:2.12.4:compile, org.apache.commons:commons-lang3=org.apache.commons:commons-lang3:jar:3.1:compile, org.apache.maven.shared:maven-common-artifact-filters=org.apache.maven.shared:maven-common-artifact-filters:jar:1.3:compile, org.codehaus.plexus:plexus-utils=org.codehaus.plexus:plexus-utils:jar:3.0.8:compile, org.apache.maven:maven-artifact=org.apache.maven:maven-artifact:jar:2.0.9:compile, org.apache.maven:maven-project=org.apache.maven:maven-project:jar:2.0.9:compile, org.apache.maven:maven-settings=org.apache.maven:maven-settings:jar:2.0.9:compile, org.apache.maven:maven-profile=org.apache.maven:maven-profile:jar:2.0.9:compile, org.apache.maven:maven-model=org.apache.maven:maven-model:jar:2.0.9:compile, org.apache.maven:maven-artifact-manager=org.apache.maven:maven-artifact-manager:jar:2.0.9:compile, org.apache.maven:maven-plugin-registry=org.apache.maven:maven-plugin-registry:jar:2.0.9:compile, org.codehaus.plexus:plexus-container-default=org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9-stable-1:compile, org.apache.maven:maven-core=org.apache.maven:maven-core:jar:2.0.9:compile, org.apache.maven:maven-plugin-parameter-documenter=org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.9:compile, org.apache.maven.reporting:maven-reporting-api=org.apache.maven.reporting:maven-reporting-api:jar:2.0.9:compile, org.apache.maven:maven-repository-metadata=org.apache.maven:maven-repository-metadata:jar:2.0.9:compile, org.apache.maven:maven-error-diagnostics=org.apache.maven:maven-error-diagnostics:jar:2.0.9:compile, org.apache.maven:maven-plugin-descriptor=org.apache.maven:maven-plugin-descriptor:jar:2.0.9:compile, org.apache.maven:maven-monitor=org.apache.maven:maven-monitor:jar:2.0.9:compile, classworlds:classworlds=classworlds:classworlds:jar:1.1:compile, org.apache.maven:maven-toolchain=org.apache.maven:maven-toolchain:jar:2.0.9:compile, org.apache.maven.plugin-tools:maven-plugin-annotations=org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.1:compile}
+[DEBUG]   (f) pluginDescriptor = Component Descriptor: role: 'org.apache.maven.plugin.Mojo', implementation: 'org.apache.maven.plugin.surefire.HelpMojo', role hint: 'org.apache.maven.plugins:maven-surefire-plugin:2.12.4:help'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.apache.maven.plugin.surefire.SurefirePlugin', role hint: 'org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test'
+---
+[DEBUG]   (s) printSummary = true
+[DEBUG]   (s) projectArtifactMap = {javax.servlet:javax.servlet-api=javax.servlet:javax.servlet-api:jar:4.0.1:provided}
+[DEBUG]   (s) redirectTestOutputToFile = false
+[DEBUG]   (s) remoteRepositories = [      id: central
+      url: https://repo.maven.apache.org/maven2
+   layout: default
+snapshots: [enabled => false, update => daily]
+ releases: [enabled => true, update => never]
+]
+[DEBUG]   (s) reportFormat = brief
+[DEBUG]   (s) reportsDirectory = /home/beatricemarch/capstone/step249-2020/target/surefire-reports
+[DEBUG]   (s) runOrder = filesystem
+[DEBUG]   (s) skip = false
+[DEBUG]   (s) skipTests = false
+[DEBUG]   (s) testClassesDirectory = /home/beatricemarch/capstone/step249-2020/target/test-classes
+[DEBUG]   (s) testFailureIgnore = false
+[DEBUG]   (s) testNGArtifactName = org.testng:testng
+[DEBUG]   (s) testSourceDirectory = /home/beatricemarch/capstone/step249-2020/src/test/java
+[DEBUG]   (s) trimStackTrace = true
+[DEBUG]   (s) useFile = true
+[DEBUG]   (s) useManifestOnlyJar = true
+[DEBUG]   (s) useSystemClassLoader = true
+[DEBUG]   (s) useUnlimitedThreads = false
+[DEBUG]   (s) workingDirectory = /home/beatricemarch/capstone/step249-2020
+[DEBUG]   (s) project = MavenProject: com.google.sps:CapstoneProject:1 @ /home/beatricemarch/capstone/step249-2020/pom.xml
+[DEBUG]   (s) session = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG] -- end configuration --
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ CapstoneProject ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=236425, ConflictMarker.markTime=145269, ConflictMarker.nodeCount=95, ConflictIdSorter.graphTime=238179, ConflictIdSorter.topsortTime=71905, ConflictIdSorter.conflictIdCount=30, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=1700500, ConflictResolver.conflictItemCount=87, DefaultDependencyCollector.collectTime=171291810, DefaultDependencyCollector.transformTime=3263627}
+[DEBUG] org.apache.maven.plugins:maven-war-plugin:jar:2.2
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-artifact:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-model:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-project:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-profile:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-artifact-manager:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-plugin-registry:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-core:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-plugin-parameter-documenter:jar:2.0.6:compile
+[DEBUG]       org.apache.maven.reporting:maven-reporting-api:jar:2.0.6:compile
+[DEBUG]          org.apache.maven.doxia:doxia-sink-api:jar:1.0-alpha-7:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0.6:compile
+[DEBUG]       org.apache.maven:maven-error-diagnostics:jar:2.0.6:compile
+[DEBUG]       commons-cli:commons-cli:jar:1.0:compile
+[DEBUG]       org.apache.maven:maven-plugin-descriptor:jar:2.0.6:compile
+[DEBUG]       org.codehaus.plexus:plexus-interactivity-api:jar:1.0-alpha-4:compile
+[DEBUG]       classworlds:classworlds:jar:1.1:compile
+[DEBUG]    org.apache.maven:maven-settings:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-monitor:jar:2.0.6:compile
+[DEBUG]    org.apache.maven:maven-archiver:jar:2.5:compile
+[DEBUG]    org.codehaus.plexus:plexus-io:jar:2.0.2:compile
+[DEBUG]    org.codehaus.plexus:plexus-archiver:jar:2.1:compile
+[DEBUG]    org.codehaus.plexus:plexus-interpolation:jar:1.15:compile
+[DEBUG]    org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-9-stable-1:compile
+[DEBUG]       junit:junit:jar:3.8.1:compile
+[DEBUG]    com.thoughtworks.xstream:xstream:jar:1.3.1:compile
+[DEBUG]       xpp3:xpp3_min:jar:1.1.4c:compile
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.0:compile
+[DEBUG]    org.apache.maven.shared:maven-filtering:jar:1.0-beta-2:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-war-plugin:2.2
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-war-plugin:2.2
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-war-plugin:2.2
+[DEBUG]   Included: org.apache.maven.plugins:maven-war-plugin:jar:2.2
+[DEBUG]   Included: org.apache.maven.reporting:maven-reporting-api:jar:2.0.6
+[DEBUG]   Included: org.apache.maven.doxia:doxia-sink-api:jar:1.0-alpha-7
+[DEBUG]   Included: commons-cli:commons-cli:jar:1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-interactivity-api:jar:1.0-alpha-4
+[DEBUG]   Included: org.apache.maven:maven-archiver:jar:2.5
+[DEBUG]   Included: org.codehaus.plexus:plexus-io:jar:2.0.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-archiver:jar:2.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.15
+[DEBUG]   Included: junit:junit:jar:3.8.1
+[DEBUG]   Included: com.thoughtworks.xstream:xstream:jar:1.3.1
+[DEBUG]   Included: xpp3:xpp3_min:jar:1.1.4c
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.0
+[DEBUG]   Included: org.apache.maven.shared:maven-filtering:jar:1.0-beta-2
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-war-plugin:2.2:war from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-war-plugin:2.2, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-war-plugin:2.2:war' with basic configurator -->
+[DEBUG]   (s) archiveClasses = false
+[DEBUG]   (s) attachClasses = false
+[DEBUG]   (s) cacheFile = /home/beatricemarch/capstone/step249-2020/target/war/work/webapp-cache.xml
+[DEBUG]   (s) classesClassifier = classes
+[DEBUG]   (s) classesDirectory = /home/beatricemarch/capstone/step249-2020/target/classes
+[DEBUG]   (f) escapedBackslashesInFilePath = false
+[DEBUG]   (s) failOnMissingWebXml = false
+[DEBUG]   (f) filteringDeploymentDescriptors = false
+[DEBUG]   (s) outputDirectory = /home/beatricemarch/capstone/step249-2020/target
+[DEBUG]   (s) primaryArtifact = true
+[DEBUG]   (s) project = MavenProject: com.google.sps:CapstoneProject:1 @ /home/beatricemarch/capstone/step249-2020/pom.xml
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG]   (s) useCache = false
+[DEBUG]   (s) warName = CapstoneProject-1
+[DEBUG]   (s) warSourceDirectory = /home/beatricemarch/capstone/step249-2020/src/main/webapp
+[DEBUG]   (s) warSourceIncludes = **
+[DEBUG]   (s) webappDirectory = /home/beatricemarch/capstone/step249-2020/target/CapstoneProject-1
+[DEBUG]   (s) workDirectory = /home/beatricemarch/capstone/step249-2020/target/war/work
+[DEBUG] -- end configuration --
+[INFO] Packaging webapp
+[INFO] Assembling webapp [CapstoneProject] in [/home/beatricemarch/capstone/step249-2020/target/CapstoneProject-1]
+[DEBUG] properties used {env.TERM=screen, env.DEVSHELL_CLIENTS_DIR=/var/run/google/devshell, java.specification.version=11, sun.cpu.isalist=, sun.arch.data.model=64, env.GEM_HOME=/home/beatricemarch/.gems, java.vendor.url=https://tracker.debian.org/openjdk-11, env.ASPNETCORE_URLS=http://*:8080, env.GOPATH=/home/beatricemarch/gopath:/google/gopath, sun.boot.library.path=/usr/lib/jvm/java-11-openjdk-amd64/lib, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher package appengine:deploy -X, jdk.debug=release, maven.version=3.6.3, java.specification.vendor=Oracle Corporation, java.version.date=2020-07-14, java.home=/usr/lib/jvm/java-11-openjdk-amd64, env.DEVSHELL_PROJECT_ID=beatricemarch-step-2020, java.specification.name=Java Platform API Specification, java.vm.specification.vendor=Oracle Corporation, env.DOCKER_HOST=unix:///var/run/docker.sock, sun.management.compiler=HotSpot 64-Bit Tiered Compilers, env.DEVSHELL_CLIENT_PORT=8998, java.runtime.version=11.0.8+10-post-Debian-1deb10u1, env.rvm_version=1.29.10 (latest), env.PATH=/home/beatricemarch/.gems/bin:/usr/local/rvm/bin:/usr/local/go/bin:/opt/gradle/bin:/opt/maven/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/nvm/versions/node/v10.14.2/bin:/usr/local/rvm/bin:/google/go_appengine:/google/google_appengine:/home/beatricemarch/gopath/bin:/google/gopath/bin:/google/migrate/anthos/, env.CREDENTIALS_SERVICE_PORT=8998, env.LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:, file.encoding=UTF-8, env.CLOUD_SHELL=true, env.SHLVL=3, java.io.tmpdir=/tmp, env.__TMP_CLOUDSDK_CONFIG=/tmp/tmp.RkMigHNGIY, java.version=11.0.8, java.vm.specification.name=Java Virtual Machine Specification, java.awt.printerjob=sun.print.PSPrinterJob, env.SDKMAN_PLATFORM=Linux64, java.library.path=/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib, java.vendor=Debian, classworlds.conf=/opt/maven/bin/m2.conf, sun.io.unicode.encoding=UnicodeLittle, env.LANG=en_US.UTF-8, env.rvm_path=/usr/local/rvm, env.BROWSER=echo, env.SSH_CLIENT=127.0.0.1 38896 22, user.timezone=, env.CLOUDSDK_DIAGNOSTICS_HIDDEN_PROPERTY_WHITELIST=compute/gce_metadata_read_timeout_sec, os.name=Linux, java.vm.specification.version=11, maven.compiler.source=1.8, user.home=/home/beatricemarch, env.DEVSHELL_GCLOUD_CONFIG=cloudshell-14703, env.SSH_CONNECTION=127.0.0.1 38896 127.0.0.1 22, java.awt.graphicsenv=sun.awt.X11GraphicsEnvironment, path.separator=:, os.version=4.19.112+, env.GEM_PATH=/home/beatricemarch/.gems:/usr/local/lib/ruby/gems/2.5.0/, env.MAIL=/var/mail/beatricemarch, java.vm.name=OpenJDK 64-Bit Server VM, env.SHELL=/bin/bash, env.HISTSIZE=1000, env.TMUX_PANE=%0, env.DEVSHELL_SERVER_URL=https://ssh.cloud.google.com, os.arch=amd64, env.HISTFILESIZE=1000, maven.multiModuleProjectDirectory=/home/beatricemarch/capstone/step249-2020, env.PROMPT_COMMAND=history -a;update_devshell_project_id &> /dev/null, env.API_DOGFOOD=, env.USE_CLOUD_SDK_PYTHON3=true, env.MAVEN_PROJECTBASEDIR=/home/beatricemarch/capstone/step249-2020, java.vm.info=mixed mode, sharing, env.USER=beatricemarch, java.class.version=55.0, env.BASHRC_GOOGLE_PATH=/google/devshell/bashrc.google, awt.toolkit=sun.awt.X11.XToolkit, env.rvm_bin_path=/usr/local/rvm/bin, sun.jnu.encoding=UTF-8, env.SDKMAN_CANDIDATES_API=https://api.sdkman.io/2, env.CLOUDSHELL_OPEN_DIR=cloudshell_open, maven.build.version=Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f), maven.home=/opt/maven, env.DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1, env.JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64, file.separator=/, java.vm.compressedOopsMode=32-bit, line.separator=
+, env.SSH_TTY=/dev/pts/1, env.ACTIVE_CUSTOM_IMAGE=, user.name=beatricemarch, env.CUSTOM_ENVIRONMENT=, env.LOGNAME=beatricemarch, env.BASHRC_PATH=/home/beatricemarch/.bashrc, env.rvm_prefix=/usr/local, env.DEVSHELL_IP_ADDRESS=, sun.os.patch.level=unknown, env.SDKMAN_DIR=/usr/local/sdkman/, maven.compiler.target=1.8, library.jansi.path=/opt/maven/lib/jansi-native, env.SDKMAN_CANDIDATES_DIR=/usr/local/sdkman//candidates, env.OLDPWD=/home/beatricemarch/capstone/step249-2020, env.PWD=/home/beatricemarch/capstone/step249-2020, failOnMissingWebXml=false, java.class.path=/opt/maven/boot/plexus-classworlds-2.6.0.jar, env.HOME=/home/beatricemarch, java.vm.vendor=Debian, maven.conf=/opt/maven/conf, sun.java.launcher=SUN_STANDARD, user.country=US, env.GCE_METADATA_HOST=169.254.169.254, sun.cpu.endian=little, user.language=en, env.TRUSTED_ENVIRONMENT=true, env.DISABLE_DIRECT_CREDENTIAL_RETRIEVAL=, env.CLOUDSDK_PYTHON=python3, env.CLOUDSDK_CONFIG=/tmp/tmp.RkMigHNGIY, env.GOOGLE_CLOUD_PROJECT=beatricemarch-step-2020, env.CLOUD_SHELL_IMAGE_VERSION=, java.runtime.name=OpenJDK Runtime Environment, project.build.sourceEncoding=UTF-8, env.MAVEN_CMD_LINE_ARGS= package appengine:deploy -X, java.vendor.url.bug=https://bugs.debian.org/openjdk-11, user.dir=/home/beatricemarch/capstone/step249-2020, env.SDKMAN_VERSION=5.9.0+555, env.TMUX=/tmp/tmux-1000/default,690,0, java.vm.version=11.0.8+10-post-Debian-1deb10u1}
+[INFO] Processing war project
+[INFO] Copying webapp resources [/home/beatricemarch/capstone/step249-2020/src/main/webapp]
+[DEBUG]  + index.html has been copied.
+[DEBUG]  + style.css has been copied.
+[DEBUG]  + WEB-INF/appengine-web.xml has been copied.
+[DEBUG]  + search.html has been copied.
+[DEBUG]  + script.js has been copied.
+[DEBUG]  + recipe.html has been copied.
+[DEBUG]  + images/default.png has been copied.
+[DEBUG]  + images/cover.png has been copied.
+[DEBUG] Dump of the current build pathSet content -->
+[DEBUG] index.html
+[DEBUG] style.css
+[DEBUG] WEB-INF/appengine-web.xml
+[DEBUG] search.html
+[DEBUG] script.js
+[DEBUG] recipe.html
+[DEBUG] images/default.png
+[DEBUG] images/cover.png
+[DEBUG] -- end of dump --
+[DEBUG]  + WEB-INF/classes/com/google/sps/servlets/DataServlet.class has been copied.
+[INFO] Webapp assembled in [80 msecs]
+[DEBUG] Excluding [] from the generated webapp archive.
+[DEBUG] Including [**] in the generated webapp archive.
+[DEBUG] Build won't fail if web.xml file is missing.
+[INFO] Building war: /home/beatricemarch/capstone/step249-2020/target/CapstoneProject-1.war
+[DEBUG] adding directory META-INF/
+[DEBUG] adding entry META-INF/MANIFEST.MF
+[DEBUG] adding directory WEB-INF/
+[DEBUG] adding directory WEB-INF/classes/
+[DEBUG] adding directory WEB-INF/classes/com/
+[DEBUG] adding directory WEB-INF/classes/com/google/
+[DEBUG] adding directory WEB-INF/classes/com/google/sps/
+[DEBUG] adding directory WEB-INF/classes/com/google/sps/servlets/
+[DEBUG] adding directory images/
+[DEBUG] adding entry index.html
+[DEBUG] adding entry style.css
+[DEBUG] adding entry WEB-INF/web.xml
+[DEBUG] adding entry WEB-INF/classes/com/google/sps/servlets/DataServlet.class
+[DEBUG] adding entry WEB-INF/appengine-web.xml
+[DEBUG] adding entry search.html
+[DEBUG] adding entry script.js
+[DEBUG] adding entry recipe.html
+[DEBUG] adding entry images/default.png
+[DEBUG] adding entry images/cover.png
+[INFO] WEB-INF/web.xml already added, skipping
+[DEBUG] adding directory META-INF/maven/
+[DEBUG] adding directory META-INF/maven/com.google.sps/
+[DEBUG] adding directory META-INF/maven/com.google.sps/CapstoneProject/
+[DEBUG] adding entry META-INF/maven/com.google.sps/CapstoneProject/pom.xml
+[DEBUG] adding entry META-INF/maven/com.google.sps/CapstoneProject/pom.properties
+[INFO] 
+[INFO] --- appengine-maven-plugin:2.2.0:deploy (default-cli) @ CapstoneProject ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=223677, ConflictMarker.markTime=75363, ConflictMarker.nodeCount=94, ConflictIdSorter.graphTime=63158, ConflictIdSorter.topsortTime=64940, ConflictIdSorter.conflictIdCount=44, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=1518414, ConflictResolver.conflictItemCount=92, DefaultDependencyCollector.collectTime=273051219, DefaultDependencyCollector.transformTime=2018496}
+[DEBUG] com.google.cloud.tools:appengine-maven-plugin:jar:2.2.0
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-model:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-artifact:jar:3.5.0:compile
+[DEBUG]       org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.3.3:compile
+[DEBUG]          javax.enterprise:cdi-api:jar:1.0:compile
+[DEBUG]             javax.annotation:jsr250-api:jar:1.0:compile
+[DEBUG]          org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.3.3:compile
+[DEBUG]    org.apache.maven:maven-core:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-settings-builder:jar:3.5.0:compile
+[DEBUG]          org.apache.maven:maven-builder-support:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-model-builder:jar:3.5.0:compile
+[DEBUG]       org.apache.maven:maven-resolver-provider:jar:3.5.0:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-impl:jar:1.0.3:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-api:jar:1.0.3:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-spi:jar:1.0.3:compile
+[DEBUG]       org.apache.maven.resolver:maven-resolver-util:jar:1.0.3:compile
+[DEBUG]       org.apache.maven.shared:maven-shared-utils:jar:3.1.0:compile
+[DEBUG]       com.google.inject:guice:jar:no_aop:4.0:compile
+[DEBUG]          javax.inject:javax.inject:jar:1:compile
+[DEBUG]          aopalliance:aopalliance:jar:1.0:compile
+[DEBUG]       org.codehaus.plexus:plexus-interpolation:jar:1.24:compile
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:3.0.24:compile
+[DEBUG]       org.codehaus.plexus:plexus-classworlds:jar:2.5.2:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.7.1:compile
+[DEBUG]       org.sonatype.plexus:plexus-sec-dispatcher:jar:1.4:compile
+[DEBUG]          org.sonatype.plexus:plexus-cipher:jar:1.4:compile
+[DEBUG]       org.apache.commons:commons-lang3:jar:3.5:compile
+[DEBUG]    com.google.cloud.tools:appengine-plugins-core:jar:0.8.1:compile
+[DEBUG]       com.google.guava:guava:jar:28.1-jre:compile
+[DEBUG]          com.google.guava:failureaccess:jar:1.0.1:compile
+[DEBUG]          com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava:compile
+[DEBUG]          com.google.code.findbugs:jsr305:jar:3.0.2:compile
+[DEBUG]          org.checkerframework:checker-qual:jar:2.8.1:compile
+[DEBUG]          com.google.errorprone:error_prone_annotations:jar:2.3.2:compile
+[DEBUG]          com.google.j2objc:j2objc-annotations:jar:1.3:compile
+[DEBUG]          org.codehaus.mojo:animal-sniffer-annotations:jar:1.18:compile
+[DEBUG]       org.yaml:snakeyaml:jar:1.21:compile
+[DEBUG]       com.google.code.gson:gson:jar:2.8.6:compile
+[DEBUG]       org.glassfish:javax.json:jar:1.0.4:compile
+[DEBUG]       org.apache.commons:commons-compress:jar:1.19:compile
+[DEBUG]    commons-io:commons-io:jar:2.5:compile
+[DEBUG] Created new class realm plugin>com.google.cloud.tools:appengine-maven-plugin:2.2.0
+[DEBUG] Importing foreign packages into class realm plugin>com.google.cloud.tools:appengine-maven-plugin:2.2.0
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>com.google.cloud.tools:appengine-maven-plugin:2.2.0
+[DEBUG]   Included: com.google.cloud.tools:appengine-maven-plugin:jar:2.2.0
+[DEBUG]   Included: javax.enterprise:cdi-api:jar:1.0
+[DEBUG]   Included: org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.3.3
+[DEBUG]   Included: org.apache.maven:maven-builder-support:jar:3.5.0
+[DEBUG]   Included: org.apache.maven.resolver:maven-resolver-util:jar:1.0.3
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.1.0
+[DEBUG]   Included: com.google.inject:guice:jar:no_aop:4.0
+[DEBUG]   Included: aopalliance:aopalliance:jar:1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.24
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.0.24
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.7.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-sec-dispatcher:jar:1.4
+[DEBUG]   Included: org.sonatype.plexus:plexus-cipher:jar:1.4
+[DEBUG]   Included: org.apache.commons:commons-lang3:jar:3.5
+[DEBUG]   Included: com.google.cloud.tools:appengine-plugins-core:jar:0.8.1
+[DEBUG]   Included: com.google.guava:guava:jar:28.1-jre
+[DEBUG]   Included: com.google.guava:failureaccess:jar:1.0.1
+[DEBUG]   Included: com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava
+[DEBUG]   Included: com.google.code.findbugs:jsr305:jar:3.0.2
+[DEBUG]   Included: org.checkerframework:checker-qual:jar:2.8.1
+[DEBUG]   Included: com.google.errorprone:error_prone_annotations:jar:2.3.2
+[DEBUG]   Included: com.google.j2objc:j2objc-annotations:jar:1.3
+[DEBUG]   Included: org.codehaus.mojo:animal-sniffer-annotations:jar:1.18
+[DEBUG]   Included: org.yaml:snakeyaml:jar:1.21
+[DEBUG]   Included: com.google.code.gson:gson:jar:2.8.6
+[DEBUG]   Included: org.glassfish:javax.json:jar:1.0.4
+[DEBUG]   Included: org.apache.commons:commons-compress:jar:1.19
+[DEBUG]   Included: commons-io:commons-io:jar:2.5
+[DEBUG] Configuring mojo com.google.cloud.tools:appengine-maven-plugin:2.2.0:deploy from plugin realm ClassRealm[plugin>com.google.cloud.tools:appengine-maven-plugin:2.2.0, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@58644d46]
+[DEBUG] Configuring mojo 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deploy' with basic configurator -->
+[DEBUG]   (f) appEngineDirectory = /home/beatricemarch/capstone/step249-2020/src/main/appengine
+[DEBUG]   (f) artifact = /home/beatricemarch/capstone/step249-2020/target/CapstoneProject-1.war
+[DEBUG]   (f) dockerDirectory = /home/beatricemarch/capstone/step249-2020/src/main/docker
+[DEBUG]   (f) dockerfilePrimaryDefaultLocation = /home/beatricemarch/capstone/step249-2020/src/main/docker/Dockerfile
+[DEBUG]   (f) dockerfileSecondaryDefaultLocation = /home/beatricemarch/capstone/step249-2020/src/main/appengine/Dockerfile
+[DEBUG]   (f) extraFilesDirectories = []
+[DEBUG]   (f) mavenProject = MavenProject: com.google.sps:CapstoneProject:1 @ /home/beatricemarch/capstone/step249-2020/pom.xml
+[DEBUG]   (f) mavenSession = org.apache.maven.execution.MavenSession@1965539b
+[DEBUG]   (f) pluginDescriptor = Component Descriptor: role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.cloudsdk.CloudSdkLoginMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:cloudSdkLogin'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deploy'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployAllMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deployAll'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployCronMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deployCron'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployDispatchMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deployDispatch'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployDosMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deployDos'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployIndexMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deployIndex'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.DeployQueueMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:deployQueue'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.genrepoinfo.GenRepoInfoFileMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:genRepoInfoFile'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.deploy.HelpMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:help'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.run.RunMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:run'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.stage.StageMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:stage'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.run.RunAsyncMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:start'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'com.google.cloud.tools.maven.run.StopMojo', role hint: 'com.google.cloud.tools:appengine-maven-plugin:2.2.0:stop'
+---
+[DEBUG]   (f) projectId = YOUR_PROJECT_ID_HERE
+[DEBUG]   (s) skip = false
+[DEBUG]   (f) sourceDirectory = /home/beatricemarch/capstone/step249-2020/target/CapstoneProject-1
+[DEBUG]   (f) stagingDirectory = /home/beatricemarch/capstone/step249-2020/target/appengine-staging
+[DEBUG]   (f) version = 1
+[DEBUG] -- end configuration --
+[INFO] Staging the application to: /home/beatricemarch/capstone/step249-2020/target/appengine-staging
+[INFO] Detected App Engine appengine-web.xml based application.
+[INFO] Deleting the staging directory: /home/beatricemarch/capstone/step249-2020/target/appengine-staging
+[INFO] GCLOUD: Reading application configuration data...
+[INFO] GCLOUD: 2020-08-21 09:58:48.409:INFO::main: Logging initialized @456ms
+[INFO] GCLOUD: 
+[INFO] GCLOUD: 
+[INFO] GCLOUD: Beginning interaction for module default...
+[INFO] GCLOUD: 0% Scanning for jsp files.
+[INFO] GCLOUD: 2020-08-21 09:58:49.285:INFO::main: Logging initialized @283ms to org.eclipse.jetty.util.log.StdErrLog
+[INFO] GCLOUD: 2020-08-21 09:58:49.543:INFO:oejs.Server:main: jetty-9.4.27.v20200227; built: 2020-02-27T18:37:21.340Z; git: a304fd9f351f337e7c0e2a7c28878dd536149c6c; jvm 11.0.8+10-post-Debian-1deb10u1
+[INFO] GCLOUD: 2020-08-21 09:58:50.042:INFO:oeja.AnnotationConfiguration:main: Scanning elapsed time=34ms
+[INFO] GCLOUD: 2020-08-21 09:58:50.118:INFO:oejq.QuickStartDescriptorGenerator:main: Quickstart generating
+[INFO] GCLOUD: 2020-08-21 09:58:50.163:INFO:oejsh.ContextHandler:main: Started o.e.j.q.QuickStartWebApp@501edcf1{/,file:///home/beatricemarch/capstone/step249-2020/target/appengine-staging/,AVAILABLE}
+[INFO] GCLOUD: 2020-08-21 09:58:50.165:INFO:oejs.Server:main: Started @1170ms
+[INFO] GCLOUD: 2020-08-21 09:58:50.169:INFO:oejsh.ContextHandler:main: Stopped o.e.j.q.QuickStartWebApp@501edcf1{/,file:///home/beatricemarch/capstone/step249-2020/target/appengine-staging/,UNAVAILABLE}
+[INFO] GCLOUD: 0% Generated git repository information file.
+[INFO] GCLOUD: Success.
+[INFO] GCLOUD: Temporary staging for module default directory left in /home/beatricemarch/capstone/step249-2020/target/appengine-staging
+[INFO] GCLOUD: ERROR: (gcloud) The project property must be set to a valid project ID, not the project name [YOUR_PROJECT_ID_HERE]
+[INFO] GCLOUD: To set your project, run:
+[INFO] GCLOUD: 
+[INFO] GCLOUD:   $ gcloud config set project PROJECT_ID
+[INFO] GCLOUD: 
+[INFO] GCLOUD: or to unset it, run:
+[INFO] GCLOUD: 
+[INFO] GCLOUD:   $ gcloud config unset project
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.267 s
+[INFO] Finished at: 2020-08-21T09:58:51Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.google.cloud.tools:appengine-maven-plugin:2.2.0:deploy (default-cli) on project CapstoneProject: App Engine application deployment failed: com.google.cloud.tools.appengine.operations.cloudsdk.process.ProcessHandlerException: com.google.cloud.tools.appengine.AppEngineException: Non zero exit: 1 -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal com.google.cloud.tools:appengine-maven-plugin:2.2.0:deploy (default-cli) on project CapstoneProject: App Engine application deployment failed
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:215)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+Caused by: org.apache.maven.plugin.MojoExecutionException: App Engine application deployment failed
+    at com.google.cloud.tools.maven.deploy.AppDeployer.deploy (AppDeployer.java:59)
+    at com.google.cloud.tools.maven.deploy.DeployMojo.execute (DeployMojo.java:35)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+Caused by: com.google.cloud.tools.appengine.AppEngineException: com.google.cloud.tools.appengine.operations.cloudsdk.process.ProcessHandlerException: com.google.cloud.tools.appengine.AppEngineException: Non zero exit: 1
+    at com.google.cloud.tools.appengine.operations.Deployment.deploy (Deployment.java:98)
+    at com.google.cloud.tools.maven.deploy.AppDeployer.deploy (AppDeployer.java:57)
+    at com.google.cloud.tools.maven.deploy.DeployMojo.execute (DeployMojo.java:35)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+Caused by: com.google.cloud.tools.appengine.operations.cloudsdk.process.ProcessHandlerException: com.google.cloud.tools.appengine.AppEngineException: Non zero exit: 1
+    at com.google.cloud.tools.appengine.operations.cloudsdk.process.LegacyProcessHandler.handleProcess (LegacyProcessHandler.java:87)
+    at com.google.cloud.tools.appengine.operations.GcloudRunner.run (GcloudRunner.java:110)
+    at com.google.cloud.tools.appengine.operations.Deployment.deploy (Deployment.java:96)
+    at com.google.cloud.tools.maven.deploy.AppDeployer.deploy (AppDeployer.java:57)
+    at com.google.cloud.tools.maven.deploy.DeployMojo.execute (DeployMojo.java:35)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+Caused by: com.google.cloud.tools.appengine.AppEngineException: Non zero exit: 1
+    at com.google.cloud.tools.appengine.operations.cloudsdk.process.NonZeroExceptionExitListener.onExit (NonZeroExceptionExitListener.java:28)
+    at com.google.cloud.tools.appengine.operations.cloudsdk.process.LegacyProcessHandler.syncRun (LegacyProcessHandler.java:144)
+    at com.google.cloud.tools.appengine.operations.cloudsdk.process.LegacyProcessHandler.handleProcess (LegacyProcessHandler.java:83)
+    at com.google.cloud.tools.appengine.operations.GcloudRunner.run (GcloudRunner.java:110)
+    at com.google.cloud.tools.appengine.operations.Deployment.deploy (Deployment.java:96)
+    at com.google.cloud.tools.maven.deploy.AppDeployer.deploy (AppDeployer.java:57)
+    at com.google.cloud.tools.maven.deploy.DeployMojo.execute (DeployMojo.java:35)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:957)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:289)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:193)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+[ERROR] 
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
