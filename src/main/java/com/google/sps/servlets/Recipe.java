@@ -16,7 +16,7 @@
 package com.google.sps.servlets;
 
 
-public class Recipe implements Comparable<Recipe>{
+public class Recipe{
   private long id;
   private String name;
   private String description;
@@ -61,10 +61,5 @@ public class Recipe implements Comparable<Recipe>{
 
   public void setImage(String givenImage) {
     imgURL = givenImage;
-  }
-
-  @Override
-  public int compareTo(Recipe r) {
-    return Double.compare(this.getDistance(), r.getDistance());
   }
 }

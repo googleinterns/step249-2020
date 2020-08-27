@@ -25,17 +25,9 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.CompositeFilter;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.search.Document;
-import com.google.appengine.api.search.Field;
-import com.google.appengine.api.search.Index;
-import com.google.appengine.api.search.IndexSpec;
-import com.google.appengine.api.search.Results;
-import com.google.appengine.api.search.ScoredDocument;
-import com.google.appengine.api.search.SearchException;
-import com.google.appengine.api.search.SearchServiceFactory;
-import com.google.appengine.api.search.StatusCode;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.*;
 
 import java.io.IOException;
 import java.lang.Math;
@@ -54,8 +46,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
   /*
-  * Search and returns a list of recipes matching the given parameter(searchterm).
-  * The index returns a list of documents which are sorted in ascending order
+  * Search and returns a list of first 10 recipes with the title matching the given parameter(searchterm).
+  * The index returns a list of documents in the default order
   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -63,25 +55,39 @@ public class SearchServlet extends HttpServlet {
     List<Recipe> recipesList = new ArrayList<>();
     String titleToMatch = request.getParameter("searchterm");
     Index index = getIndex();
-    Results<ScoredDocument> results = index.search(titleToMatch.toLowerCase());
+    Cursor responseCursor = Cursor.newBuilder().build();
+
+    QueryOptions options = QueryOptions.newBuilder()
+     .setLimit(10)
+     .setFieldsToSnippet("title", "imgURL")
+     .setCursor(responseCursor)
+     .setSortOptions(SortOptions.newBuilder()
+          .addSortExpression(SortExpression.newBuilder()
+              .setExpression("title")
+              .setDirection(SortExpression.SortDirection.DESCENDING)
+              .setDefaultValue("")))
+     .build();
+
+    Query query = Query.newBuilder()
+     .setOptions(options)
+     .build(titleToMatch.toLowerCase());
+
+    Results<ScoredDocument> results = index.search(query);
 
     for(ScoredDocument entity : results){
         String name = entity.getOnlyField("title").getText();
         
         Recipe recipe = new Recipe();
         String description = "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
-        Double distance = ((name.length() - titleToMatch.length())/1D) / name.length();
         
         recipe.setId(Long.parseLong(entity.getId()));
         recipe.setName(name);
         recipe.setImage(entity.getOnlyField("imgURL").getText());
         recipe.setDescription(description);
-        recipe.setDistance(distance);
 
         recipesList.add(recipe);
     }
 
-    Collections.sort(recipesList);
 
     request.setAttribute("recipesList", recipesList);
 
