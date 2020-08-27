@@ -35,7 +35,22 @@ public class RecipeDetailsServlet extends HttpServlet {
     /**
       Assume the request has a parameter containing the id of the recipe
      **/
-    request.setAttribute("messages", request.getParameter("id"));
+
+// create a new recipe object
+
+    Recipe recipe = new Recipe();
+    recipe.setId(Long.parseLong(entity.getId()));
+    recipe.setName(name);
+    recipe.setImage(entity.getOnlyField("imgURL").getText());
+    recipe.setIngredients(ingredients);
+    recipe.setSteps(steps);
+
+// send all the parameters to the request
+
+    request.setAttribute("title", recipe.getName());
+    request.setAttribute("imgURL", recipe.getId());
+    request.setAttribute("ingredient", recipe.getIngredients());
+    request.setAttribute("steps", recipe.getSteps());
 
     request.getRequestDispatcher("/recipe.jsp").forward(request, response);
   }

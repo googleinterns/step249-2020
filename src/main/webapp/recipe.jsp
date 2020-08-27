@@ -5,8 +5,8 @@
 <t:genericpage>
     <jsp:body>
       <div class="content">
-        <h1>Recipe Title ${messages}</h1>
-        <img src="images/cover.png" class="img-fluid my-3" alt="Recipe Image">
+        <h1>${title}</h1>
+        <img src=${imgURL} class="img-fluid my-3" alt="Recipe Image">
         <ul class="list-group list-group-horizontal w-100">
              <li class="list-group-item">Prep Time:   </li>
              <li class="list-group-item">Cooking Time:   </li>
@@ -14,7 +14,7 @@
         </ul>
         <br>
         <ul class="list-group w-25" >
-            <li class="list-group-item"> Ingredint 1</li>
+            <li class="list-group-item">${ingredient}</li>
             <li class="list-group-item"> Ingredint 2</li>
             <li class="list-group-item"> Ingredint 3</li>
         </ul>
