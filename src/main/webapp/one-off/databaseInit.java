@@ -75,9 +75,14 @@ public class TestUploadServlet extends HttpServlet {
         Entity recipeEntity = new Entity("Recipe");
 
         recipeEntity.setProperty("title", title);
+        recipeEntity.setProperty("index_title", title.toLowerCase());
         recipeEntity.setProperty("imgURL", imgURL);
-        recipeEntity.setProperty("ingredients", ingredients); 
+        recipeEntity.setProperty("ingredients", ingredients);
         recipeEntity.setProperty("stepList", stepList);
+        recipeEntity.setProperty("author", "Piece of Cake");
+        recipeEntity.setProperty("difficulty", "N/A");
+        recipeEntity.setProperty("prep_time", "N/A");
+        recipeEntity.setProperty("cook_time", "N/A");
 
         datastore.put(recipeEntity);
     }
