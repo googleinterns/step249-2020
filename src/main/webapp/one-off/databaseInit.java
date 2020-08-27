@@ -2,7 +2,7 @@
 //  ++++++ READ ME +++++++
 //
 //  How to download the 60 init recipes to your database.
-// 
+//
 //  STEP1: Create a new servlet named TestUploadServlet.java in your src/main/java/com/google/sps/servlets/ directory
 //  STEP2: Go to line 119 and  change the string to your absolute path to where your recipe folder is (mine is /home/beatricemarch/capstone/step249-2020/src/main/webapp/one-off/recipe/ )
 //  STEP3: Copy and paste the code below in the TestUploadServlet.java
@@ -13,7 +13,7 @@
 //
 //  If you have errors relating to 'isBlank()' try the following:
 //  + add this to the imports "import org.apache.commons.lang3.StringUtils.isBlank"
-//  + add this dependncy to the pom.xl: 
+//  + add this dependncy to the pom.xl:
 //  <dependency>
 //       <groupId>org.apache.commons</groupId>
 //        <artifactId>commons-lang3</artifactId>
@@ -22,7 +22,7 @@
 //  + sustitute isBlank by StringUtils.isBlank in the code
 //
 //  +++++++++++++++++++++++
-// 
+//
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,6 +44,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.KeyRange;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -57,8 +58,6 @@ import com.google.appengine.api.search.SearchException;
 import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.appengine.api.search.StatusCode;
 import com.google.gson.Gson;
-import com.google.appengine.api.datastore.KeyRange;
-
 import java.io.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -72,16 +71,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
-
 @WebServlet("/test")
 public class TestUploadServlet extends HttpServlet {
+
   /*
-  * Receives a recipe's properties and creates an entity, for the database and a document for the index
-  */
-  public void upload(String title, String imgURL, ArrayList<String> ingredients, ArrayList<String> stepList)
+   * Receives a recipe's properties and creates an entity, for the database and a document for the index
+   */
+  public void upload(
+    String title,
+    String imgURL,
+    ArrayList<String> ingredients,
+    ArrayList<String> stepList
+  )
     throws Exception, InterruptedException, IOException {
-    
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName("recipesIndex").build();
+    IndexSpec indexSpec = IndexSpec
+      .newBuilder()
+      .setName("recipesIndex")
+      .build();
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -96,12 +102,12 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty("author", "Piece of Cake");
 
-   Document recipeDocument =
-        Document.newBuilder()
-            .setId(String.valueOf(recipeEntity.getKey().getId()))
-            .addField(Field.newBuilder().setName("title").setText(title))
-            .addField(Field.newBuilder().setName("imgURL").setText(imgURL))
-            .build();
+    Document recipeDocument = Document
+      .newBuilder()
+      .setId(String.valueOf(recipeEntity.getKey().getId()))
+      .addField(Field.newBuilder().setName("title").setText(title))
+      .addField(Field.newBuilder().setName("imgURL").setText(imgURL))
+      .build();
 
     datastore.put(recipeEntity);
     index.put(recipeDocument);
