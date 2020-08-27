@@ -19,14 +19,38 @@ public class Recipe implements Comparable<Recipe>{
   private long id;
   private String name;
   private String description;
+  private String difficulty;
+  private String cookTime;
+  private String prepTime;
+  private String author;
   private String imgURL;
   private ArrayList steps;
   private ArrayList ingredients;
-  private Double distance;
 
   public String getName() {
     return name;
   }
+
+  public String getDifficulty() {
+    return difficulty;
+  }
+
+  public String getCookTime() {
+    return cookTime;
+  }
+
+  public String getPrepTime() {
+    return prepTime;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   public String getDescription() {
     return description;
   }
@@ -35,9 +59,6 @@ public class Recipe implements Comparable<Recipe>{
     return id;
   }
 
-  public Double getDistance() {
-    return distance;
-  }
 
   public String getImage() {
     return imgURL;
@@ -45,10 +66,6 @@ public class Recipe implements Comparable<Recipe>{
 
   public ArrayList<String> getSteps() {
     return steps;
-  }
-
-  public ArrayList<String> getIngredients() {
-    return ingredients;
   }
 
   public void setName(String givenName) {
@@ -59,12 +76,24 @@ public class Recipe implements Comparable<Recipe>{
     description = givenDesc;
   }
 
-  public void setId(long givenId) {
-    id = givenId;
+  public void setDifficulty(String givenDiff) {
+    difficulty = givenDiff;
   }
 
-  public void setDistance(Double givenDistance) {
-    distance = givenDistance;
+  public void setPrepTime(String givenPTime) {
+    prepTime = givenPTime;
+  }
+
+  public void setCookTime(String givenCTime) {
+    cookTime = givenCTime;
+  }
+
+  public void setAuthor(String givenAuthor) {
+    author = givenAuthor;
+  }
+
+  public void setId(long givenId) {
+    id = givenId;
   }
 
   public void setImage(String givenImage) {
@@ -77,10 +106,5 @@ public class Recipe implements Comparable<Recipe>{
 
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
-  }
-
-  @Override
-  public int compareTo(Recipe r) {
-    return Double.compare(this.getDistance(), r.getDistance());
   }
 }

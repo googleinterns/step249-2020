@@ -41,14 +41,22 @@ public class RecipeDetailsServlet extends HttpServlet {
     Recipe recipe = new Recipe();
     recipe.setId(Long.parseLong(entity.getId()));
     recipe.setName(name);
+    recipe.setAuthor(author);
     recipe.setImage(entity.getOnlyField("imgURL").getText());
+    recipe.setDifficulty(difficulty);
+    recipe.setPrepTime(pTime);
+    recipe.setCookTime(cTime);
     recipe.setIngredients(ingredients);
     recipe.setSteps(steps);
 
 // send all the parameters to the request
 
     request.setAttribute("title", recipe.getName());
+    request.setAttribute("author", recipe.getAuthor());
     request.setAttribute("imgURL", recipe.getId());
+    request.setAttribute("difficulty", recipe.getDifficulty());
+    request.setAttribute("prepTime", recipe.getPrepTime());
+    request.setAttribute("cookTime", recipe.getcookTime());
     request.setAttribute("ingredient", recipe.getIngredients());
     request.setAttribute("steps", recipe.getSteps());
 

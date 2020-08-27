@@ -6,11 +6,12 @@
     <jsp:body>
       <div class="content">
         <h1>${title}</h1>
+        <h3>by ${author}</h1>
         <img src=${imgURL} class="img-fluid my-3" alt="Recipe Image">
         <ul class="list-group list-group-horizontal w-100">
-             <li class="list-group-item">Prep Time:   </li>
-             <li class="list-group-item">Cooking Time:   </li>
-             <li class="list-group-item">Difficulty:     </li>
+             <li class="list-group-item">Prep Time: ${prepTime}</li>
+             <li class="list-group-item">Cooking Time: ${cookTime}</li>
+             <li class="list-group-item">Difficulty: ${difficulty}</li>
         </ul>
         <br>
         <ul class="list-group w-25" >
