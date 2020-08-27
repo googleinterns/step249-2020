@@ -28,8 +28,11 @@ import javax.servlet.http.HttpServletResponse;
 public class RecipeDetailsServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    /**
+      Assume the request has a parameter containing the id of the recipe
+     **/
     request.setAttribute("messages", request.getParameter("id"));
 
     request.getRequestDispatcher("/recipe.jsp").forward(request, response);
