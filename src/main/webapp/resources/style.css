@@ -53,7 +53,8 @@ body {
   justify-content: center;
 }
 
-.welcome {
+
+#welcome-message {
   margin: 30px;
   text-align: center;
 }
@@ -65,7 +66,7 @@ body {
   width: 80%;
 }
 
-.buttonline {
+.btn-line {
   display: flex;
   flex-direction: row;
   justify-content: center;
