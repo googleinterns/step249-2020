@@ -14,36 +14,86 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.CompositeFilter;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
+import com.google.appengine.api.search.Index;
+import com.google.appengine.api.search.IndexSpec;
+import com.google.appengine.api.search.Results;
+import com.google.appengine.api.search.ScoredDocument;
+import com.google.appengine.api.search.SearchException;
+import com.google.appengine.api.search.SearchServiceFactory;
+import com.google.appengine.api.search.StatusCode;
+
 import java.io.IOException;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
-
+  /*
+  * Search and returns a list of recipes matching the given parameter(searchterm).
+  * The index returns a list of documents which are sorted in ascending order
+  */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    request.setAttribute("messages", request.getParameter("searchterm"));
+    List<Recipe> recipesList = new ArrayList<>();
+    String titleToMatch = request.getParameter("searchterm");
+    Index index = getIndex();
+    Results<ScoredDocument> results = index.search(titleToMatch.toLowerCase());
 
-    ArrayList<Recipe> recipes = new ArrayList<>();
-    for (int i = 0; i < 5; ++i) {
-      Recipe recipe = new Recipe();
-      recipe.setId(i);
-      recipe.setName("Cake");
-      recipe.setDescription(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      );
-      recipes.add(recipe);
+    for(ScoredDocument entity : results){
+        String name = entity.getOnlyField("title").getText();
+        
+        Recipe recipe = new Recipe();
+        String description = "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
+        Double distance = ((name.length() - titleToMatch.length())/1D) / name.length();
+        
+        recipe.setId(Long.parseLong(entity.getId()));
+        recipe.setName(name);
+        recipe.setImage(entity.getOnlyField("imgURL").getText());
+        recipe.setDescription(description);
+        recipe.setDistance(distance);
+
+        recipesList.add(recipe);
     }
-    request.setAttribute("recipesList", recipes);
+
+    Collections.sort(recipesList);
+
+    request.setAttribute("recipesList", recipesList);
 
     request.getRequestDispatcher("/search.jsp").forward(request, response);
+  }
+  
+  /*
+  * Returns the index that stores the recipes documents
+  */
+  private Index getIndex() {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName("recipesIndex").build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    return index;
   }
 }
