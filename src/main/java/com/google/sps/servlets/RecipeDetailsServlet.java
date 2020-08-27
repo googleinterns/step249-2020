@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/recipe")
 public class RecipeDetailsServlet extends HttpServlet {
-
+  /*
+  * doGet receives the request and returns the message sent as parameter 
+  */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

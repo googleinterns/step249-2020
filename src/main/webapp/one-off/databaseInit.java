@@ -1,17 +1,28 @@
 //
-//
 //  ++++++ READ ME +++++++
 //
 //  How to download the 60 init recipes to your database.
-//
+// 
 //  STEP1: Create a new servlet named TestUploadServlet.java in your src/main/java/com/google/sps/servlets/ directory
 //  STEP2: Go to line 77 and  change the string to your absolute path to where your recipe folder is (mine is /home/beatricemarch/capstone/step249-2020/src/main/webapp/one-off/recipe/ )
 //  STEP3: Copy and paste the code below in the TestUploadServlet.java
 //  STEP4: Run the script from the url "/test" (you can run it both on localhost and in the deployed version)
 //  STEP5: Delete the servlet.
 //
-//  +++++++++++++++++++++++
+//  Trobleshooting
 //
+//  If you have errors relating to 'isBlank()' try the following:
+//  + add this to the imports "import org.apache.commons.lang3.StringUtils.isBlank"
+//  + add this dependncy to the pom.xl: 
+//  <dependency>
+//       <groupId>org.apache.commons</groupId>
+//        <artifactId>commons-lang3</artifactId>
+//        <version>3.11</version>
+//  </dependency>
+//  + sustitute isBlank by StringUtils.isBlank in the code
+//
+//  +++++++++++++++++++++++
+// 
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
