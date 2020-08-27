@@ -28,7 +28,7 @@ body {
   width: 100%;
 }
 
-#footer {
+.footer {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -36,7 +36,7 @@ body {
   height: 5vh;
 }
 
-#links {
+.links {
   text-transform: uppercase;
 }
 
@@ -48,23 +48,25 @@ body {
   color: black;
 }
 
-#home-page {
+.home-page {
   align-items: center;
   justify-content: center;
 }
 
-#welcome {
+
+#welcome-message {
   margin: 30px;
+  text-align: center;
 }
 
-#searchbar {
+.searchbar {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
 }
 
-.buttonline {
+.btn-line {
   display: flex;
   flex-direction: row;
   justify-content: center;
