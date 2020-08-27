@@ -1,1 +1,4 @@
+com/google/sps/servlets/RecipeDetailsServlet.class
+com/google/sps/servlets/Recipe.class
+com/google/sps/servlets/SearchServlet.class
 com/google/sps/servlets/DataServlet.class
