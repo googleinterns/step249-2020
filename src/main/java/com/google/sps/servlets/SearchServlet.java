@@ -26,7 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
-
+  
+  /*
+  * doGet receives the request and returns the message sent as parameter and a hardcoded list of Recipes
+  */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
