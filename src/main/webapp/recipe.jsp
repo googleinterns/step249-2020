@@ -7,25 +7,25 @@
       <div class="content">
         <h1>Recipe Title ${messages}</h1>
         <img src="images/cover.png" class="img-fluid my-3" alt="Recipe Image">
-        <ul id="overview" class="list-group list-group-horizontal w-100">
+        <ul class="list-group list-group-horizontal w-100">
              <li class="list-group-item">Prep Time:   </li>
              <li class="list-group-item">Cooking Time:   </li>
              <li class="list-group-item">Difficulty:     </li>
         </ul>
         <br>
-        <ul id="ingredients" class="list-group w-25" >
+        <ul class="list-group w-25" >
             <li class="list-group-item"> Ingredint 1</li>
             <li class="list-group-item"> Ingredint 2</li>
             <li class="list-group-item"> Ingredint 3</li>
         </ul>
-        <ul id="steps" class="list-group list-group-flush" >
-            <li id="step1" class="list-group-item">
+        <ul class="steps list-group list-group-flush" >
+            <li class="list-group-item">
                 <p><b>STEP 1:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </li>
-            <li id="step2" class="list-group-item">
+            <li class="list-group-item">
                 <p><b>STEP 2:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </li>
-            <li id="step3" class="list-group-item">
+            <li class="list-group-item">
                 <p><b>STEP 3:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </li>
         </ul>
