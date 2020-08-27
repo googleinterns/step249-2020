@@ -26,40 +26,44 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/recipe")
 public class RecipeDetailsServlet extends HttpServlet {
-  /*
-  * doGet receives the request and returns the message sent as parameter 
-  */
+
+  /**
+    * doGet receives the request and returns the message sent as parameter 
+   **/
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  
+        String idRecipe = request.getParameter( "id");
 
-    /**
-      Assume the request has a parameter containing the id of the recipe
-     **/
+// get the recipe entity
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        long id = Long.parseLong(idRecipe);
+        Entity recipeEntity = datastore.Lookup(KeyFactory.createKey("Recipe", id));
+
 
 // create a new recipe object
 
-    Recipe recipe = new Recipe();
-    recipe.setId(Long.parseLong(entity.getId()));
-    recipe.setName(name);
-    recipe.setAuthor(author);
-    recipe.setImage(entity.getOnlyField("imgURL").getText());
-    recipe.setDifficulty(difficulty);
-    recipe.setPrepTime(pTime);
-    recipe.setCookTime(cTime);
-    recipe.setIngredients(ingredients);
-    recipe.setSteps(steps);
+        Recipe recipe = new Recipe();
+        recipe.setName(name);
+        recipe.setAuthor(author);
+        recipe.setImage(recipeEntity["imgURL"]);
+        recipe.setDifficulty(difficulty);
+        recipe.setPrepTime(pTime);
+        recipe.setCookTime(cTime);
+        recipe.setIngredients(ingredients);
+        recipe.setSteps(steps);
 
 // send all the parameters to the request
 
-    request.setAttribute("title", recipe.getName());
-    request.setAttribute("author", recipe.getAuthor());
-    request.setAttribute("imgURL", recipe.getId());
-    request.setAttribute("difficulty", recipe.getDifficulty());
-    request.setAttribute("prepTime", recipe.getPrepTime());
-    request.setAttribute("cookTime", recipe.getcookTime());
-    request.setAttribute("ingredient", recipe.getIngredients());
-    request.setAttribute("steps", recipe.getSteps());
+        request.setAttribute("title", recipe.getName());
+        request.setAttribute("author", recipe.getAuthor());
+        request.setAttribute("imgURL", recipe.getId());
+        request.setAttribute("difficulty", recipe.getDifficulty());
+        request.setAttribute("prepTime", recipe.getPrepTime());
+        request.setAttribute("cookTime", recipe.getcookTime());
+        request.setAttribute("ingredient", recipe.getIngredients());
+        request.setAttribute("steps", recipe.getSteps());
 
-    request.getRequestDispatcher("/recipe.jsp").forward(request, response);
-  }
+        request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+    }
 }
