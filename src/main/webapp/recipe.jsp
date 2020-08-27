@@ -15,20 +15,18 @@
         </ul>
         <br>
         <ul class="list-group w-25" >
-            <li class="list-group-item">${ingredient}</li>
-            <li class="list-group-item"> Ingredint 2</li>
-            <li class="list-group-item"> Ingredint 3</li>
+          <c:forEach items="${ingredient}" var="ingr">
+            <li class="list-group-item"><c:out value="${ingr}" /></li>
+          </c:forEach>  
         </ul>
         <ul class="steps list-group list-group-flush" >
-            <li class="list-group-item">
-                <p><b>STEP 1:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </li>
-            <li class="list-group-item">
-                <p><b>STEP 2:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </li>
-            <li class="list-group-item">
-                <p><b>STEP 3:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </li>
+            <c:set var="i" value="1"/>
+            <c:forEach items="${steps}" var="step">
+             <li class="list-group-item">
+                 <p><b>STEP <c:out value="${i}"/>: </b><c:out value="${step}" /> </p>
+                 <c:set var="i" value="${i + 1}"/>
+             </li>
+            </c:forEach>
         </ul>
       </div>
     </jsp:body>

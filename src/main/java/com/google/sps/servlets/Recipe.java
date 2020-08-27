@@ -15,6 +15,8 @@
 
 package com.google.sps.servlets;
 
+import java.util.ArrayList;
+
 public class Recipe implements Comparable<Recipe>{
   private long id;
   private String name;
@@ -45,10 +47,6 @@ public class Recipe implements Comparable<Recipe>{
 
   public String getAuthor() {
     return author;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public String getDescription() {
@@ -106,5 +104,10 @@ public class Recipe implements Comparable<Recipe>{
 
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
+  }
+
+  @Override
+  public int compareTo(Recipe r) {
+    return Long.compare(this.getId(), r.getId());
   }
 }

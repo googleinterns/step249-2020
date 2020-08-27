@@ -14,6 +14,15 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import java.lang.Math;
 import java.util.ArrayList;
@@ -31,39 +40,29 @@ public class RecipeDetailsServlet extends HttpServlet {
     * doGet receives the request and returns the message sent as parameter 
    **/
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    try{
         String idRecipe = request.getParameter( "id");
 
 // get the recipe entity
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         long id = Long.parseLong(idRecipe);
-        Entity recipeEntity = datastore.Lookup(KeyFactory.createKey("Recipe", id));
-
-
-// create a new recipe object
-
-        Recipe recipe = new Recipe();
-        recipe.setName(name);
-        recipe.setAuthor(author);
-        recipe.setImage(recipeEntity["imgURL"]);
-        recipe.setDifficulty(difficulty);
-        recipe.setPrepTime(pTime);
-        recipe.setCookTime(cTime);
-        recipe.setIngredients(ingredients);
-        recipe.setSteps(steps);
+        Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));
 
 // send all the parameters to the request
 
-        request.setAttribute("title", recipe.getName());
-        request.setAttribute("author", recipe.getAuthor());
-        request.setAttribute("imgURL", recipe.getId());
-        request.setAttribute("difficulty", recipe.getDifficulty());
-        request.setAttribute("prepTime", recipe.getPrepTime());
-        request.setAttribute("cookTime", recipe.getcookTime());
-        request.setAttribute("ingredient", recipe.getIngredients());
-        request.setAttribute("steps", recipe.getSteps());
+        request.setAttribute("title", recipeEntity.getProperty("title"));
+        request.setAttribute("author", recipeEntity.getProperty("author"));
+        request.setAttribute("imgURL", recipeEntity.getProperty("imgURL"));
+        request.setAttribute("difficulty", recipeEntity.getProperty("difficulty"));
+        request.setAttribute("prepTime", recipeEntity.getProperty("prep_time"));
+        request.setAttribute("cookTime", recipeEntity.getProperty("cook_time"));
+        request.setAttribute("ingredient", recipeEntity.getProperty("ingredients"));
+        request.setAttribute("steps", recipeEntity.getProperty("stepList")); 
 
         request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+    } catch (EntityNotFoundException e){
+        e.printStackTrace();
+    }
     }
 }
