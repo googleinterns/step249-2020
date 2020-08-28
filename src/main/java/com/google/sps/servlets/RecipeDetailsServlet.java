@@ -42,17 +42,17 @@ public class RecipeDetailsServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    try {
+
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      Entity recipeEntity = getRecipeById(datastore, request.getParameter("id"));
-
-      setRecipePropertiesInRequest(request, recipeEntity);
-
-      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+      Entity recipeEntity = null;
+    try {
+      recipeEntity = getRecipeById(datastore, request.getParameter("id"));
     } catch (EntityNotFoundException e) {
       request.setAttribute("error", 1);
-      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
     }
+      setRecipePropertiesInRequest(request, recipeEntity);
+      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+
   }
 
   public Entity getRecipeById(DatastoreService datastore, String idRecipe) throws IOException, EntityNotFoundException{
