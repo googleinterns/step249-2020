@@ -43,14 +43,25 @@ public class RecipeDetailsServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     try {
-      String idRecipe = request.getParameter("id");
-
-      // get the recipe entity
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      Entity recipeEntity = getRecipeById(datastore, request.getParameter("id"));
+
+      setRecipePropertiesInRequest(request, recipeEntity);
+
+      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+    } catch (EntityNotFoundException e) {
+      request.setAttribute("error", 1);
+      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+    }
+  }
+
+  public Entity getRecipeById(DatastoreService datastore, String idRecipe) throws IOException, EntityNotFoundException{
       long id = Long.parseLong(idRecipe);
       Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));
+      return recipeEntity;
+  }
 
-      // send all the parameters to the request
+  public void setRecipePropertiesInRequest(HttpServletRequest request, Entity recipeEntity) throws IOException{
 
       request.setAttribute("title", recipeEntity.getProperty("title"));
       request.setAttribute("author", recipeEntity.getProperty("author"));
@@ -66,11 +77,5 @@ public class RecipeDetailsServlet extends HttpServlet {
         recipeEntity.getProperty("ingredients")
       );
       request.setAttribute("steps", recipeEntity.getProperty("stepList"));
-
-      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
-    } catch (EntityNotFoundException e) {
-      request.setAttribute("error", 1);
-      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
-    }
   }
 }
