@@ -48,6 +48,13 @@ public class Recipe {
     return author;
   }
 
+ /**
+  * Get the list of ingredients for the recipe
+  */
+  public String getIngredients() {
+    return ingredients;
+  }
+
   public String getDescription() {
     return description;
   }
@@ -60,6 +67,9 @@ public class Recipe {
     return imgURL;
   }
 
+  /**
+   * Get the list of steps/instruction for the recipe
+   */
   public ArrayList<String> getSteps() {
     return steps;
   }
@@ -76,10 +86,16 @@ public class Recipe {
     difficulty = givenDiff;
   }
 
+ /**
+  * Set the cook time as a string, to contain both the time itself and the unit of measure
+  */
   public void setPrepTime(String givenPTime) {
     prepTime = givenPTime;
   }
 
+ /**
+  * Set the cook time as a string, to contain both the time itself and the unit of measure
+  */
   public void setCookTime(String givenCTime) {
     cookTime = givenCTime;
   }
@@ -96,12 +112,17 @@ public class Recipe {
     imgURL = givenImage;
   }
 
+ /**
+   * Set a list of strings as instruction/steps for the recipe
+   */
   public void setSteps(ArrayList<String> givenSteps) {
     steps = givenSteps;
   }
 
+ /**
+   * Set a list of strings as the ingredients for the recipe
+   */
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
   }
-
 }
