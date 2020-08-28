@@ -108,8 +108,6 @@ public class SearchServlet extends HttpServlet {
     }
 
     request.setAttribute("recipesList", recipesList);
-    request.setAttribute("error", error);
-
     request.getRequestDispatcher("/search.jsp").forward(request, response);
   }
 
