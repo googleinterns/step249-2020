@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 package com.google.sps.servlets;
 
-
-public class Recipe{
+/**
+ * Represents a Recipe
+ */
+public class Recipe {
   private long id;
   private String name;
   private String description;
   private String imgURL;
-  private Double distance;
 
   public String getName() {
     return name;
@@ -35,10 +35,9 @@ public class Recipe{
     return id;
   }
 
-  public Double getDistance() {
-    return distance;
-  }
-
+  /**
+   * Returns a string with the url of the image
+   */
   public String getImage() {
     return imgURL;
   }
@@ -55,10 +54,9 @@ public class Recipe{
     id = givenId;
   }
 
-  public void setDistance(Double givenDistance) {
-    distance = givenDistance;
-  }
-
+  /**
+   * Set a string for the recipe's image URL
+   */
   public void setImage(String givenImage) {
     imgURL = givenImage;
   }

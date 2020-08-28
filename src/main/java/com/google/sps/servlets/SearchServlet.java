@@ -44,20 +44,53 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
 
-  /*
+  /**
    * Search and returns a list of first 10 recipes with the title matching the given parameter(searchterm).
    * The index returns a list of documents in the ascending order by title
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    int error = 0;
     List<Recipe> recipesList = new ArrayList<>();
     String titleToMatch = request.getParameter("searchterm");
-    Index index = getIndex();
-    Cursor responseCursor = Cursor.newBuilder().build();
+    Index searchIndex = getIndex();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
+    Query query = buildQuery(titleToMatch);
+    Results<ScoredDocument> resultsByTitle = searchIndex.search(query);
+
+    for (ScoredDocument entity : resultsByTitle) {
+      try {
+        Entity recipeEntity = getRecipeEntityFromDocumentEntity(
+          datastore,
+          entity
+        );
+        Recipe recipe = buildRecipe(recipeEntity);
+
+        recipesList.add(recipe);
+      } catch (EntityNotFoundException e) {
+        response.setStatus(505);
+      }
+    }
+
+    request.setAttribute("recipesList", recipesList);
+    request.getRequestDispatcher("/search.jsp").forward(request, response);
+  }
+
+  /**
+   * Returns the index that stores the recipes documents
+   */
+  private Index getIndex() {
+    IndexSpec indexSpec = IndexSpec
+      .newBuilder()
+      .setName("recipesIndex")
+      .build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    return index;
+  }
+
+  private Query buildQuery(String titleToMatch) {
+    Cursor responseCursor = Cursor.newBuilder().build();
     QueryOptions options = QueryOptions
       .newBuilder()
       .setLimit(10)
@@ -81,45 +114,36 @@ public class SearchServlet extends HttpServlet {
       .setOptions(options)
       .build(titleToMatch.toLowerCase());
 
-    Results<ScoredDocument> results = index.search(query);
-
-    for (ScoredDocument entity : results) {
-      try {
-        String id = entity.getId();
-        Entity recipeEntity = datastore.get(
-          KeyFactory.createKey("Recipe", Long.parseLong(id))
-        );
-
-        String name = (String) recipeEntity.getProperty("title");
-
-        Recipe recipe = new Recipe();
-        String description =
-          "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
-
-        recipe.setId(Long.parseLong(id));
-        recipe.setName(name);
-        recipe.setImage((String) recipeEntity.getProperty("imgURL"));
-        recipe.setDescription(description);
-
-        recipesList.add(recipe);
-      } catch (EntityNotFoundException e) {
-        error = 1;
-      }
-    }
-
-    request.setAttribute("recipesList", recipesList);
-    request.getRequestDispatcher("/search.jsp").forward(request, response);
+    return query;
   }
 
-  /*
-   * Returns the index that stores the recipes documents
+  /**
+   * Build a Recipe Object with the given Entity
    */
-  private Index getIndex() {
-    IndexSpec indexSpec = IndexSpec
-      .newBuilder()
-      .setName("recipesIndex")
-      .build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
-    return index;
+  private Recipe buildRecipe(Entity recipeEntity) {
+    Long id = recipeEntity.getKey().getId();
+    String name = (String) recipeEntity.getProperty("title");
+    String imgURL = (String) recipeEntity.getProperty("imgURL");
+    String description =
+      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
+
+    Recipe recipe = new Recipe();
+    recipe.setId(id);
+    recipe.setName(name);
+    recipe.setImage(imgURL);
+    recipe.setDescription(description);
+    return recipe;
+  }
+
+  private Entity getRecipeEntityFromDocumentEntity(
+    DatastoreService datastore,
+    ScoredDocument entity
+  )
+    throws EntityNotFoundException {
+    String id = entity.getId();
+    Entity recipeEntity = datastore.get(
+      KeyFactory.createKey("Recipe", Long.parseLong(id))
+    );
+    return recipeEntity;
   }
 }
