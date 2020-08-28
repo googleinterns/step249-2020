@@ -62,14 +62,15 @@ public class RecipeDetailsServlet extends HttpServlet {
       request.setAttribute("prepTime", recipeEntity.getProperty("prep_time"));
       request.setAttribute("cookTime", recipeEntity.getProperty("cook_time"));
       request.setAttribute(
-        "ingredient",
+        "ingredients",
         recipeEntity.getProperty("ingredients")
       );
       request.setAttribute("steps", recipeEntity.getProperty("stepList"));
 
       request.getRequestDispatcher("/recipe.jsp").forward(request, response);
     } catch (EntityNotFoundException e) {
-      e.printStackTrace();
+      request.setAttribute("error", 1);
+      request.getRequestDispatcher("/recipe.jsp").forward(request, response);
     }
   }
 }
