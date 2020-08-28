@@ -15,7 +15,7 @@
 package com.google.sps.servlets;
 
 /**
- * Represents a Recipe
+ * Represents a Recipe.
  */
 public class Recipe {
   private long id;
@@ -36,7 +36,7 @@ public class Recipe {
   }
 
   /**
-   * Returns a string with the url of the image
+   * Returns a string with the url of the image.
    */
   public String getImage() {
     return imgURL;
@@ -55,7 +55,7 @@ public class Recipe {
   }
 
   /**
-   * Set a string for the recipe's image URL
+   * Set a string for the recipe's image URL.
    */
   public void setImage(String givenImage) {
     imgURL = givenImage;

@@ -46,7 +46,7 @@ public class SearchServlet extends HttpServlet {
 
   /**
    * Search and returns a list of first 10 recipes with the title matching the given parameter(searchterm).
-   * The index returns a list of documents in the ascending order by title
+   * The index returns a list of documents in the ascending order by title.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -70,6 +70,8 @@ public class SearchServlet extends HttpServlet {
         recipesList.add(recipe);
       } catch (EntityNotFoundException e) {
         response.setStatus(505);
+        request.getRequestDispatcher("/search.jsp").forward(request, response);
+        return;
       }
     }
 
@@ -132,6 +134,7 @@ public class SearchServlet extends HttpServlet {
     recipe.setName(name);
     recipe.setImage(imgURL);
     recipe.setDescription(description);
+
     return recipe;
   }
 
@@ -144,6 +147,7 @@ public class SearchServlet extends HttpServlet {
     Entity recipeEntity = datastore.get(
       KeyFactory.createKey("Recipe", Long.parseLong(id))
     );
+
     return recipeEntity;
   }
 }

@@ -73,11 +73,11 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/test")
 public class TestUploadServlet extends HttpServlet {
-  private String RECIPES_DIRECTORY = "RECIPES_DIRECTORY";
-  private String RECIPE_FILE_EXTENSION = ".txt";
+  private static final String RECIPES_DIRECTORY = "RECIPES_DIRECTORY";
+  private static final String RECIPE_FILE_EXTENSION = ".txt";
 
   /**
-   * Receives a recipe's properties and creates an entity, for the database and a document for the index
+   * Receives a recipe's properties and creates an entity, for the database and a document for the index.
    */
   public void upload(
     String title,
@@ -93,10 +93,8 @@ public class TestUploadServlet extends HttpServlet {
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    /**
-     * We alocate an id here because we need it inside the index documents
-     * This will help us to search for the recipes in an efficient way
-     */
+    //We allocate the ID before because the recipes are going to be acces by the ID later.
+    //The ID is set both to the entity, which is saved in the datastore, and to the document which is saved in the index.
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
     Entity recipeEntity = buildRecipeEntity(
@@ -113,14 +111,12 @@ public class TestUploadServlet extends HttpServlet {
   }
 
   /**
-   * Reads the file given as parameter as a list of strings
+   * Reads the file given as parameter as a list of strings.
    */
 
   public static List<String> readFileInList(String fileName)
     throws Exception, IOException {
-    List<String> lines = Collections.emptyList();
-    lines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
-    return lines;
+    return Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
   }
 
   public void parseRecipe(String fileName) throws Exception, IOException {
@@ -130,7 +126,7 @@ public class TestUploadServlet extends HttpServlet {
     int currentLineIndex = 7;
 
     /**
-     * Reads all the ingredients until the first blank line
+     * Reads all the ingredients until the first blank line.
      */
     ArrayList<String> ingredients = new ArrayList<String>();
     while (!StringUtils.isBlank(lines.get(currentLineIndex))) {
@@ -139,8 +135,8 @@ public class TestUploadServlet extends HttpServlet {
     }
 
     /**
-     * Removes the blank line and the paragraph: "Steps:"
-     * Reads all the steps until the first blank line
+     * Removes the blank line and the paragraph: "Steps:".
+     * Reads all the steps until the first blank line.
      */
     currentLineIndex += 2;
     ArrayList<String> steps = new ArrayList<String>();
@@ -155,7 +151,7 @@ public class TestUploadServlet extends HttpServlet {
   }
 
   /**
-   * Build a Recipe Entity by the given key
+   * Build a Recipe Entity by the given key.
    */
   private Entity buildRecipeEntity(
     KeyRange keyRange,
@@ -189,11 +185,12 @@ public class TestUploadServlet extends HttpServlet {
           .setText((String) recipeEntity.getProperty("name"))
       )
       .build();
+
     return recipeDocument;
   }
 
   /**
-   * doGet loops trough all the 60 text files in the recipe folder an calls 'parseRecipe' on them
+   * doGet loops trough all the 60 text files in the recipe folder an calls 'parseRecipe' on them.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
