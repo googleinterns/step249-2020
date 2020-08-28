@@ -13,7 +13,7 @@
 //
 //  If you have errors relating to 'isBlank()' try the following:
 //  + add this to the imports "import org.apache.commons.lang3.StringUtils.isBlank"
-//  + add this dependncy to the pom.xl:
+//  + add this dependency to the pom.xml:
 //  <dependency>
 //       <groupId>org.apache.commons</groupId>
 //        <artifactId>commons-lang3</artifactId>
@@ -96,7 +96,6 @@ public class TestUploadServlet extends HttpServlet {
     Entity recipeEntity = new Entity(keyRange.getStart());
 
     recipeEntity.setProperty("title", title);
-    recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
