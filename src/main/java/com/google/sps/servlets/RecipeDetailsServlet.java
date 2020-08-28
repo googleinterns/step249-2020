@@ -14,6 +14,15 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import java.lang.Math;
 import java.util.ArrayList;
@@ -26,14 +35,46 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/recipe")
 public class RecipeDetailsServlet extends HttpServlet {
-  /*
-  * doGet receives the request and returns the message sent as parameter 
-  */
+
+  /**
+   * doGet receives the request and returns the message sent as parameter
+   **/
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    request.setAttribute("messages", request.getParameter("id"));
-
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity recipeEntity = null;
+    try {
+      recipeEntity = getRecipeById(datastore, request.getParameter("id"));
+    } catch (EntityNotFoundException e) {
+      request.setAttribute("error", 1);
+    }
+    setRecipePropertiesInRequest(request, recipeEntity);
     request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+  }
+
+  public Entity getRecipeById(DatastoreService datastore, String idRecipe)
+    throws IOException, EntityNotFoundException {
+    long id = Long.parseLong(idRecipe);
+    Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));
+    return recipeEntity;
+  }
+
+  public void setRecipePropertiesInRequest(
+    HttpServletRequest request,
+    Entity recipeEntity
+  )
+    throws IOException {
+    request.setAttribute("title", recipeEntity.getProperty("title"));
+    request.setAttribute("author", recipeEntity.getProperty("author"));
+    request.setAttribute("imgURL", recipeEntity.getProperty("imgURL"));
+    request.setAttribute("difficulty", recipeEntity.getProperty("difficulty"));
+    request.setAttribute("prepTime", recipeEntity.getProperty("prep_time"));
+    request.setAttribute("cookTime", recipeEntity.getProperty("cook_time"));
+    request.setAttribute(
+      "ingredients",
+      recipeEntity.getProperty("ingredients")
+    );
+    request.setAttribute("steps", recipeEntity.getProperty("stepList"));
   }
 }
