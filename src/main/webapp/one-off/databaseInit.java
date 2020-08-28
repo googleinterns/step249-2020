@@ -94,8 +94,8 @@ public class TestUploadServlet extends HttpServlet {
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
     Entity recipeEntity = new Entity(keyRange.getStart());
-
     recipeEntity.setProperty("title", title);
+    recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);

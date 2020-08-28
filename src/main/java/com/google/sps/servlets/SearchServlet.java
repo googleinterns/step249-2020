@@ -17,6 +17,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -50,15 +51,17 @@ public class SearchServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+    int error = 0;
     List<Recipe> recipesList = new ArrayList<>();
     String titleToMatch = request.getParameter("searchterm");
     Index index = getIndex();
     Cursor responseCursor = Cursor.newBuilder().build();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     QueryOptions options = QueryOptions
       .newBuilder()
       .setLimit(10)
-      .setFieldsToSnippet("title", "imgURL")
+      .setFieldsToSnippet("title")
       .setCursor(responseCursor)
       .setSortOptions(
         SortOptions
@@ -81,21 +84,31 @@ public class SearchServlet extends HttpServlet {
     Results<ScoredDocument> results = index.search(query);
 
     for (ScoredDocument entity : results) {
-      String name = entity.getOnlyField("title").getText();
+      try {
+        String id = entity.getId();
+        Entity recipeEntity = datastore.get(
+          KeyFactory.createKey("Recipe", Long.parseLong(id))
+        );
 
-      Recipe recipe = new Recipe();
-      String description =
-        "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
+        String name = (String) recipeEntity.getProperty("title");
 
-      recipe.setId(Long.parseLong(entity.getId()));
-      recipe.setName(name);
-      recipe.setImage(entity.getOnlyField("imgURL").getText());
-      recipe.setDescription(description);
+        Recipe recipe = new Recipe();
+        String description =
+          "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
 
-      recipesList.add(recipe);
+        recipe.setId(Long.parseLong(id));
+        recipe.setName(name);
+        recipe.setImage((String) recipeEntity.getProperty("imgURL"));
+        recipe.setDescription(description);
+
+        recipesList.add(recipe);
+      } catch (EntityNotFoundException e) {
+        error = 1;
+      }
     }
 
     request.setAttribute("recipesList", recipesList);
+    request.setAttribute("error", error);
 
     request.getRequestDispatcher("/search.jsp").forward(request, response);
   }
