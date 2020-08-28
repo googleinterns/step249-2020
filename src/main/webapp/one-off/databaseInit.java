@@ -73,13 +73,13 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/test")
 public class TestUploadServlet extends HttpServlet {
-  private static final String RECIPES_DIRECTORY = "RECIPES_DIRECTORY";
+  private static final String RECIPES_DIRECTORY = "ABSOLUTE_PATH";
   private static final String RECIPE_FILE_EXTENSION = ".txt";
 
   /**
    * Receives a recipe's properties and creates an entity, for the database and a document for the index.
    */
-  public void upload(
+  private void upload(
     String title,
     String imgURL,
     ArrayList<String> ingredients,
@@ -93,8 +93,15 @@ public class TestUploadServlet extends HttpServlet {
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    //We allocate the ID before because the recipes are going to be acces by the ID later.
-    //The ID is set both to the entity, which is saved in the datastore, and to the document which is saved in the index.
+    // We use an index to store the documents; every document contains a recipe's title and its ID.
+    //
+    // The search makes use of the index to match partially on the recipe's title, 
+    // and returns the matching documents.
+    //
+    // Each document has a correspondent entity in the datastore and can be fetched by the ID.
+    //
+    // We are allocating the Recipe's ID before inserting the recipe entity in the datastore
+    // because we need the same id to match the documents in the index to the entities in the datastore.
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
     Entity recipeEntity = buildRecipeEntity(
@@ -113,13 +120,12 @@ public class TestUploadServlet extends HttpServlet {
   /**
    * Reads the file given as parameter as a list of strings.
    */
-
-  public static List<String> readFileInList(String fileName)
+  private static List<String> readFileInList(String fileName)
     throws Exception, IOException {
     return Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
   }
 
-  public void parseRecipe(String fileName) throws Exception, IOException {
+  private void parseRecipe(String fileName) throws Exception, IOException {
     List<String> lines = readFileInList(RECIPES_DIRECTORY + fileName);
     String title = lines.get(2);
     String imgURL = lines.get(4);
@@ -182,7 +188,7 @@ public class TestUploadServlet extends HttpServlet {
         Field
           .newBuilder()
           .setName("title")
-          .setText((String) recipeEntity.getProperty("name"))
+          .setText((String) recipeEntity.getProperty("index_title"))
       )
       .build();
 
