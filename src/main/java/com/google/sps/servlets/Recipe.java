@@ -54,7 +54,7 @@ public class Recipe {
   /**
    * Get the list of ingredients for the recipe
    */
-  public String getIngredients() {
+  public ArrayList getIngredients() {
     return ingredients;
   }
 

@@ -173,6 +173,9 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty("author", "Piece of Cake");
+    recipeEntity.setProperty("difficulty", "N/A");
+    recipeEntity.setProperty("prep_time", "N/A");
+    recipeEntity.setProperty("cook_time", "N/A");
 
     return recipeEntity;
   }
