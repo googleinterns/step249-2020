@@ -14,6 +14,8 @@
 
 package com.google.sps.servlets;
 
+import java.util.ArrayList;
+
 /**
  * Represents a Recipe.
  */
@@ -21,10 +23,39 @@ public class Recipe {
   private long id;
   private String name;
   private String description;
+  private String difficulty;
+  private String cookTime;
+  private String prepTime;
+  private String author;
   private String imgURL;
+  private ArrayList steps;
+  private ArrayList ingredients;
 
   public String getName() {
     return name;
+  }
+
+  public String getDifficulty() {
+    return difficulty;
+  }
+
+  public String getCookTime() {
+    return cookTime;
+  }
+
+  public String getPrepTime() {
+    return prepTime;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  /**
+   * Get the list of ingredients for the recipe
+   */
+  public String getIngredients() {
+    return ingredients;
   }
 
   public String getDescription() {
@@ -42,12 +73,41 @@ public class Recipe {
     return imgURL;
   }
 
+  /**
+   * Get the list of steps/instruction for the recipe
+   */
+  public ArrayList<String> getSteps() {
+    return steps;
+  }
+
   public void setName(String givenName) {
     name = givenName;
   }
 
   public void setDescription(String givenDesc) {
     description = givenDesc;
+  }
+
+  public void setDifficulty(String givenDiff) {
+    difficulty = givenDiff;
+  }
+
+  /**
+   * Set the cook time as a string, to contain both the time itself and the unit of measure
+   */
+  public void setPrepTime(String givenPTime) {
+    prepTime = givenPTime;
+  }
+
+  /**
+   * Set the cook time as a string, to contain both the time itself and the unit of measure
+   */
+  public void setCookTime(String givenCTime) {
+    cookTime = givenCTime;
+  }
+
+  public void setAuthor(String givenAuthor) {
+    author = givenAuthor;
   }
 
   public void setId(long givenId) {
@@ -59,5 +119,19 @@ public class Recipe {
    */
   public void setImage(String givenImage) {
     imgURL = givenImage;
+  }
+
+  /**
+   * Set a list of strings as instruction/steps for the recipe
+   */
+  public void setSteps(ArrayList<String> givenSteps) {
+    steps = givenSteps;
+  }
+
+  /**
+   * Set a list of strings as the ingredients for the recipe
+   */
+  public void setIngredients(ArrayList<String> givenIngredients) {
+    ingredients = givenIngredients;
   }
 }
