@@ -6,7 +6,7 @@
     <jsp:include page="/includes/head.jsp"/>
   </head>
   <body>
-    <jsp:include page="/includes/homepage-header.html"/>
+    <jsp:include page="/includes/homepage-header.jsp"/>
     <jsp:doBody/>
     <jsp:include page="/includes/my-footer.jsp"/>
   </body>
