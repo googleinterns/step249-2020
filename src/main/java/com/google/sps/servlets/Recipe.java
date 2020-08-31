@@ -16,6 +16,9 @@ package com.google.sps.servlets;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Recipe.
+ */
 public class Recipe {
   private long id;
   private String name;
@@ -48,10 +51,10 @@ public class Recipe {
     return author;
   }
 
- /**
-  * Get the list of ingredients for the recipe
-  */
-  public String getIngredients() {
+  /**
+   * Get the list of ingredients for the recipe
+   */
+  public ArrayList getIngredients() {
     return ingredients;
   }
 
@@ -63,6 +66,9 @@ public class Recipe {
     return id;
   }
 
+  /**
+   * Returns a string with the url of the image.
+   */
   public String getImage() {
     return imgURL;
   }
@@ -86,16 +92,16 @@ public class Recipe {
     difficulty = givenDiff;
   }
 
- /**
-  * Set the cook time as a string, to contain both the time itself and the unit of measure
-  */
+  /**
+   * Set the cook time as a string, to contain both the time itself and the unit of measure
+   */
   public void setPrepTime(String givenPTime) {
     prepTime = givenPTime;
   }
 
- /**
-  * Set the cook time as a string, to contain both the time itself and the unit of measure
-  */
+  /**
+   * Set the cook time as a string, to contain both the time itself and the unit of measure
+   */
   public void setCookTime(String givenCTime) {
     cookTime = givenCTime;
   }
@@ -108,18 +114,21 @@ public class Recipe {
     id = givenId;
   }
 
+  /**
+   * Set a string for the recipe's image URL.
+   */
   public void setImage(String givenImage) {
     imgURL = givenImage;
   }
 
- /**
+  /**
    * Set a list of strings as instruction/steps for the recipe
    */
   public void setSteps(ArrayList<String> givenSteps) {
     steps = givenSteps;
   }
 
- /**
+  /**
    * Set a list of strings as the ingredients for the recipe
    */
   public void setIngredients(ArrayList<String> givenIngredients) {
