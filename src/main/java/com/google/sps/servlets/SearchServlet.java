@@ -51,7 +51,6 @@ public class SearchServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int c = 0;
     List<Recipe> recipesList = new ArrayList<>();
     String titleToMatch = request.getParameter("searchterm");
     Index searchIndex = getIndex();
@@ -65,7 +64,6 @@ public class SearchServlet extends HttpServlet {
           datastore,
           entity
         );
-    
         Recipe recipe = buildRecipe(recipeEntity);
         recipesList.add(recipe);
       } catch (EntityNotFoundException e) {
