@@ -9,7 +9,7 @@
                 <ul id="results" class="list-group list-group-flush">
                     <c:forEach items="${recipesList}" var="recipe">
                         <li class="list-group-item">
-                            <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="Recipe Image">
+                            <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="${recipe.getName()}">
                                 <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
                                 <p>
                                 <c:out value="${recipe.getDescription()}" /> 

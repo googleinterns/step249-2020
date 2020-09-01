@@ -95,7 +95,7 @@ public class TestUploadServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     // We use an index to store the documents; every document contains a recipe's title and its ID.
     //
-    // The search makes use of the index to match partially on the recipe's title, 
+    // The search makes use of the index to match partially on the recipe's title,
     // and returns the matching documents.
     //
     // Each document has a correspondent entity in the datastore and can be fetched by the ID.
@@ -176,6 +176,7 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("difficulty", "N/A");
     recipeEntity.setProperty("prep_time", "N/A");
     recipeEntity.setProperty("cook_time", "N/A");
+    recipeEntity.setProperty("author_id", 1);
 
     return recipeEntity;
   }
@@ -199,12 +200,42 @@ public class TestUploadServlet extends HttpServlet {
   }
 
   /**
+   * Upload an user entity to the datastore.
+   */
+  private void uploadUser() {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    KeyRange keyRange = datastore.allocateIds("User", 1);
+    Entity userEntity = createUserEntity(keyRange);
+    datastore.put(userEntity);
+  }
+
+  /**
+   * Create an user entity.
+   */
+  private Entity createUserEntity(KeyRange keyRange) {
+    Entity userEntity = new Entity(keyRange.getStart());
+    userEntity.setProperty("name", "Piece of cake");
+    userEntity.setProperty("email", "pieceofcake@google.com");
+    userEntity.setProperty(
+      "imgURL",
+      "https://www.pngitem.com/pimgs/m/158-1589500_slice-of-cake-clip-art-black-and-white.png"
+    );
+    userEntity.setProperty(
+      "bio",
+      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus."
+    );
+
+    return userEntity;
+  }
+
+  /**
    * doGet loops trough all the 60 text files in the recipe folder an calls 'parseRecipe' on them.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     try {
+      uploadUser();
       for (int i = 1; i <= 60; i++) {
         String nameFile = Integer.toString(i) + RECIPE_FILE_EXTENSION;
         parseRecipe(nameFile);
