@@ -18,4 +18,10 @@
         <servlet-name>recipe</servlet-name>
         <servlet-class>com.google.sps.servlets.RecipeDetailsServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <servlet-class>com.google.sps.servlets.LogInServlet</servlet-class>
+    </servlet>
+
 </web-app>

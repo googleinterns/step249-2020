@@ -22,31 +22,45 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/")
+@WebServlet("/login")
 public class LogInServlet extends HttpServlet {
 
+  /**
+  * doGet checks if the user is currently logged in and returns the correct header
+  */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("text/html");
-
+    
+    String url = "/";
     UserService userService = UserServiceFactory.getUserService();
+    HttpSession session = request.getSession();
+
     if (userService.isUserLoggedIn()) {
+       setLogInAttributes(session, url, userService);
+    } else {
+       setLogOutAttributes(session, url, userService);
+    }
+  }
+
+  public void setLogInAttributes(HttpSession session, String url, UserService userService){
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/";
+      String urlToRedirectToAfterUserLogsOut = url;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      request.setAttribute("isLogIn", 1);
-      request.setAttribute("userEmail", userEmail);
-      request.setAttribute("logoutURL", logoutUrl);
+      session.setAttribute("isLogIn", 1);
+      session.setAttribute("userEmail", userEmail);
+      session.setAttribute("logoutURL", logoutUrl);
+  }
 
-    } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
+  public void setLogOutAttributes(HttpSession session, String url, UserService userService){
+      String urlToRedirectToAfterUserLogsIn = url;
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-      request.setAttribute("isLogIn", 0);
-      request.setAttribute("loginURL", loginUrl);
-    }
-    request.getRequestDispatcher("/index.jsp").forward(request, response);
+      session.setAttribute("isLogIn", 0);
+      session.setAttribute("userEmail", null);
+      session.setAttribute("loginURL", loginUrl);
   }
+
 }
