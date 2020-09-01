@@ -10,8 +10,5 @@
     <jsp:include page="/includes/homepage-header.jsp"/>
     <jsp:doBody/>
     <jsp:include page="/includes/my-footer.jsp"/>
-    <script type="text/javascript">
-      fetch('/login');
-    </script>
   </body>
 </html>

@@ -21,7 +21,7 @@
 
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>com.google.sps.servlets.LogInServlet</servlet-class>
+        <servlet-class>com.google.sps.servlets.AuthServlet</servlet-class>
     </servlet>
 
 </web-app>

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
-public class LogInServlet extends HttpServlet {
+public class AuthServlet extends HttpServlet {
 
   /**
   * doGet checks if the user is currently logged in and returns the correct header
@@ -33,7 +33,7 @@ public class LogInServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-    String url = "/";
+    String url = "/login";
     UserService userService = UserServiceFactory.getUserService();
     HttpSession session = request.getSession();
 
@@ -42,6 +42,8 @@ public class LogInServlet extends HttpServlet {
     } else {
        setLogOutAttributes(session, url, userService);
     }
+
+    response.sendRedirect("/");
   }
 
   public void setLogInAttributes(HttpSession session, String url, UserService userService){
