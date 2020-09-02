@@ -58,10 +58,25 @@ public class RandomServlet extends HttpServlet {
    */
   private long returnRandomId(DatastoreService datastore) {
     Random randomGenerator = new Random();
+    Double numberGenerated = randomGenerator.nextDouble();
+    try {
+      return closestSmallerRecipeRandomId(numberGenerated, datastore);
+    } catch (IndexOutOfBoundsException e) {
+      return closestGreaterRecipeRandomId(numberGenerated, datastore);
+    }
+  }
+
+  /**
+   * Return the recipe's id with the minimum difference between numberGenerated and recipe's random_number.
+   */
+  private long closestSmallerRecipeRandomId(
+    Double numberGenerated,
+    DatastoreService datastore
+  ) {
     Filter propertyFilter = new FilterPredicate(
       "random_number",
       FilterOperator.LESS_THAN_OR_EQUAL,
-      randomGenerator.nextDouble()
+      numberGenerated
     );
     Query query = new Query("Recipe")
       .setFilter(propertyFilter)
@@ -71,7 +86,29 @@ public class RandomServlet extends HttpServlet {
     List<Entity> recipeEntity = preparedQuery.asList(
       FetchOptions.Builder.withLimit(1)
     );
+    return recipeEntity.get(0).getKey().getId();
+  }
 
+  /**
+   * Return the recipe's id with the minimum difference between recipe's random_number and numberGenerated.
+   */
+  private long closestGreaterRecipeRandomId(
+    Double numberGenerated,
+    DatastoreService datastore
+  ) {
+    Filter propertyFilter = new FilterPredicate(
+      "random_number",
+      FilterOperator.GREATER_THAN_OR_EQUAL,
+      numberGenerated
+    );
+    Query query = new Query("Recipe")
+      .setFilter(propertyFilter)
+      .addSort("random_number", SortDirection.ASCENDING);
+
+    PreparedQuery preparedQuery = datastore.prepare(query);
+    List<Entity> recipeEntity = preparedQuery.asList(
+      FetchOptions.Builder.withLimit(1)
+    );
     return recipeEntity.get(0).getKey().getId();
   }
 }
