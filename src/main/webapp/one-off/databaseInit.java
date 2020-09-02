@@ -102,8 +102,6 @@ public class TestUploadServlet extends HttpServlet {
     //
     // We are allocating the Recipe's ID before inserting the recipe entity in the datastore
     // because we need the same id to match the documents in the index to the entities in the datastore.
-    // This id will be used to compute the random recipe, because the allocated id's are consecutive
-    // and they start from the value 1.
 
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
