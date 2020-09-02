@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class AuthServlet extends HttpServlet {
+  
 
   /**
   * doGet checks if the user is currently logged in and returns the correct header
@@ -39,11 +40,13 @@ public class AuthServlet extends HttpServlet {
 
     if (userService.isUserLoggedIn()) {
        setLogInAttributes(session, url, userService);
+       //TODO: check if the user already exist in database
+       response.sendRedirect("/profile_creation.jsp");
     } else {
-       setLogOutAttributes(session, url, userService);
+       session.invalidate();
+       response.sendRedirect("/");
     }
 
-    response.sendRedirect("/");
   }
 
   public void setLogInAttributes(HttpSession session, String url, UserService userService){
@@ -54,15 +57,6 @@ public class AuthServlet extends HttpServlet {
       session.setAttribute("isLogIn", 1);
       session.setAttribute("userEmail", userEmail);
       session.setAttribute("logoutURL", logoutUrl);
-  }
-
-  public void setLogOutAttributes(HttpSession session, String url, UserService userService){
-      String urlToRedirectToAfterUserLogsIn = url;
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-
-      session.setAttribute("isLogIn", 0);
-      session.setAttribute("userEmail", null);
-      session.setAttribute("loginURL", loginUrl);
   }
 
 }
