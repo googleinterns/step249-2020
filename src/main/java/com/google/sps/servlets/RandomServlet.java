@@ -60,50 +60,39 @@ public class RandomServlet extends HttpServlet {
     Random randomGenerator = new Random();
     Double numberGenerated = randomGenerator.nextDouble();
     try {
-      return closestSmallerRecipeRandomId(numberGenerated, datastore);
+      return closestRecipeRandomId(
+        numberGenerated,
+        datastore,
+        Query.FilterOperator.LESS_THAN_OR_EQUAL,
+        Query.SortDirection.DESCENDING
+      );
     } catch (IndexOutOfBoundsException e) {
-      return closestGreaterRecipeRandomId(numberGenerated, datastore);
+      return closestRecipeRandomId(
+        numberGenerated,
+        datastore,
+        Query.FilterOperator.GREATER_THAN_OR_EQUAL,
+        Query.SortDirection.ASCENDING
+      );
     }
   }
 
   /**
    * Return the recipe's id with the minimum difference between numberGenerated and recipe's random_number.
    */
-  private long closestSmallerRecipeRandomId(
+  private long closestRecipeRandomId(
     Double numberGenerated,
-    DatastoreService datastore
+    DatastoreService datastore,
+    Query.FilterOperator filter,
+    Query.SortDirection direction
   ) {
     Filter propertyFilter = new FilterPredicate(
       "random_number",
-      FilterOperator.LESS_THAN_OR_EQUAL,
+      filter,
       numberGenerated
     );
     Query query = new Query("Recipe")
       .setFilter(propertyFilter)
-      .addSort("random_number", SortDirection.DESCENDING);
-
-    PreparedQuery preparedQuery = datastore.prepare(query);
-    List<Entity> recipeEntity = preparedQuery.asList(
-      FetchOptions.Builder.withLimit(1)
-    );
-    return recipeEntity.get(0).getKey().getId();
-  }
-
-  /**
-   * Return the recipe's id with the minimum difference between recipe's random_number and numberGenerated.
-   */
-  private long closestGreaterRecipeRandomId(
-    Double numberGenerated,
-    DatastoreService datastore
-  ) {
-    Filter propertyFilter = new FilterPredicate(
-      "random_number",
-      FilterOperator.GREATER_THAN_OR_EQUAL,
-      numberGenerated
-    );
-    Query query = new Query("Recipe")
-      .setFilter(propertyFilter)
-      .addSort("random_number", SortDirection.ASCENDING);
+      .addSort("random_number", direction);
 
     PreparedQuery preparedQuery = datastore.prepare(query);
     List<Entity> recipeEntity = preparedQuery.asList(
