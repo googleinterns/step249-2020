@@ -102,6 +102,9 @@ public class TestUploadServlet extends HttpServlet {
     //
     // We are allocating the Recipe's ID before inserting the recipe entity in the datastore
     // because we need the same id to match the documents in the index to the entities in the datastore.
+    // This id will be used to compute the random recipe, because the allocated id's are consecutive
+    // and they start from the value 1.
+
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
     Entity recipeEntity = buildRecipeEntity(
@@ -167,6 +170,8 @@ public class TestUploadServlet extends HttpServlet {
     ArrayList<String> stepList
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
+    Random rd = new Random();
+    Double number = rd.nextDouble();
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
@@ -177,6 +182,7 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("prep_time", "N/A");
     recipeEntity.setProperty("cook_time", "N/A");
     recipeEntity.setProperty("author_id", 1);
+    recipeEntity.setProperty("random_number", number);
 
     return recipeEntity;
   }
