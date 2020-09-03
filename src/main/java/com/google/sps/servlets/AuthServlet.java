@@ -68,7 +68,7 @@ public class AuthServlet extends HttpServlet {
         } else {
             setLogInAttributes(1, session, url, userService);
             setUserAttributes(currentUser, session);
-            response.sendRedirect("/");                
+            response.sendRedirect("/user?id="+currentUser.getKey().getId());                
         }
   }
 
@@ -100,6 +100,6 @@ public class AuthServlet extends HttpServlet {
 
   public void setUserAttributes(Entity userEntity, HttpSession session) throws IOException{
       
-      session.setAttribute("username", userEntity.getProperty("username"));
+      session.setAttribute("username", userEntity.getProperty("name"));
   }
 }

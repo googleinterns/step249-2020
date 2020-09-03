@@ -46,15 +46,15 @@ public class ProfileEditServlet extends HttpServlet {
 
       Entity userEntity = new Entity("User");
       userEntity.setProperty("email", session.getAttribute("userEmail"));
-      userEntity.setProperty("username", username);
+      userEntity.setProperty("name", username);
       userEntity.setProperty("bio", bio);
       userEntity.setProperty("imageURL", "images/default.png");
       datastore.put(userEntity);
       
-      session.setAttribute("username", username);
+      session.setAttribute("name", username);
       session.setAttribute("isLoggedIn", 1);
 
-      response.sendRedirect("/");
+      response.sendRedirect("/user?id="+userEntity.getKey().getId()); 
   }
 }
   
