@@ -43,11 +43,10 @@ public class AuthServlet extends HttpServlet {
   
 
   /**
-  * doGet checks if the user is currently logged in and returns the correct header
+  * doGet checks if the user is currently logged in, and if the user has already a profile. It then returns the correct header
   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
     UserService userService = UserServiceFactory.getUserService();
     HttpSession session = request.getSession();
 
@@ -57,7 +56,6 @@ public class AuthServlet extends HttpServlet {
        session.invalidate();
        response.sendRedirect("/");
     }
-
   }
 
   public void handleLogIn(HttpServletResponse response, HttpSession session, UserService userService) throws IOException {
@@ -75,7 +73,6 @@ public class AuthServlet extends HttpServlet {
   }
 
   public Entity queryForUser(UserService userService){
-
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       Entity currentUser = null;
       String userEmail = userService.getCurrentUser().getEmail();
@@ -96,7 +93,7 @@ public class AuthServlet extends HttpServlet {
       String urlToRedirectToAfterUserLogsOut = url;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      session.setAttribute("isLogIn", 1);
+      session.setAttribute("isLoggedIn", 1);
       session.setAttribute("userEmail", userEmail);
       session.setAttribute("logoutURL", logoutUrl);
   }
