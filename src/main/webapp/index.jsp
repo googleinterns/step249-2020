@@ -8,8 +8,8 @@
         <form class="searchbar" method="GET" action="search">
              <input type="text" class="form-control searchbar" placeholder="Type recipe title" name="searchterm">
              <div class="btn-line">
-                 <button type="submit" class="btn btn-secondary my-3" value="search">search</button>
-                 <a href="/recipe?id=0" class="btn btn-secondary my-3">random recipe</a>
+                 <button type="submit" class="btn btn-secondary my-3" value="search">Search</button>
+                 <a href="/random" class="btn btn-secondary my-3">Random Recipe</a>
              </div>
         </form>
       </div>
