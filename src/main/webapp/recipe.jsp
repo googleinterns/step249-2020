@@ -12,8 +12,8 @@
          </c:when>    
        <c:otherwise>
             <h1>${title}</h1>
-            <h3>by ${author}</h1>
-            <img src=${imgURL} class="img-fluid my-3" alt="Recipe Image">
+            <a href="/user?id=${author_id}"><h3>by ${author}</h3></a>
+            <img src=${imgURL} class="img-fluid my-3" alt="${title}">
             <ul class="list-group list-group-horizontal w-100">
                 <li class="list-group-item">Prep Time: ${prepTime}</li>
                 <li class="list-group-item">Cooking Time: ${cookTime}</li>

@@ -95,13 +95,14 @@ public class TestUploadServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     // We use an index to store the documents; every document contains a recipe's title and its ID.
     //
-    // The search makes use of the index to match partially on the recipe's title, 
+    // The search makes use of the index to match partially on the recipe's title,
     // and returns the matching documents.
     //
     // Each document has a correspondent entity in the datastore and can be fetched by the ID.
     //
     // We are allocating the Recipe's ID before inserting the recipe entity in the datastore
     // because we need the same id to match the documents in the index to the entities in the datastore.
+
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
     Entity recipeEntity = buildRecipeEntity(
@@ -167,15 +168,22 @@ public class TestUploadServlet extends HttpServlet {
     ArrayList<String> stepList
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
+    String description =
+      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
+    Random rd = new Random();
+    Double number = rd.nextDouble();
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty("author", "Piece of Cake");
+    recipeEntity.setProperty("description", description);
     recipeEntity.setProperty("difficulty", "N/A");
     recipeEntity.setProperty("prep_time", "N/A");
     recipeEntity.setProperty("cook_time", "N/A");
+    recipeEntity.setProperty("author_id", 1);
+    recipeEntity.setProperty("random_number", number);
 
     return recipeEntity;
   }
@@ -199,12 +207,42 @@ public class TestUploadServlet extends HttpServlet {
   }
 
   /**
+   * Upload an user entity to the datastore.
+   */
+  private void uploadUser() {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    KeyRange keyRange = datastore.allocateIds("User", 1);
+    Entity userEntity = createUserEntity(keyRange);
+    datastore.put(userEntity);
+  }
+
+  /**
+   * Create an user entity.
+   */
+  private Entity createUserEntity(KeyRange keyRange) {
+    Entity userEntity = new Entity(keyRange.getStart());
+    userEntity.setProperty("name", "Piece of cake");
+    userEntity.setProperty("email", "pieceofcake@google.com");
+    userEntity.setProperty(
+      "imgURL",
+      "https://www.pngitem.com/pimgs/m/158-1589500_slice-of-cake-clip-art-black-and-white.png"
+    );
+    userEntity.setProperty(
+      "bio",
+      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus."
+    );
+
+    return userEntity;
+  }
+
+  /**
    * doGet loops trough all the 60 text files in the recipe folder an calls 'parseRecipe' on them.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     try {
+      uploadUser();
       for (int i = 1; i <= 60; i++) {
         String nameFile = Integer.toString(i) + RECIPE_FILE_EXTENSION;
         parseRecipe(nameFile);
