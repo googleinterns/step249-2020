@@ -14,9 +14,23 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,14 +48,11 @@ public class AuthServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-    String url = "/login";
     UserService userService = UserServiceFactory.getUserService();
     HttpSession session = request.getSession();
 
     if (userService.isUserLoggedIn()) {
-       setLogInAttributes(session, url, userService);
-       //TODO: check if the user already exist in database
-       response.sendRedirect("/profile_creation.jsp");
+       handleLogIn(response, session, userService);
     } else {
        session.invalidate();
        response.sendRedirect("/");
@@ -49,7 +60,38 @@ public class AuthServlet extends HttpServlet {
 
   }
 
-  public void setLogInAttributes(HttpSession session, String url, UserService userService){
+  public void handleLogIn(HttpServletResponse response, HttpSession session, UserService userService) throws IOException {
+       String url = "/login";
+       setLogInAttributes(session, url, userService);
+
+       Entity currentUser = queryForUser(userService);
+    
+       if (Objects.isNull(currentUser)){
+             response.sendRedirect("/profile_creation.jsp");
+        } else {
+            setUserAttributes(currentUser, session);
+            response.sendRedirect("/");                
+        }
+  }
+
+  public Entity queryForUser(UserService userService){
+
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      Entity currentUser = null;
+      String userEmail = userService.getCurrentUser().getEmail();
+      Filter propertyFilter = new FilterPredicate(
+                "email",
+                FilterOperator.EQUAL,
+                userEmail
+        );
+       Query q = new Query("User").setFilter(propertyFilter);
+       PreparedQuery pq = datastore.prepare(q);
+       List<Entity> userEntityList = pq.asList(FetchOptions.Builder.withLimit(1));
+       if ( userEntityList.size() >= 1){currentUser = userEntityList.get(0);}
+       return currentUser;
+  }
+  
+  public void setLogInAttributes(HttpSession session, String url, UserService userService) throws IOException {
       String userEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = url;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
@@ -59,4 +101,8 @@ public class AuthServlet extends HttpServlet {
       session.setAttribute("logoutURL", logoutUrl);
   }
 
+  public void setUserAttributes(Entity userEntity, HttpSession session) throws IOException{
+      session.setAttribute("username", userEntity.getProperty("username"));
+      session.setAttribute("bio",  userEntity.getProperty("bio"));
+  }
 }
