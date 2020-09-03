@@ -1,11 +1,28 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <t:genericpage>
     <jsp:body>
       <div class="content">
-        <c:choose>
-            <c:when test="${recipesList.size() > 0}">
+      <c:choose>
+         <c:when test="${error == 1}">
+              <h1>Sorry! </br>
+              No user matching the input id.</h1>
+         </c:when>    
+       <c:otherwise>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <img src="${user.getImage()}" class="img-circle"  width="200" height="200" alt="${user.getName()}">
+                    </div>
+                    <div class="col-8">
+                        <h1>${user.getName()}</h1>
+                        <h4>${user.getBio()}</h4>
+                    </div>
+                </div>
+            </div>
+            <h2>List of recipes posted by the user:</h2>
                 <ul id="results" class="list-group list-group-flush">
                     <c:forEach items="${recipesList}" var="recipe">
                         <li class="list-group-item">
@@ -17,11 +34,9 @@
                         </li>
                     </c:forEach>
                 </ul>
-            </c:when>    
-            <c:otherwise>
-                <h1 id="welcome-message">Right now we don't have any recipes matching your request. Stay close!</h1>
-            </c:otherwise>
-        </c:choose>
+            
+       </c:otherwise> 
+      </c:choose>
       </div>
     </jsp:body>
 </t:genericpage>

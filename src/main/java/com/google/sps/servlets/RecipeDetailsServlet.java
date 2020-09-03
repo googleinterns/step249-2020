@@ -67,6 +67,11 @@ public class RecipeDetailsServlet extends HttpServlet {
     throws IOException {
     request.setAttribute("title", recipeEntity.getProperty("title"));
     request.setAttribute("author", recipeEntity.getProperty("author"));
+    request.setAttribute("author_id", recipeEntity.getProperty("author_id"));
+    request.setAttribute(
+      "description",
+      recipeEntity.getProperty("description")
+    );
     request.setAttribute("imgURL", recipeEntity.getProperty("imgURL"));
     request.setAttribute("difficulty", recipeEntity.getProperty("difficulty"));
     request.setAttribute("prepTime", recipeEntity.getProperty("prep_time"));
