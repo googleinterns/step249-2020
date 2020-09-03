@@ -168,6 +168,8 @@ public class TestUploadServlet extends HttpServlet {
     ArrayList<String> stepList
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
+    String description =
+      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
     Random rd = new Random();
     Double number = rd.nextDouble();
     recipeEntity.setProperty("title", title);
@@ -176,6 +178,7 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty("author", "Piece of Cake");
+    recipeEntity.setProperty("description", description);
     recipeEntity.setProperty("difficulty", "N/A");
     recipeEntity.setProperty("prep_time", "N/A");
     recipeEntity.setProperty("cook_time", "N/A");

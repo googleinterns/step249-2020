@@ -105,9 +105,7 @@ public class UserDetailsServlet extends HttpServlet {
     Long id = recipeEntity.getKey().getId();
     String name = (String) recipeEntity.getProperty("title");
     String imgURL = (String) recipeEntity.getProperty("imgURL");
-    String description =
-      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
-
+    String description = (String) recipeEntity.getProperty("description");
     Recipe recipe = new Recipe();
     recipe.setId(id);
     recipe.setName(name);
