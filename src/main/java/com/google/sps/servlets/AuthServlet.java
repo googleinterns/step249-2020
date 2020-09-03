@@ -60,13 +60,13 @@ public class AuthServlet extends HttpServlet {
 
   public void handleLogIn(HttpServletResponse response, HttpSession session, UserService userService) throws IOException {
        String url = "/login";
-       setLogInAttributes(session, url, userService);
 
        Entity currentUser = queryForUser(userService);
-    
        if (Objects.isNull(currentUser)){
+             setLogInAttributes(0, session, url, userService);
              response.sendRedirect("/profile_creation.jsp");
         } else {
+            setLogInAttributes(1, session, url, userService);
             setUserAttributes(currentUser, session);
             response.sendRedirect("/");                
         }
@@ -88,17 +88,18 @@ public class AuthServlet extends HttpServlet {
        return currentUser;
   }
   
-  public void setLogInAttributes(HttpSession session, String url, UserService userService) throws IOException {
+  public void setLogInAttributes(int isLoggedIn, HttpSession session, String url, UserService userService) throws IOException {
       String userEmail = userService.getCurrentUser().getEmail();
       String urlToRedirectToAfterUserLogsOut = url;
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      session.setAttribute("isLoggedIn", 1);
+      session.setAttribute("isLoggedIn", isLoggedIn);
       session.setAttribute("userEmail", userEmail);
       session.setAttribute("logoutURL", logoutUrl);
   }
 
   public void setUserAttributes(Entity userEntity, HttpSession session) throws IOException{
+      
       session.setAttribute("username", userEntity.getProperty("username"));
   }
 }

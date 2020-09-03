@@ -52,6 +52,7 @@ public class ProfileEditServlet extends HttpServlet {
       datastore.put(userEntity);
       
       session.setAttribute("username", username);
+      session.setAttribute("isLoggedIn", 1);
 
       response.sendRedirect("/");
   }

@@ -8,11 +8,11 @@
         <form action="/profile_edit" method="POST">
            <div class="form-group">
               <label for="username">Display Name</label>
-              <input type="text" class="form-control" name="username" placeholder="Type your username">
+              <input type="text" class="form-control" name="username" placeholder="Type your username" required>
            </div>
            <div class="form-group">
               <label for="bio">Your Bio</label>
-              <textarea class="form-control" name="bio" rows="3"></textarea>
+              <textarea class="form-control" name="bio" rows="3" required></textarea>
            </div>
            <button type="submit" class="btn btn-secondary my-3">submit</button>
         </form>
