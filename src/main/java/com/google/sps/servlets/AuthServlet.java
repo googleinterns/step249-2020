@@ -103,6 +103,5 @@ public class AuthServlet extends HttpServlet {
 
   public void setUserAttributes(Entity userEntity, HttpSession session) throws IOException{
       session.setAttribute("username", userEntity.getProperty("username"));
-      session.setAttribute("bio",  userEntity.getProperty("bio"));
   }
 }

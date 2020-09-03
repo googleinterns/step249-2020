@@ -48,10 +48,10 @@ public class ProfileEditServlet extends HttpServlet {
       userEntity.setProperty("email", session.getAttribute("userEmail"));
       userEntity.setProperty("username", username);
       userEntity.setProperty("bio", bio);
+      userEntity.setProperty("imageURL", "images/default.png");
       datastore.put(userEntity);
       
       session.setAttribute("username", username);
-      session.setAttribute("bio", bio);
 
       response.sendRedirect("/");
   }
