@@ -11,3 +11,23 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+function showIngredientsInput() {
+  document.getElementById('ingredients-button').style.display = 'none';
+  document.getElementById('ingredients-submit').style.display = 'block';
+  document.getElementById('ingredients-input').style.display = 'block';
+  document.getElementById('title-search').style.display = 'none';
+
+  if (document.getElementById('searchbar'))
+    document.getElementById('searchbar').classList.add('mb-3');
+
+  if (document.getElementById('title-input'))
+    document.getElementById('title-input').classList.add('mr-3');
+}
+
+function showTitleInput() {}
+
+function checkIngredientsList() {
+  if (document.getElementById('ingredients-input').value)
+   showIngredientsInput();
+}

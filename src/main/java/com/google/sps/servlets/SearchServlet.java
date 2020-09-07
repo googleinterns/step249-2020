@@ -45,73 +45,121 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchServlet extends HttpServlet {
 
   /**
-   * Search and returns a list of first 10 recipes with the title matching the given parameter(searchterm).
+   * Search and returns a list of first 10 recipes with the title matching the given parameters(searchterm & ingredients).
    * The index returns a list of documents in the ascending order by title.
+   * Special characters inside the search terms are replaced with space.
+   * We compute and return the intersection of the following lists:
+   * - recipes that are matching by title;
+   * - recipes that are matching by the ingredients.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    List<Recipe> recipesList = new ArrayList<>();
-    String titleToMatch = request.getParameter("searchterm");
-    Index searchIndex = getIndex();
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    String titleToMatch = request
+      .getParameter("searchterm")
+      .replaceAll("[^a-zA-Z0-9]+", " ");
+    String ingredientsToMatch = request
+      .getParameter("ingredients")
+      .replaceAll("[^a-zA-Z0-9]+", " ");
+    request.setAttribute("titleSearched", titleToMatch);
+    request.setAttribute("ingredientsSearched", ingredientsToMatch);
 
-    Query query = buildQuery(titleToMatch);
-    Results<ScoredDocument> resultsByTitle = searchIndex.search(query);
-    for (ScoredDocument entity : resultsByTitle) {
-      try {
-        Entity recipeEntity = getRecipeEntityFromDocumentEntity(
-          datastore,
-          entity
-        );
-        Recipe recipe = buildRecipe(recipeEntity);
-        recipesList.add(recipe);
-      } catch (EntityNotFoundException e) {
-        response.setStatus(505);
-        request.getRequestDispatcher("/search.jsp").forward(request, response);
-        return;
+    Index indexTitle = getIndex("recipe_title_index");
+    Index indexIngredients = getIndex("recipe_ingredients_index");
+
+    List<Recipe> recipesListToReturn = new ArrayList<>();
+    List<Recipe> recipesListByTitle = recipesMatching(
+      request,
+      response,
+      titleToMatch,
+      "title",
+      indexTitle
+    );
+    List<Recipe> recipesListByIngredients = recipesMatching(
+      request,
+      response,
+      ingredientsToMatch,
+      "ingredients",
+      indexIngredients
+    );
+
+    for (Recipe recipe : recipesListByTitle) {
+      if (recipesListByIngredients.contains(recipe)) {
+        recipesListToReturn.add(recipe);
       }
     }
-    request.setAttribute("recipesList", recipesList);
+    request.setAttribute("recipesList", recipesListToReturn);
     request.getRequestDispatcher("/search.jsp").forward(request, response);
+  }
+
+  /**
+   * Returns a list of recipes matching the given string.
+   * Because the index returns a limited list of documents we iterate through using a cursor.
+   * The cursor becomes null when the end of the results is reached.
+   */
+  private List<Recipe> recipesMatching(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    String stringToMatch,
+    String field,
+    Index indexTitle
+  )
+    throws ServletException, IOException {
+    Cursor responseCursor = Cursor.newBuilder().build();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    List<Recipe> recipesMatchingList = new ArrayList<>();
+
+    do {
+      Query query = buildQuery(field, stringToMatch, responseCursor);
+      Results<ScoredDocument> results = indexTitle.search(query);
+      responseCursor = results.getCursor();
+
+      for (ScoredDocument entity : results) {
+        try {
+          Entity recipeEntity = getRecipeEntityFromDocumentEntity(
+            datastore,
+            entity
+          );
+          Recipe recipe = buildRecipe(recipeEntity);
+          recipesMatchingList.add(recipe);
+        } catch (EntityNotFoundException e) {
+          response.setStatus(505);
+          request
+            .getRequestDispatcher("/search.jsp")
+            .forward(request, response);
+          return recipesMatchingList;
+        }
+      }
+    } while (responseCursor != null);
+
+    return recipesMatchingList;
   }
 
   /**
    * Returns the index that stores the recipes documents
    */
-  private Index getIndex() {
-    IndexSpec indexSpec = IndexSpec
-      .newBuilder()
-      .setName("recipesIndex")
-      .build();
+  private Index getIndex(String indexName) {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
     return index;
   }
 
-  private Query buildQuery(String titleToMatch) {
-    Cursor responseCursor = Cursor.newBuilder().build();
+  private Query buildQuery(
+    String fieldToSnippet,
+    String stringToMatch,
+    Cursor responseCursor
+  ) {
     QueryOptions options = QueryOptions
       .newBuilder()
-      .setLimit(10)
-      .setFieldsToSnippet("title")
+      .setLimit(50)
+      .setFieldsToSnippet(fieldToSnippet)
       .setCursor(responseCursor)
-      .setSortOptions(
-        SortOptions
-          .newBuilder()
-          .addSortExpression(
-            SortExpression
-              .newBuilder()
-              .setExpression("title")
-              .setDirection(SortExpression.SortDirection.ASCENDING)
-              .setDefaultValue("")
-          )
-      )
       .build();
 
     Query query = Query
       .newBuilder()
       .setOptions(options)
-      .build(titleToMatch.toLowerCase());
+      .build(stringToMatch.toLowerCase());
 
     return query;
   }
@@ -123,8 +171,7 @@ public class SearchServlet extends HttpServlet {
     Long id = recipeEntity.getKey().getId();
     String name = (String) recipeEntity.getProperty("title");
     String imgURL = (String) recipeEntity.getProperty("imgURL");
-    String description =
-      "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
+    String description = (String) recipeEntity.getProperty("description");
 
     Recipe recipe = new Recipe();
     recipe.setId(id);
@@ -135,6 +182,9 @@ public class SearchServlet extends HttpServlet {
     return recipe;
   }
 
+  /**
+   * Build a Recipe Entity with the given Document
+   */
   private Entity getRecipeEntityFromDocumentEntity(
     DatastoreService datastore,
     ScoredDocument entity

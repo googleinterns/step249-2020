@@ -83,14 +83,12 @@ public class TestUploadServlet extends HttpServlet {
     String title,
     String imgURL,
     ArrayList<String> ingredients,
+    String ingredientsString,
     ArrayList<String> stepList
   )
     throws Exception, InterruptedException, IOException {
-    IndexSpec indexSpec = IndexSpec
-      .newBuilder()
-      .setName("recipesIndex")
-      .build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    Index indexTitle = getIndex("recipe_title_index");
+    Index indexIngredients = getIndex("recipe_ingredients_index");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     // We use an index to store the documents; every document contains a recipe's title and its ID.
@@ -112,10 +110,29 @@ public class TestUploadServlet extends HttpServlet {
       ingredients,
       stepList
     );
-    Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity);
+    Document recipeDocumentTitle = buildRecipeDocumentForIndexing(
+      recipeEntity,
+      "title",
+      title.toLowerCase()
+    );
+    Document recipeDocumentIngredients = buildRecipeDocumentForIndexing(
+      recipeEntity,
+      "ingredients",
+      ingredientsString
+    );
 
     datastore.put(recipeEntity);
-    index.put(recipeDocument);
+    indexTitle.put(recipeDocumentTitle);
+    indexIngredients.put(recipeDocumentIngredients);
+  }
+
+  /**
+   * Returns the index that stores the recipes documents
+   */
+  private Index getIndex(String indexName) {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    return index;
   }
 
   /**
@@ -134,10 +151,15 @@ public class TestUploadServlet extends HttpServlet {
 
     /**
      * Reads all the ingredients until the first blank line.
+     * StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
+     * because a string builder is created everytime.
      */
-    ArrayList<String> ingredients = new ArrayList<String>();
+    ArrayList<String> ingredientsList = new ArrayList<String>();
+    StringBuilder ingredientsString = new StringBuilder();
+
     while (!StringUtils.isBlank(lines.get(currentLineIndex))) {
-      ingredients.add(lines.get(currentLineIndex));
+      ingredientsList.add(lines.get(currentLineIndex));
+      ingredientsString.append(lines.get(currentLineIndex));
       currentLineIndex += 1;
     }
 
@@ -154,7 +176,7 @@ public class TestUploadServlet extends HttpServlet {
       steps.add(lines.get(currentLineIndex));
       currentLineIndex += 1;
     }
-    upload(title, imgURL, ingredients, steps);
+    upload(title, imgURL, ingredientsList, ingredientsString.toString(), steps);
   }
 
   /**
@@ -173,10 +195,10 @@ public class TestUploadServlet extends HttpServlet {
     Random rd = new Random();
     Double number = rd.nextDouble();
     recipeEntity.setProperty("title", title);
-    recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
+    recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("author", "Piece of Cake");
     recipeEntity.setProperty("description", description);
     recipeEntity.setProperty("difficulty", "N/A");
@@ -191,16 +213,15 @@ public class TestUploadServlet extends HttpServlet {
   /**
    * Build a Recipe Document by the given Recipe Entity
    */
-  private Document buildRecipeDocumentForIndexing(Entity recipeEntity) {
+  private Document buildRecipeDocumentForIndexing(
+    Entity recipeEntity,
+    String fieldName,
+    String fieldValue
+  ) {
     Document recipeDocument = Document
       .newBuilder()
       .setId(String.valueOf(recipeEntity.getKey().getId()))
-      .addField(
-        Field
-          .newBuilder()
-          .setName("title")
-          .setText((String) recipeEntity.getProperty("index_title"))
-      )
+      .addField(Field.newBuilder().setName(fieldName).setText(fieldValue))
       .build();
 
     return recipeDocument;
