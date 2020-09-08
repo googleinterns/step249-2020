@@ -4,15 +4,10 @@
 <%@ page session="true" %>
 
 <div class="header wrapper">
-  <nav class="navbar mb-0">
-    <a href="/" class="link nav-item mx-3">LOGO</a>
-    <form action="search" class="form-line">
-          <input type="text" class="form-control searchbar" placeholder="Type recipe title" name="searchterm" value="${dataSearched}"/>
-          <button type="submit" class="btn btn-secondary mx-3" value="search">Search</button>
-    </form>
+  <nav class="navbar justify-content-end">
     <div class="links">
-           <a class="link nav-item mx-3">post a recipe</a>
-            <c:choose>
+      <a class="link nav-item mx-3">post a recipe</a>
+      <c:choose>
              <c:when test="${isLoggedIn == 1}">
                   <a class="link nav-item mx-3">welcome ${username}</a>
                   <a href="${logoutURL}" class="link nav-item mx-3">log out</a>
@@ -20,7 +15,7 @@
              <c:otherwise>
                   <a href="_ah/login?continue=%2Flogin" class="link nav-item mx-3">log in/sign up</a>
              </c:otherwise>
-            </c:choose>
-     </div>
+      </c:choose>
+    </div>
   </nav>
 </div>
