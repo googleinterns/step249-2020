@@ -46,7 +46,7 @@ import org.apache.commons.lang3.StringUtils;
 public class SearchServlet extends HttpServlet {
 
   /**
-   * Search and returns a list of first 10 recipes with the title matching the given parameters(searchterm & ingredients).
+   * Search and returns a list of first 10 recipes with the title matching the given parameter(searchterm).
    * The index returns a list of documents in the ascending order by title.
    * Special characters inside the search terms are replaced with space.
    * We compute and return the intersection of the following lists:
@@ -56,22 +56,16 @@ public class SearchServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    String titleToMatch = request
+    String stringToMatch = request
       .getParameter("searchterm")
       .replaceAll("[^a-zA-Z0-9]+", " ")
       .trim();
-    String ingredientsToMatch = request
-      .getParameter("ingredients")
-      .replaceAll("[^a-zA-Z0-9]+", " ")
-      .trim();
-    request.setAttribute("titleSearched", titleToMatch);
-    request.setAttribute("ingredientsSearched", ingredientsToMatch);
+    request.setAttribute("dataSearched", stringToMatch);
 
     List<Recipe> recipesListToReturn = recipesMatching(
       request,
       response,
-      titleToMatch,
-      ingredientsToMatch
+      stringToMatch
     );
 
     request.setAttribute("recipesList", recipesListToReturn);
@@ -84,15 +78,14 @@ public class SearchServlet extends HttpServlet {
   private List<Recipe> recipesMatching(
     HttpServletRequest request,
     HttpServletResponse response,
-    String titleToMatch,
-    String ingredientsToMatch
+    String stringToMatch
   )
     throws ServletException, IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     List<Recipe> recipesMatchingList = new ArrayList<>();
     Index index = getIndex("recipes_index");
 
-    Query query = buildQuery(titleToMatch, ingredientsToMatch);
+    Query query = buildQuery(stringToMatch);
     Results<ScoredDocument> results = index.search(query);
     for (ScoredDocument entity : results) {
       try {
@@ -121,59 +114,23 @@ public class SearchServlet extends HttpServlet {
     return index;
   }
 
-  private Query buildQuery(String titleToMatch, String ingredientsToMatch) {
+  private Query buildQuery(String stringToMatch) {
     Cursor responseCursor = Cursor.newBuilder().build();
     QueryOptions options = QueryOptions
       .newBuilder()
       .setLimit(60)
       .setSortOptions(
-        SortOptions
-          .newBuilder()
-          .addSortExpression(
-            SortExpression
-              .newBuilder()
-              .setExpression("_rank")
-              .setDirection(SortExpression.SortDirection.DESCENDING)
-              .setDefaultValue("")
-          )
+        SortOptions.newBuilder().setMatchScorer(MatchScorer.newBuilder())
       )
       .setCursor(responseCursor)
       .build();
 
-    String searchString = createSearchString(titleToMatch, ingredientsToMatch);
-
-    Query query = Query.newBuilder().setOptions(options).build(searchString);
+    Query query = Query
+      .newBuilder()
+      .setOptions(options)
+      .build(stringToMatch.toLowerCase());
 
     return query;
-  }
-
-  /**
-   * This function create and return
-   */
-  private String createSearchString(
-    String titleToMatch,
-    String ingredientsToMatch
-  ) {
-    String searchString = new String();
-
-    if (!StringUtils.isBlank(titleToMatch)) {
-      searchString =
-        searchString + "title=" + titleToMatch.replaceAll(" ", " AND ");
-    }
-    if (
-      !StringUtils.isBlank(titleToMatch) &&
-      !StringUtils.isBlank(ingredientsToMatch)
-    ) {
-      searchString = searchString + " AND ";
-    }
-    if (!StringUtils.isBlank(ingredientsToMatch)) {
-      searchString =
-        searchString +
-        "ingredients=" +
-        ingredientsToMatch.replaceAll(" ", " AND ");
-    }
-
-    return searchString;
   }
 
   /**
