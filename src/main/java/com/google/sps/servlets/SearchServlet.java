@@ -40,6 +40,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
@@ -57,81 +58,57 @@ public class SearchServlet extends HttpServlet {
     throws ServletException, IOException {
     String titleToMatch = request
       .getParameter("searchterm")
-      .replaceAll("[^a-zA-Z0-9]+", " ");
+      .replaceAll("[^a-zA-Z0-9]+", " ")
+      .trim();
     String ingredientsToMatch = request
       .getParameter("ingredients")
-      .replaceAll("[^a-zA-Z0-9]+", " ");
+      .replaceAll("[^a-zA-Z0-9]+", " ")
+      .trim();
     request.setAttribute("titleSearched", titleToMatch);
     request.setAttribute("ingredientsSearched", ingredientsToMatch);
 
-    Index indexTitle = getIndex("recipe_title_index");
-    Index indexIngredients = getIndex("recipe_ingredients_index");
-
-    List<Recipe> recipesListToReturn = new ArrayList<>();
-    List<Recipe> recipesListByTitle = recipesMatching(
+    List<Recipe> recipesListToReturn = recipesMatching(
       request,
       response,
       titleToMatch,
-      "title",
-      indexTitle
-    );
-    List<Recipe> recipesListByIngredients = recipesMatching(
-      request,
-      response,
-      ingredientsToMatch,
-      "ingredients",
-      indexIngredients
+      ingredientsToMatch
     );
 
-    for (Recipe recipe : recipesListByTitle) {
-      if (recipesListByIngredients.contains(recipe)) {
-        recipesListToReturn.add(recipe);
-      }
-    }
     request.setAttribute("recipesList", recipesListToReturn);
     request.getRequestDispatcher("/search.jsp").forward(request, response);
   }
 
   /**
-   * Returns a list of recipes matching the given string.
-   * Because the index returns a limited list of documents we iterate through using a cursor.
-   * The cursor becomes null when the end of the results is reached.
+   * Returns a list of recipes matching the given title and ingredients.
    */
   private List<Recipe> recipesMatching(
     HttpServletRequest request,
     HttpServletResponse response,
-    String stringToMatch,
-    String field,
-    Index indexTitle
+    String titleToMatch,
+    String ingredientsToMatch
   )
     throws ServletException, IOException {
-    Cursor responseCursor = Cursor.newBuilder().build();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     List<Recipe> recipesMatchingList = new ArrayList<>();
+    Index index = getIndex("recipes_index");
 
-    do {
-      Query query = buildQuery(field, stringToMatch, responseCursor);
-      Results<ScoredDocument> results = indexTitle.search(query);
-      responseCursor = results.getCursor();
+    Query query = buildQuery(titleToMatch, ingredientsToMatch);
+    Results<ScoredDocument> results = index.search(query);
+    for (ScoredDocument entity : results) {
+      try {
+        Entity recipeEntity = getRecipeEntityFromDocumentEntity(
+          datastore,
+          entity
+        );
 
-      for (ScoredDocument entity : results) {
-        try {
-          Entity recipeEntity = getRecipeEntityFromDocumentEntity(
-            datastore,
-            entity
-          );
-          Recipe recipe = buildRecipe(recipeEntity);
-          recipesMatchingList.add(recipe);
-        } catch (EntityNotFoundException e) {
-          response.setStatus(505);
-          request
-            .getRequestDispatcher("/search.jsp")
-            .forward(request, response);
-          return recipesMatchingList;
-        }
+        Recipe recipe = buildRecipe(recipeEntity);
+        recipesMatchingList.add(recipe);
+      } catch (EntityNotFoundException e) {
+        response.setStatus(505);
+        request.getRequestDispatcher("/search.jsp").forward(request, response);
+        return recipesMatchingList;
       }
-    } while (responseCursor != null);
-
+    }
     return recipesMatchingList;
   }
 
@@ -144,24 +121,59 @@ public class SearchServlet extends HttpServlet {
     return index;
   }
 
-  private Query buildQuery(
-    String fieldToSnippet,
-    String stringToMatch,
-    Cursor responseCursor
-  ) {
+  private Query buildQuery(String titleToMatch, String ingredientsToMatch) {
+    Cursor responseCursor = Cursor.newBuilder().build();
     QueryOptions options = QueryOptions
       .newBuilder()
-      .setLimit(50)
-      .setFieldsToSnippet(fieldToSnippet)
+      .setLimit(60)
+      .setSortOptions(
+        SortOptions
+          .newBuilder()
+          .addSortExpression(
+            SortExpression
+              .newBuilder()
+              .setExpression("_rank")
+              .setDirection(SortExpression.SortDirection.DESCENDING)
+              .setDefaultValue("")
+          )
+      )
       .setCursor(responseCursor)
       .build();
 
-    Query query = Query
-      .newBuilder()
-      .setOptions(options)
-      .build(stringToMatch.toLowerCase());
+    String searchString = createSearchString(titleToMatch, ingredientsToMatch);
+
+    Query query = Query.newBuilder().setOptions(options).build(searchString);
 
     return query;
+  }
+
+  /**
+   * This function create and return
+   */
+  private String createSearchString(
+    String titleToMatch,
+    String ingredientsToMatch
+  ) {
+    String searchString = new String();
+
+    if (!StringUtils.isBlank(titleToMatch)) {
+      searchString =
+        searchString + "title=" + titleToMatch.replaceAll(" ", " AND ");
+    }
+    if (
+      !StringUtils.isBlank(titleToMatch) &&
+      !StringUtils.isBlank(ingredientsToMatch)
+    ) {
+      searchString = searchString + " AND ";
+    }
+    if (!StringUtils.isBlank(ingredientsToMatch)) {
+      searchString =
+        searchString +
+        "ingredients=" +
+        ingredientsToMatch.replaceAll(" ", " AND ");
+    }
+
+    return searchString;
   }
 
   /**

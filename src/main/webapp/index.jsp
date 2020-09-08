@@ -9,10 +9,10 @@
              <input type="text" class="form-control searchbar" id="searchbar" placeholder="Type recipe title" name="searchterm">
              <input type="text" class="form-control searchbar" id="ingredients-input" placeholder="Type ingredients separated by comma" name="ingredients" style="display: none;">
              <div class="btn-line">
-                <button type="button" class="btn btn-secondary my-3" id="ingredients-button" onclick="showIngredientsInput()">Search by ingredients</button>
                 <button type="submit" class="btn btn-secondary my-3 " id="ingredients-submit" value="search" style="display: none;">Search</button>
-                <button type="submit" class="btn btn-secondary my-3" id="title-search" value="search">Search</button>
-                 <a href="/random" class="btn btn-secondary my-3">Random Recipe</a>
+                <button type="submit" class="btn btn-secondary my-3" id="title-search" value="search">Search by title</button>
+                <button type="button" class="btn btn-secondary my-3" id="ingredients-button" onclick="showIngredientsInput()">Search by ingredients</button>
+                <a href="/random" class="btn btn-secondary my-3">Random Recipe</a>
              </div>
         </form>
       </div>

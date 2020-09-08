@@ -25,9 +25,7 @@ function showIngredientsInput() {
     document.getElementById('title-input').classList.add('mr-3');
 }
 
-function showTitleInput() {}
-
 function checkIngredientsList() {
-  if (document.getElementById('ingredients-input').value)
-   showIngredientsInput();
+  if (document.getElementById('ingredients-input').value) 
+    showIngredientsInput();
 }

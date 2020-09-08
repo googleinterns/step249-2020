@@ -87,8 +87,7 @@ public class TestUploadServlet extends HttpServlet {
     ArrayList<String> stepList
   )
     throws Exception, InterruptedException, IOException {
-    Index indexTitle = getIndex("recipe_title_index");
-    Index indexIngredients = getIndex("recipe_ingredients_index");
+    Index index = getIndex("recipes_index");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     // We use an index to store the documents; every document contains a recipe's title and its ID.
@@ -110,20 +109,14 @@ public class TestUploadServlet extends HttpServlet {
       ingredients,
       stepList
     );
-    Document recipeDocumentTitle = buildRecipeDocumentForIndexing(
+    Document recipeDocument = buildRecipeDocument(
       recipeEntity,
-      "title",
-      title.toLowerCase()
-    );
-    Document recipeDocumentIngredients = buildRecipeDocumentForIndexing(
-      recipeEntity,
-      "ingredients",
-      ingredientsString
+      title.toLowerCase(),
+      ingredientsString.toLowerCase()
     );
 
     datastore.put(recipeEntity);
-    indexTitle.put(recipeDocumentTitle);
-    indexIngredients.put(recipeDocumentIngredients);
+    index.put(recipeDocument);
   }
 
   /**
@@ -211,17 +204,20 @@ public class TestUploadServlet extends HttpServlet {
   }
 
   /**
-   * Build a Recipe Document by the given Recipe Entity
+   * Build a Recipe Document by the given Recipe Entity.
    */
-  private Document buildRecipeDocumentForIndexing(
+  private Document buildRecipeDocument(
     Entity recipeEntity,
-    String fieldName,
-    String fieldValue
+    String titleValue,
+    String ingredientsValue
   ) {
     Document recipeDocument = Document
       .newBuilder()
       .setId(String.valueOf(recipeEntity.getKey().getId()))
-      .addField(Field.newBuilder().setName(fieldName).setText(fieldValue))
+      .addField(Field.newBuilder().setName("title").setText(titleValue))
+      .addField(
+        Field.newBuilder().setName("ingredients").setText(ingredientsValue)
+      )
       .build();
 
     return recipeDocument;
