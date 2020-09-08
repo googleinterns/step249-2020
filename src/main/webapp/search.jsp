@@ -7,13 +7,6 @@
           <script type="text/javascript">
             checkIngredientsList();
           </script>
-          <ul id="results" class="list-group list-group-flush">
-                    <c:forEach items="${names}" var="recipe">
-                        <li class="list-group-item">
-                            <h1>${recipe}</h1>
-                        </li>
-                    </c:forEach>
-                </ul>
         <c:choose>
             <c:when test="${recipesList.size() > 0}">
                 <ul id="results" class="list-group list-group-flush">

@@ -177,7 +177,7 @@ public class SearchServlet extends HttpServlet {
   }
 
   /**
-   * Build a Recipe Object with the given Entity
+   * Build a Recipe Object with the given Entity.
    */
   private Recipe buildRecipe(Entity recipeEntity) {
     Long id = recipeEntity.getKey().getId();
@@ -195,7 +195,7 @@ public class SearchServlet extends HttpServlet {
   }
 
   /**
-   * Build a Recipe Entity with the given Document
+   * Build a Recipe Entity with the given Document.
    */
   private Entity getRecipeEntityFromDocumentEntity(
     DatastoreService datastore,
