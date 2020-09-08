@@ -5,13 +5,13 @@
 <t:genericpage>
     <jsp:body>
        <div class="content">
-        <form action="/profile_creation" method="GET">
+        <form action="/profile_edit?id=${id}" method="GET">
            <div class="form-group">
-              <label for="username">Display Name</label>
+              <label for="username">Edit Display Name</label>
               <input type="text" class="form-control" name="username" placeholder="Type your username" required>
            </div>
            <div class="form-group">
-              <label for="bio">Your Bio</label>
+              <label for="bio">Edit Your Bio</label>
               <textarea class="form-control" name="bio" rows="3" required></textarea>
            </div>
            <button type="submit" class="btn btn-secondary my-3">submit</button>

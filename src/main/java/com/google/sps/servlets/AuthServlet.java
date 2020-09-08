@@ -59,16 +59,15 @@ public class AuthServlet extends HttpServlet {
   }
 
   public void handleLogIn(HttpServletResponse response, HttpSession session, UserService userService) throws IOException {
-       String url = "/login";
+       String urlToRedirectToAfterUserLogsOut = "/login";
 
        Entity currentUser = queryForUser(userService);
        if (Objects.isNull(currentUser)){
-             setRequestAttributes( session, url, userService);
-             //TODO redirect response to profile creation . jsp
-             request.getRequestDispatcher("/profile_creation.jsp").forward(request, response);
+             setRegistartionAttributes( userService, urlToRedirectToAfterUserLogsOut, session);
+             //TODO redirect response to profile creation . js
              response.sendRedirect("/profile_creation.jsp");
         } else {
-             setSessionAttributes(session, url, userService, currentUser);
+             setUserAttributes(session, urlToRedirectToAfterUserLogsOut, userService, currentUser);
              response.sendRedirect("/user?id="+currentUser.getKey().getId());                
         }
   }
@@ -89,20 +88,22 @@ public class AuthServlet extends HttpServlet {
        return currentUser;
   }
   
-  public void setSessionAttributes( HttpSession session, String url, UserService userService, Entity userEntity) throws IOException {
+  public void setUserAttributes( HttpSession session, String url, UserService userService, Entity userEntity) throws IOException {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = url;
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      String logoutUrl = userService.createLogoutURL(url);
 
       session.setAttribute("isLoggedIn", 1);
       session.setAttribute("userEmail", userEmail);
       session.setAttribute("logoutURL", logoutUrl);
-      session.setAttribute("username", userEntity.getProperty("name"));
+      session.setAttribute("name", userEntity.getProperty("name"));
       session.setAttribute("id", userEntity.getKey().getId());
   }
 
-  public void setRequestAttributes(Entity userEntity, HttpSession session) throws IOException{
-      request.setAttribute("uregisteredUserEmail", userEmail);
-      request.setAttribute("logoutURL", logoutUrl);
+  public void setRegistartionAttributes(UserService userService, String url, HttpSession session) throws IOException{
+      String userEmail = userService.getCurrentUser().getEmail();
+      String logoutUrl = userService.createLogoutURL(url);
+
+      session.setAttribute("uregisteredUserEmail", userEmail);
+      session.setAttribute("logoutURL", logoutUrl);
   }
 }

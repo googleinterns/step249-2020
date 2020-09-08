@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/profile_creation")
-public class ProfileEditServlet extends HttpServlet {
+public class ProfileCreationServlet extends HttpServlet {
  /**
   * doPost checks if the user is currently logged in and returns the correct header
   */
@@ -43,30 +43,27 @@ public class ProfileEditServlet extends HttpServlet {
       
       HttpSession session = request.getSession();
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      Entity userEntity = null;
-      try {
-        userEntity = getUserById(datastore, request.getParameter("id"));
-      } catch(EntityNotFoundException e) {
-        request.setAttribute("error", 1);
-      }
-      setEnitityAttributes(userEntity, username, bio);
+
+      Entity userEntity = new Entity("User");
+      setEnitityAttributes(userEntity, username, bio, session);
       datastore.put(userEntity);
       
-      session.setAttribute("name", username);
+      setSessionAttributes(session, userEntity, username);
 
       response.sendRedirect("/user?id="+userEntity.getKey().getId()); 
   }
 
-  public void setEnitityAttributes(Entity userEntity, String username, String bio){
+  public void setEnitityAttributes(Entity userEntity, String username, String bio, HttpSession session){
+      userEntity.setProperty("email", session.getAttribute("unregisteredUserEmail"));
       userEntity.setProperty("name", username);
       userEntity.setProperty("bio", bio);
       userEntity.setProperty("imageURL", "images/default.png");
   }
 
-  public Entity getUserById(DatastoreService datastore, String idUser)
-    throws IOException, EntityNotFoundException {
-    long id = Long.parseLong(idUser);
-    Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));
-    return recipeEntity;
+  public void setSessionAttributes(HttpSession session, Entity userEntity, String username){
+      session.setAttribute("name", username);
+      session.setAttribute("isLoggedIn", 1);
+      session.setAttribute("id", userEntity.getKey().getId());
   }
 }
+  

@@ -14,7 +14,7 @@
            <a class="link nav-item mx-3">post a recipe</a>
             <c:choose>
              <c:when test="${isLoggedIn == 1}">
-                  <a class="link nav-item mx-3">welcome ${username}</a>
+                  <a href="/user?id=${id}" class="link nav-item mx-3">my profile</a>
                   <a href="${logoutURL}" class="link nav-item mx-3">log out</a>
              </c:when>
              <c:otherwise>
