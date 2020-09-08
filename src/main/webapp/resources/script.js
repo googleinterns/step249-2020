@@ -29,3 +29,4 @@ function checkIngredientsList() {
   if (document.getElementById('ingredients-input').value) 
     showIngredientsInput();
 }
+
