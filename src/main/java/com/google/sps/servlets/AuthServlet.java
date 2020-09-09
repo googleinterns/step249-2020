@@ -118,6 +118,7 @@ public class AuthServlet extends HttpServlet {
     session.setAttribute("userEmail", userEmail);
     session.setAttribute("logoutURL", logoutUrl);
     session.setAttribute("name", userEntity.getProperty("name"));
+    session.setAttribute("bio", userEntity.getProperty("bio"));
     session.setAttribute("id", userEntity.getKey().getId());
   }
 

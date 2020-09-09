@@ -5,6 +5,9 @@
 <t:genericpage>
     <jsp:body>
        <div class="content">
+        <h3> User Registration </h3>
+        <h5> To complete your user registration please fill the fom below and click submit</h5>
+        <br>
         <form action="/profile_creation" method="GET">
            <div class="form-group">
               <label for="username">Display Name</label>

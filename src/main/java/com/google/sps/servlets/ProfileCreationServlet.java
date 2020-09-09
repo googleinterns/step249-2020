@@ -35,7 +35,7 @@ import javax.servlet.http.HttpSession;
 public class ProfileCreationServlet extends HttpServlet {
 
   /**
-   * doPost checks if the user is currently logged in and returns the correct header
+   * doPost creates a new user entity and assigns it the property inputed in the user creation form
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,7 +50,7 @@ public class ProfileCreationServlet extends HttpServlet {
     setEnitityAttributes(userEntity, username, bio, session);
     datastore.put(userEntity);
 
-    setSessionAttributes(session, userEntity, username);
+    setSessionAttributes(session, userEntity, username, bio);
 
     response.sendRedirect("/user?id=" + userEntity.getKey().getId());
   }
@@ -63,7 +63,7 @@ public class ProfileCreationServlet extends HttpServlet {
   ) {
     userEntity.setProperty(
       "email",
-      session.getAttribute("unregisteredUserEmail")
+      session.getAttribute("uregisteredUserEmail")
     );
     userEntity.setProperty("name", username);
     userEntity.setProperty("bio", bio);
@@ -73,9 +73,11 @@ public class ProfileCreationServlet extends HttpServlet {
   public void setSessionAttributes(
     HttpSession session,
     Entity userEntity,
-    String username
+    String username,
+    String bio
   ) {
     session.setAttribute("name", username);
+    session.setAttribute("bio", bio);
     session.setAttribute("isLoggedIn", 1);
     session.setAttribute("id", userEntity.getKey().getId());
   }

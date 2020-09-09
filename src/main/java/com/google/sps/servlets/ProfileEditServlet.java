@@ -31,23 +31,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/profile_creation")
+@WebServlet("/profile_edit")
 public class ProfileEditServlet extends HttpServlet {
 
   /**
-   * doPost checks if the user is currently logged in and returns the correct header
+   * doPost update the user attributes with the new ones inputted in the user profile edit form
    */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     String username = request.getParameter("username");
     String bio = request.getParameter("bio");
 
     HttpSession session = request.getSession();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    long id = (long)session.getAttribute("id");
     Entity userEntity = null;
     try {
-      userEntity = getUserById(datastore, request.getParameter("id"));
+      userEntity = getUserById(datastore, id);
     } catch (EntityNotFoundException e) {
       request.setAttribute("error", 1);
     }
@@ -55,8 +56,9 @@ public class ProfileEditServlet extends HttpServlet {
     datastore.put(userEntity);
 
     session.setAttribute("name", username);
+    session.setAttribute("bio", bio);
 
-    response.sendRedirect("/user?id=" + userEntity.getKey().getId());
+    response.sendRedirect("/user?id=" + id);
   }
 
   public void setEnitityAttributes(
@@ -69,10 +71,9 @@ public class ProfileEditServlet extends HttpServlet {
     userEntity.setProperty("imageURL", "images/default.png");
   }
 
-  public Entity getUserById(DatastoreService datastore, String idUser)
+  public Entity getUserById(DatastoreService datastore, long id)
     throws IOException, EntityNotFoundException {
-    long id = Long.parseLong(idUser);
-    Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));
-    return recipeEntity;
+    Entity userEntity = datastore.get(KeyFactory.createKey("User", id));
+    return userEntity;
   }
 }
