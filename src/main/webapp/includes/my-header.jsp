@@ -11,7 +11,7 @@
              <button type="submit" class="btn btn-secondary mx-3" value="search">search</button>
         </form>
         <div class="links">
-           <a class="link nav-item mx-3">post a recipe</a>
+           <a href="/recipe_post.jsp" class="link nav-item mx-3">post a recipe</a>
             <c:choose>
              <c:when test="${isLoggedIn == 1}">
                   <a href="/user?id=${id}" class="link nav-item mx-3">my profile</a>
