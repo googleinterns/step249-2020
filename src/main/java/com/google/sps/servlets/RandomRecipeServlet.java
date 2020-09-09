@@ -42,14 +42,19 @@ import javax.servlet.http.HttpServletResponse;
 public class RandomRecipeServlet extends HttpServlet {
 
   /**
-   * This function creates an url from a random recipe's id.
+   * This function redirects to random recipe's page or to the home page if there are no recipes inside the datastore.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws IOException, ServletException {
+    throws IOException, ServletException, IndexOutOfBoundsException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    String url = "/recipe?id=" + returnRandomId(datastore);
-
+    String url = new String();
+    try{
+       url = "/recipe?id=" + returnRandomId(datastore);
+    }
+    catch(IndexOutOfBoundsException e){
+       url = "/";
+    }
     request.getRequestDispatcher(url).forward(request, response);
   }
 
