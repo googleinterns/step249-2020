@@ -33,37 +33,50 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/profile_creation")
 public class ProfileCreationServlet extends HttpServlet {
- /**
-  * doPost checks if the user is currently logged in and returns the correct header
-  */
+
+  /**
+   * doPost checks if the user is currently logged in and returns the correct header
+   */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      String username = request.getParameter("username");
-      String bio = request.getParameter("bio");
-      
-      HttpSession session = request.getSession();
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String username = request.getParameter("username");
+    String bio = request.getParameter("bio");
 
-      Entity userEntity = new Entity("User");
-      setEnitityAttributes(userEntity, username, bio, session);
-      datastore.put(userEntity);
-      
-      setSessionAttributes(session, userEntity, username);
+    HttpSession session = request.getSession();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-      response.sendRedirect("/user?id="+userEntity.getKey().getId()); 
+    Entity userEntity = new Entity("User");
+    setEnitityAttributes(userEntity, username, bio, session);
+    datastore.put(userEntity);
+
+    setSessionAttributes(session, userEntity, username);
+
+    response.sendRedirect("/user?id=" + userEntity.getKey().getId());
   }
 
-  public void setEnitityAttributes(Entity userEntity, String username, String bio, HttpSession session){
-      userEntity.setProperty("email", session.getAttribute("unregisteredUserEmail"));
-      userEntity.setProperty("name", username);
-      userEntity.setProperty("bio", bio);
-      userEntity.setProperty("imageURL", "images/default.png");
+  public void setEnitityAttributes(
+    Entity userEntity,
+    String username,
+    String bio,
+    HttpSession session
+  ) {
+    userEntity.setProperty(
+      "email",
+      session.getAttribute("unregisteredUserEmail")
+    );
+    userEntity.setProperty("name", username);
+    userEntity.setProperty("bio", bio);
+    userEntity.setProperty("imageURL", "images/default.png");
   }
 
-  public void setSessionAttributes(HttpSession session, Entity userEntity, String username){
-      session.setAttribute("name", username);
-      session.setAttribute("isLoggedIn", 1);
-      session.setAttribute("id", userEntity.getKey().getId());
+  public void setSessionAttributes(
+    HttpSession session,
+    Entity userEntity,
+    String username
+  ) {
+    session.setAttribute("name", username);
+    session.setAttribute("isLoggedIn", 1);
+    session.setAttribute("id", userEntity.getKey().getId());
   }
 }
-  

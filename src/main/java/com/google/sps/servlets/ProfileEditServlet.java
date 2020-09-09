@@ -33,34 +33,40 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/profile_creation")
 public class ProfileEditServlet extends HttpServlet {
- /**
-  * doPost checks if the user is currently logged in and returns the correct header
-  */
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      String username = request.getParameter("username");
-      String bio = request.getParameter("bio");
-      
-      HttpSession session = request.getSession();
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      Entity userEntity = null;
-      try {
-        userEntity = getUserById(datastore, request.getParameter("id"));
-      } catch(EntityNotFoundException e) {
-        request.setAttribute("error", 1);
-      }
-      setEnitityAttributes(userEntity, username, bio);
-      datastore.put(userEntity);
-      
-      session.setAttribute("name", username);
 
-      response.sendRedirect("/user?id="+userEntity.getKey().getId()); 
+  /**
+   * doPost checks if the user is currently logged in and returns the correct header
+   */
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String username = request.getParameter("username");
+    String bio = request.getParameter("bio");
+
+    HttpSession session = request.getSession();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity userEntity = null;
+    try {
+      userEntity = getUserById(datastore, request.getParameter("id"));
+    } catch (EntityNotFoundException e) {
+      request.setAttribute("error", 1);
+    }
+    setEnitityAttributes(userEntity, username, bio);
+    datastore.put(userEntity);
+
+    session.setAttribute("name", username);
+
+    response.sendRedirect("/user?id=" + userEntity.getKey().getId());
   }
 
-  public void setEnitityAttributes(Entity userEntity, String username, String bio){
-      userEntity.setProperty("name", username);
-      userEntity.setProperty("bio", bio);
-      userEntity.setProperty("imageURL", "images/default.png");
+  public void setEnitityAttributes(
+    Entity userEntity,
+    String username,
+    String bio
+  ) {
+    userEntity.setProperty("name", username);
+    userEntity.setProperty("bio", bio);
+    userEntity.setProperty("imageURL", "images/default.png");
   }
 
   public Entity getUserById(DatastoreService datastore, String idUser)
