@@ -187,6 +187,7 @@ public class TestUploadServlet extends HttpServlet {
       "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
     Random rd = new Random();
     Double number = rd.nextDouble();
+    Double prep_time = 30.00;
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
@@ -194,8 +195,8 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("author", "Piece of Cake");
     recipeEntity.setProperty("description", description);
-    recipeEntity.setProperty("difficulty", "N/A");
-    recipeEntity.setProperty("prep_time", "N/A");
+    recipeEntity.setProperty("difficulty", "easy");
+    recipeEntity.setProperty("prep_time", prep_time);
     recipeEntity.setProperty("cook_time", "N/A");
     recipeEntity.setProperty("author_id", 1);
     recipeEntity.setProperty("random_number", number);
@@ -217,6 +218,18 @@ public class TestUploadServlet extends HttpServlet {
       .addField(Field.newBuilder().setName("title").setText(titleValue))
       .addField(
         Field.newBuilder().setName("ingredients").setText(ingredientsValue)
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("prep_time")
+          .setNumber((Double) recipeEntity.getProperty("prep_time"))
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("difficulty")
+          .setText((String) recipeEntity.getProperty("difficulty"))
       )
       .build();
 
