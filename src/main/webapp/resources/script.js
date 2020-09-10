@@ -17,27 +17,26 @@ $(document).ready(function (){
   var step = 1;
   var ingredient = 1;
   addRemove(maxField, step, '.step-add-button', '.step-wrapper', '.step-form', 'step-remove-button');
-  addRemove(maxField, step, '.ingredient-add-button', '.ingredient-wrapper', '.ingredient-form', 'ingredient-remove-button');
+  addRemove(maxField, ingredient, '.ingredient-add-button', '.ingredient-wrapper', '.ingredient-form', 'ingredient-remove-button');
 });
 
 
 function addRemove(maxField, x, addButton, wrapper, form, removeButton ){
   var addButton = $(addButton); //Add button selector
-  var wrap = $(wrapper);
- 
+  
  //Once add button is clicked
   $(addButton).click(function(){
-  var inputBox = $(form ).clone(); //clone the input box to be added
+  var inputBox = $(form).clone();
   var fieldHTML ='<div>'+inputBox.html()+'<a href="javascript:void(0);" class="'+removeButton+'">REMOVE</a></div>'; //New input field html 
   //Check maximum number of input fields
   if(x < maxField){ 
        x++; //Increment field counter
-       $(wrap).append(fieldHTML); //Add field html
+       $(wrapper).append(fieldHTML); //Add field html
   }
   });
     
  //Once remove button is clicked
- $(wrap).on('click', '.'+removeButton, function(e){
+ $(wrapper).on('click', '.'+removeButton, function(e){
         e.preventDefault();
         $(this).parent('div').remove(); //Remove field html
         x--; //Decrement field counter

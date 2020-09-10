@@ -14,8 +14,8 @@
                 <input type="text" class="form-control" name="title" placeholder="Type your recipe title" maxlength="50" required>
              </div>
              <div class="form-group">
-                <label for="description">Add a short description for your recipe</label>
-                <textarea class="form-control" name="description" rows="3" maxlength="500" required></textarea>
+                <label for="description">Overview</label>
+                <textarea class="form-control" name="description" rows="3" placeholder="Add a short description for your recipe" maxlength="500" required></textarea>
              </div>
              <fieldset class="form-group">
                 <label>Select the difficulty</label>
@@ -59,12 +59,12 @@
                 <label>Ingredients</label>
                 <div class="ingredient-wrapper">
                 <div class="ingredient-form">
-                 <div class="form-row">
+                 <div class="form-row" name="ingredient">
                   <div class="col">
                       <input type="number" class="form-control" name="quantity" placeholder="quantity" required>
                   </div>
                   <div class="col">
-                      <input type="text" class="form-control" name="measure" maxlength="50" placeholder="unit of measurment" required>
+                      <input type="text" class="form-control" name="measure" maxlength="50" placeholder="unit of measurment" >
                   </div>
                   <div class="col">
                       <input type="text" class="form-control" name="ingredient" placeholder="ingredient" maxlength="50" required>
