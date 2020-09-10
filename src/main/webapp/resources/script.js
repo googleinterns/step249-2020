@@ -14,25 +14,32 @@
 
 $(document).ready(function (){
   var maxField = 50; //Input fields increment limitation
-  var addButton = $('.add-button'); //Add button selector
-  var x = 1; //Initial field counter is 1
-  var wrapper = $('.step-wrapper'); //Input field wrapper
-            
+  var step = 1;
+  var ingredient = 1;
+  addRemove(maxField, step, '.step-add-button', '.step-wrapper', '.step-form', 'step-remove-button');
+  addRemove(maxField, step, '.ingredient-add-button', '.ingredient-wrapper', '.ingredient-form', 'ingredient-remove-button');
+});
+
+
+function addRemove(maxField, x, addButton, wrapper, form, removeButton ){
+  var addButton = $(addButton); //Add button selector
+  var wrap = $(wrapper);
+ 
  //Once add button is clicked
   $(addButton).click(function(){
-  var inputBox = $(".step-form" ).clone(); //clone the input box to be added
-  var fieldHTML ='<div class="d-inline">'+inputBox.html()+'<a href="javascript:void(0);" class="remove-button">REMOVE</a></div>'; //New input field html 
+  var inputBox = $(form ).clone(); //clone the input box to be added
+  var fieldHTML ='<div>'+inputBox.html()+'<a href="javascript:void(0);" class="'+removeButton+'">REMOVE</a></div>'; //New input field html 
   //Check maximum number of input fields
   if(x < maxField){ 
        x++; //Increment field counter
-       $(wrapper).append(fieldHTML); //Add field html
+       $(wrap).append(fieldHTML); //Add field html
   }
   });
     
  //Once remove button is clicked
-$(wrapper).on('click', '.remove-button', function(e){
-   e.preventDefault();
-   $(this).parent('div').remove(); //Remove field html
-   x--; //Decrement field counter
-  });
-});
+ $(wrap).on('click', '.'+removeButton, function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+}

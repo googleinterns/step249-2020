@@ -57,16 +57,21 @@
              </div>
              <div class="form-group">
                 <label>Ingredients</label>
-                <div class="form-row">
-                 <div class="col">
-                     <input type="number" class="form-control" name="quantity" placeholder="quantity" required>
+                <div class="ingredient-wrapper">
+                <div class="ingredient-form">
+                 <div class="form-row">
+                  <div class="col">
+                      <input type="number" class="form-control" name="quantity" placeholder="quantity" required>
+                  </div>
+                  <div class="col">
+                      <input type="text" class="form-control" name="measure" maxlength="50" placeholder="unit of measurment" required>
+                  </div>
+                  <div class="col">
+                      <input type="text" class="form-control" name="ingredient" placeholder="ingredient" maxlength="50" required>
+                  </div>
                  </div>
-                 <div class="col">
-                     <input type="text" class="form-control" name="measure" maxlength="50" placeholder="unit of measurment" required>
-                 </div>
-                 <div class="col">
-                     <input type="text" class="form-control" name="ingredient" placeholder="ingredient" maxlength="50" required>
-                 </div>
+                </div>
+                <a href="javascript:void(0);" class="ingredient-add-button" title="add-step">ADD INGREDIENT</a>
                 </div>
              </div>
              <div class="form-group">
@@ -75,7 +80,7 @@
                   <div class="step-form">
                    <textarea class="form-control" name="step" rows="3" maxlength="500" required></textarea>
                   </div>
-                   <a href="javascript:void(0);" class="add-button" title="add-step">ADD</a>
+                   <a href="javascript:void(0);" class="step-add-button" title="add-step">ADD STEP</a>
                 </div>
              </div>
              <button type="submit" class="btn btn-secondary my-3">submit</button>
