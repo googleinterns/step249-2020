@@ -134,17 +134,4 @@ public class Recipe {
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
   }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == this) {
-      return true;
-    }
-    if (obj == null || obj.getClass() != this.getClass()) {
-      return false;
-    }
-
-    Recipe guest = (Recipe) obj;
-    return id == guest.getId();
-  }
 }

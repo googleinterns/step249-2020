@@ -4,9 +4,6 @@
 <t:genericpage>
     <jsp:body>
       <div class="content">
-          <script type="text/javascript">
-            checkIngredientsList();
-          </script>
         <c:choose>
             <c:when test="${recipesList.size() > 0}">
                 <ul id="results" class="list-group list-group-flush">

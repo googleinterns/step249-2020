@@ -56,11 +56,9 @@ public class SearchServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    String stringToMatch = request
-      .getParameter("searchterm")
-      .replaceAll("[^a-zA-Z0-9]+", " ")
-      .trim();
-    request.setAttribute("dataSearched", stringToMatch);
+    String stringToMatch = request.getParameter("searchterm");
+    stringToMatch = trimAndRemoveCommas(stringToMatch);
+    request.setAttribute("searchQuery", stringToMatch);
 
     List<Recipe> recipesListToReturn = recipesMatching(
       request,
@@ -73,7 +71,18 @@ public class SearchServlet extends HttpServlet {
   }
 
   /**
-   * Returns a list of recipes matching the given title and ingredients.
+   * Replace and return the string with no commas and no multiple consecutive or trailing spaces.
+   */
+  private String trimAndRemoveCommas(String stringToRemove) {
+    if (!StringUtils.isBlank(stringToRemove)) {
+      stringToRemove = stringToRemove.replaceAll("[,]+", " ");
+      stringToRemove = stringToRemove.replaceAll("  +", " ");
+    }
+    return stringToRemove;
+  }
+
+  /**
+   * Returns a list of recipes matching the given title and/or ingredients.
    */
   private List<Recipe> recipesMatching(
     HttpServletRequest request,
@@ -85,7 +94,7 @@ public class SearchServlet extends HttpServlet {
     List<Recipe> recipesMatchingList = new ArrayList<>();
     Index index = getIndex("recipes_index");
 
-    Query query = buildQuery(stringToMatch);
+    Query query = buildQuery(stringToMatch, 10);
     Results<ScoredDocument> results = index.search(query);
     for (ScoredDocument entity : results) {
       try {
@@ -99,9 +108,10 @@ public class SearchServlet extends HttpServlet {
       } catch (EntityNotFoundException e) {
         response.setStatus(505);
         request.getRequestDispatcher("/search.jsp").forward(request, response);
-        return recipesMatchingList;
+        return new ArrayList<>();
       }
     }
+
     return recipesMatchingList;
   }
 
@@ -114,21 +124,18 @@ public class SearchServlet extends HttpServlet {
     return index;
   }
 
-  private Query buildQuery(String stringToMatch) {
+  private Query buildQuery(String stringToMatch, int limit) {
     Cursor responseCursor = Cursor.newBuilder().build();
     QueryOptions options = QueryOptions
       .newBuilder()
-      .setLimit(60)
+      .setLimit(limit)
       .setSortOptions(
         SortOptions.newBuilder().setMatchScorer(MatchScorer.newBuilder())
       )
       .setCursor(responseCursor)
       .build();
 
-    Query query = Query
-      .newBuilder()
-      .setOptions(options)
-      .build(stringToMatch.toLowerCase());
+    Query query = Query.newBuilder().setOptions(options).build(stringToMatch);
 
     return query;
   }
