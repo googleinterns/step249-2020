@@ -4,32 +4,6 @@
 
 <t:genericpage>
     <jsp:body>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-       <script type="text/javascript">
-            $(document).ready(function(){
-                  var maxField = 100; //Input fields increment limitation
-                  var addButton = $('.add_button'); //Add button selector
-                  var wrapper = $('.field_wrapper'); //Input field wrapper
-                  var fieldHTML = '<div> <textarea class="form-control" name="step" rows="3" maxlength="500" required></textarea><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png"/></a></div>'; //New input field html 
-                  var x = 1; //Initial field counter is 1
-    
-                  //Once add button is clicked
-                  $(addButton).click(function(){
-                  //Check maximum number of input fields
-                  if(x < maxField){ 
-                    x++; //Increment field counter
-                    $(wrapper).append(fieldHTML); //Add field html
-                }
-             });
-    
-             //Once remove button is clicked
-             $(wrapper).on('click', '.remove_button', function(e){
-                   e.preventDefault();
-                   $(this).parent('div').remove(); //Remove field html
-                   x--; //Decrement field counter
-             });
-            });
-       </script>
        <div class="content">
         <c:choose>
         <c:when test="${isLoggedIn == 1}">
@@ -97,9 +71,11 @@
              </div>
              <div class="form-group">
                 <label for="step">Steps</label>
-                <div class="field_wrapper">
+                <div class="step-wrapper">
+                  <div class="step-form">
                    <textarea class="form-control" name="step" rows="3" maxlength="500" required></textarea>
-                   <a href="javascript:void(0);" class="add_button" title="Add field">ADD</a>
+                  </div>
+                   <a href="javascript:void(0);" class="add-button" title="add-step">ADD</a>
                 </div>
              </div>
              <button type="submit" class="btn btn-secondary my-3">submit</button>
