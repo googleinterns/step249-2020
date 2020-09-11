@@ -103,7 +103,7 @@ public class SearchServlet extends HttpServlet {
           entity
         );
 
-        Recipe recipe = buildRecipe(recipeEntity);
+        Recipe recipe = buildRecipe(recipeEntity, datastore);
         recipesMatchingList.add(recipe);
       } catch (EntityNotFoundException e) {
         response.setStatus(505);
@@ -143,19 +143,43 @@ public class SearchServlet extends HttpServlet {
   /**
    * Build a Recipe Object with the given Entity.
    */
-  private Recipe buildRecipe(Entity recipeEntity) {
+  private Recipe buildRecipe(Entity recipeEntity, DatastoreService datastore) {
+    String authorName = new String();
     Long id = recipeEntity.getKey().getId();
     String name = (String) recipeEntity.getProperty("title");
     String imgURL = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
+    String difficulty = (String) recipeEntity.getProperty("difficulty");
+    Double prep_time_double = (Double) recipeEntity.getProperty("prep_time");
+    Integer prep_time_int = prep_time_double.intValue();
+    Long authorId = (Long) recipeEntity.getProperty("author_id");
+    try{
+        authorName = getUserNameById(authorId, datastore);
+    }
+    catch(EntityNotFoundException e){
+        authorName = "";
+    }
 
     Recipe recipe = new Recipe();
     recipe.setId(id);
     recipe.setName(name);
     recipe.setImage(imgURL);
     recipe.setDescription(description);
+    recipe.setPrepTime(prep_time_int);
+    recipe.setDifficulty(StringUtils.capitalize(difficulty));
+    recipe.setAuthor(authorName);
 
     return recipe;
+  }
+
+  /**
+   * Returns the user name with the given id.
+   */
+  private String getUserNameById(Long userId, DatastoreService datastore)
+    throws EntityNotFoundException {
+    Entity userEntity = datastore.get(KeyFactory.createKey("User", userId));
+
+    return (String) userEntity.getProperty("name");
   }
 
   /**
