@@ -141,19 +141,19 @@ public class TestUploadServlet extends HttpServlet {
     String title = lines.get(2);
     String imgURL = lines.get(4);
 
-    //When the scraper for the recipes was created the file structure was the following:
-    //Line 0 - link to the recipe's page from the website it was scraped,
-    //Line 1, 3, 5 - Blank line,
-    //Line 2 - Recipe's title,
-    //Line 4 - link to the recipe's image,
-    //Line 6 - "Ingredients:",
-    //The ingredients list is starting from the line 7.
+    // When the scraper for the recipes was created the file structure was the following:
+    // Line 0 - link to the recipe's page from the website it was scraped,
+    // Line 1, 3, 5 - Blank line,
+    // Line 2 - Recipe's title,
+    // Line 4 - link to the recipe's image,
+    // Line 6 - "Ingredients:",
+    // The ingredients list is starting from the line 7.
     int currentLineIndex = 7;
 
 
-    //Reads all the ingredients until the first blank line.
-    //StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
-    //because a string builder is created everytime.
+    // Reads all the ingredients until the first blank line.
+    // StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
+    // because a string builder is created everytime.
     ArrayList<String> ingredientsList = new ArrayList<String>();
     StringBuilder ingredientsString = new StringBuilder();
 
