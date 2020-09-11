@@ -14,6 +14,14 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="mt-0"><c:out value="${recipe.getName()}" /></h5>
+                                    <p> 
+                                        <b>Time</b>:
+                                        <c:out value="${recipe.getPrepTime()}" />, 
+                                        <b>Author</b>:
+                                        <c:out value="${recipe.getAuthor()}" />, 
+                                        <b>Difficulty</b>:
+                                        <c:out value="${recipe.getDifficulty()}"/>  
+                                    </p>
                                     <div class="search-description">
                                         <c:out value="${recipe.getDescription()}" /> 
                                     </div>

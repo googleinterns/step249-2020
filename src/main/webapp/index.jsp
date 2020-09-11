@@ -6,10 +6,10 @@
       <div class="home-page content">
         <h1 class="welcome">Welcome to Piece of Cake!</h1>
         <form class="searchbar" method="GET" action="search">
-             <input type="text" class="form-control searchbar" placeholder="Type recipe title" name="searchterm">
+             <input type="text" class="form-control searchbar" placeholder="Recipe title or ingredients" name="searchterm">
              <div class="btn-line">
-                 <button type="submit" class="btn btn-secondary my-3" value="search">Search</button>
-                 <a href="/random" class="btn btn-secondary my-3">Random Recipe</a>
+                <button type="submit" class="btn btn-secondary my-3 " value="search">Search</button>
+                <a href="/random" class="btn btn-secondary my-3">Random Recipe</a>
              </div>
         </form>
       </div>
