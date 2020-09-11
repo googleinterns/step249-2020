@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns a random recipe*/
 @WebServlet("/random")
-public class RandomServlet extends HttpServlet {
+public class RandomRecipeServlet extends HttpServlet {
 
   /**
    * This function creates an url from a random recipe's id.
