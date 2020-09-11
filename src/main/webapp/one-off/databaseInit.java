@@ -140,13 +140,20 @@ public class TestUploadServlet extends HttpServlet {
     List<String> lines = readFileInList(RECIPES_DIRECTORY + fileName);
     String title = lines.get(2);
     String imgURL = lines.get(4);
+
+    //When the scraper for the recipes was created the file structure was the following:
+    //Line 0 - link to the recipe's page from the website it was scraped,
+    //Line 1, 3, 5 - Blank line,
+    //Line 2 - Recipe's title,
+    //Line 4 - link to the recipe's image,
+    //Line 6 - "Ingredients:",
+    //So the ingredients list are starting from the line 7.
     int currentLineIndex = 7;
 
-    /**
-     * Reads all the ingredients until the first blank line.
-     * StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
-     * because a string builder is created everytime.
-     */
+
+    //Reads all the ingredients until the first blank line.
+    //StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
+    //because a string builder is created everytime.
     ArrayList<String> ingredientsList = new ArrayList<String>();
     StringBuilder ingredientsString = new StringBuilder();
 
@@ -156,10 +163,9 @@ public class TestUploadServlet extends HttpServlet {
       currentLineIndex += 1;
     }
 
-    /**
-     * Removes the blank line and the paragraph: "Steps:".
-     * Reads all the steps until the first blank line.
-     */
+    
+    //Removes the blank line and the paragraph: "Steps:".
+    //Reads all the steps until the first blank line.
     currentLineIndex += 2;
     ArrayList<String> steps = new ArrayList<String>();
     while (
