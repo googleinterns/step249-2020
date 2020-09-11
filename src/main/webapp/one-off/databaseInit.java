@@ -147,7 +147,7 @@ public class TestUploadServlet extends HttpServlet {
     //Line 2 - Recipe's title,
     //Line 4 - link to the recipe's image,
     //Line 6 - "Ingredients:",
-    //So the ingredients list are starting from the line 7.
+    //The ingredients list is starting from the line 7.
     int currentLineIndex = 7;
 
 
