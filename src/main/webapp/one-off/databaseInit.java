@@ -83,14 +83,11 @@ public class TestUploadServlet extends HttpServlet {
     String title,
     String imgURL,
     ArrayList<String> ingredients,
+    String ingredientsString,
     ArrayList<String> stepList
   )
     throws Exception, InterruptedException, IOException {
-    IndexSpec indexSpec = IndexSpec
-      .newBuilder()
-      .setName("recipesIndex")
-      .build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    Index index = getIndex("recipes_index");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     // We use an index to store the documents; every document contains a recipe's title and its ID.
@@ -112,10 +109,23 @@ public class TestUploadServlet extends HttpServlet {
       ingredients,
       stepList
     );
-    Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity);
+    Document recipeDocument = buildRecipeDocument(
+      recipeEntity,
+      title.toLowerCase(),
+      ingredientsString.toLowerCase()
+    );
 
     datastore.put(recipeEntity);
     index.put(recipeDocument);
+  }
+
+  /**
+   * Returns the index that stores the recipes documents
+   */
+  private Index getIndex(String indexName) {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    return index;
   }
 
   /**
@@ -130,21 +140,32 @@ public class TestUploadServlet extends HttpServlet {
     List<String> lines = readFileInList(RECIPES_DIRECTORY + fileName);
     String title = lines.get(2);
     String imgURL = lines.get(4);
+
+    // When the scraper for the recipes was created the file structure was the following:
+    // Line 0 - link to the recipe's page from the website it was scraped,
+    // Line 1, 3, 5 - Blank line,
+    // Line 2 - Recipe's title,
+    // Line 4 - link to the recipe's image,
+    // Line 6 - "Ingredients:",
+    // The ingredients list is starting from the line 7.
     int currentLineIndex = 7;
 
-    /**
-     * Reads all the ingredients until the first blank line.
-     */
-    ArrayList<String> ingredients = new ArrayList<String>();
+
+    // Reads all the ingredients until the first blank line.
+    // StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
+    // because a string builder is created everytime.
+    ArrayList<String> ingredientsList = new ArrayList<String>();
+    StringBuilder ingredientsString = new StringBuilder();
+
     while (!StringUtils.isBlank(lines.get(currentLineIndex))) {
-      ingredients.add(lines.get(currentLineIndex));
+      ingredientsList.add(lines.get(currentLineIndex));
+      ingredientsString.append(lines.get(currentLineIndex));
       currentLineIndex += 1;
     }
 
-    /**
-     * Removes the blank line and the paragraph: "Steps:".
-     * Reads all the steps until the first blank line.
-     */
+    
+    //Removes the blank line and the paragraph: "Steps:".
+    //Reads all the steps until the first blank line.
     currentLineIndex += 2;
     ArrayList<String> steps = new ArrayList<String>();
     while (
@@ -154,7 +175,7 @@ public class TestUploadServlet extends HttpServlet {
       steps.add(lines.get(currentLineIndex));
       currentLineIndex += 1;
     }
-    upload(title, imgURL, ingredients, steps);
+    upload(title, imgURL, ingredientsList, ingredientsString.toString(), steps);
   }
 
   /**
@@ -173,10 +194,10 @@ public class TestUploadServlet extends HttpServlet {
     Random rd = new Random();
     Double number = rd.nextDouble();
     recipeEntity.setProperty("title", title);
-    recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
+    recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("author", "Piece of Cake");
     recipeEntity.setProperty("description", description);
     recipeEntity.setProperty("difficulty", "N/A");
@@ -189,17 +210,19 @@ public class TestUploadServlet extends HttpServlet {
   }
 
   /**
-   * Build a Recipe Document by the given Recipe Entity
+   * Build a Recipe Document by the given Recipe Entity.
    */
-  private Document buildRecipeDocumentForIndexing(Entity recipeEntity) {
+  private Document buildRecipeDocument(
+    Entity recipeEntity,
+    String titleValue,
+    String ingredientsValue
+  ) {
     Document recipeDocument = Document
       .newBuilder()
       .setId(String.valueOf(recipeEntity.getKey().getId()))
+      .addField(Field.newBuilder().setName("title").setText(titleValue))
       .addField(
-        Field
-          .newBuilder()
-          .setName("title")
-          .setText((String) recipeEntity.getProperty("index_title"))
+        Field.newBuilder().setName("ingredients").setText(ingredientsValue)
       )
       .build();
 
