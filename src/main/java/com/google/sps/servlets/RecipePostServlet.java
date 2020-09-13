@@ -50,13 +50,16 @@ import org.apache.commons.lang3.StringUtils;
 @WebServlet("/recipe_post")
 public class RecipePostServlet extends HttpServlet {
   
+  /**
+   * doPost creates a new recipe entity with the attributes inputted in the post 
+   */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response){
       
       String title = request.getParameter("title");
       String imgURL = "TODO Add url here";
       String description = request.getParameter("description");
-      String prepTime = getPrepTime(request);
+      int prepTime = getPrepTime(request);
       String difficulty = request.getParameter("difficulty");
       ArrayList<String> ingredients = getIngredient(request);
       ArrayList<String> stepList = getSteps(request);
@@ -87,12 +90,12 @@ public class RecipePostServlet extends HttpServlet {
       index.put(recipeDocument);
   }
 
-   private Entity buildRecipeEntity(
+  private Entity buildRecipeEntity(
     KeyRange keyRange,
     String title,
     String imgURL,
     String description,
-    String prepTime,
+    int prepTime,
     String difficulty,
     ArrayList<String> ingredients,
     ArrayList<String> stepList,
@@ -115,7 +118,6 @@ public class RecipePostServlet extends HttpServlet {
 
     return recipeEntity;
   }
-
  
   private Document buildRecipeDocumentForIndexing(Entity recipeEntity) {
     Document recipeDocument = Document
@@ -132,20 +134,27 @@ public class RecipePostServlet extends HttpServlet {
     return recipeDocument;
   }
 
-  private String getPrepTime(HttpServletRequest request){
-      String min = request.getParameter("hour");
+  private int getPrepTime(HttpServletRequest request){
+      int min = Integer.parseInt(request.getParameter("hour"))*60 + Integer.parseInt(request.getParameter("min"));
       return min;
   }
 
   private ArrayList<String> getSteps(HttpServletRequest request){
-      ArrayList<String> steps = new ArrayList();
-      steps.add(request.getParameter("step"));
+      String[] param= request.getParameterValues("step[]");
+      ArrayList<String> steps =  new ArrayList<String>();
+      for (String i : param) steps.add(i);
       return steps;
   }
 
  private ArrayList<String> getIngredient(HttpServletRequest request){
-      ArrayList ingredients= new ArrayList();
-      ingredients.add(request.getParameter("ingredient"));
-      return ingredients;
+      String[] quantity = request.getParameterValues("ingredients[][quantity]");
+      String[] measure = request.getParameterValues("ingredients[][measure]");
+      String[] ingr = request.getParameterValues("ingredients[][ingredient]");
+      ArrayList ingredientsList= new ArrayList();
+      for( int i = 0; i < quantity.length; i++){
+         String ingredient = "("+quantity[i]+", "+measure[i]+", "+ingr[i]+")";
+         ingredientsList.add(ingredient);
+      }
+      return ingredientsList;
   }
 }
