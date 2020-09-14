@@ -33,6 +33,7 @@ import com.google.appengine.api.search.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,10 +66,9 @@ public class RandomRecipeServlet extends HttpServlet {
       datastore,
       position
     );
-    for (ScoredDocument recipe : recipes) {
-      return Long.parseLong(recipe.getId());
-    }
-    return 0;
+    Iterator iter = recipes.iterator();
+    ScoredDocument document = (ScoredDocument) iter.next();
+    return Long.parseLong(document.getId());
   }
 
   /**
