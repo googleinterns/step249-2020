@@ -42,3 +42,4 @@ function addRemove(maxField, x, addButton, wrapper, form, removeButton ){
         x--; //Decrement field counter
     });
 }
+
