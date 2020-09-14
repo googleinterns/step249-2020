@@ -9,30 +9,16 @@
                 <form action="search">
                     <input type="hidden" placeholder="Type recipe title" name="searchterm" value="${searchTerm}"/>
                     <select class="custom-select custom-select-sm mb-3" name="difficulty">
-                        <c:choose>
-                            <c:when test="${not empty difficultySearchedFirst}">    
-                                <option value="<c:out value="${difficultySearchedFirst}"/>" selected hidden><c:out value="${difficultySearchedSecond}"/></option>
-                            </c:when>
-                            <c:otherwise>
-                                <option selected disabled hidden value=" ">Difficulty</option>
-                            </c:otherwise>  
-                        </c:choose>
-                        <c:forEach items="${difficultyList}" var="difficulty">
-                            <option value="${difficulty.getFirst()}">${difficulty.getSecond()}</option>
-                        </c:forEach>
+                        <option ${empty difficulty ? 'selected' : ''} disabled hidden value=" ">Difficulty</option>
+                        <option ${difficulty == "easy" ? 'selected' : ''} value="easy">Easy</option>
+                        <option ${difficulty == "medium" ? 'selected' : ''} value="medium">Medium</option>
+                        <option ${difficulty == "hard" ? 'selected' : ''} value="hard">Hard</option>
                     </select>
                     <select class="custom-select custom-select-sm mb-3" name="time">
-                        <c:choose>
-                            <c:when test="${not empty timeSearchedFirst}">    
-                                <option value="<c:out value="${timeSearchedFirst}"/>" selected hidden><c:out value="${timeSearchedSecond}"/></option>
-                            </c:when>
-                            <c:otherwise>
-                                <option selected disabled hidden value=" ">Cooking Time</option>
-                            </c:otherwise>  
-                        </c:choose>
-                        <c:forEach items="${cookingTimeList}" var="time">
-                            <option value="${time.getFirst()}">${time.getSecond()}</option>
-                        </c:forEach>
+                        <option ${empty prepTime ? 'selected' : ''} disabled hidden value=" ">Time</option>
+                        <option ${prepTime == "30" ? 'selected' : ''} value="30">Less than 30 mins</option>
+                        <option ${prepTime == "60" ? 'selected' : ''} value="60">Less than 1h</option>
+                        <option ${prepTime == "120" ? 'selected' : ''} value="120">Less than 2h</option>
                     </select>
                     <button type="submit" class="btn btn-secondary mx-3" value="search">Filter the results</button>
                 </form>

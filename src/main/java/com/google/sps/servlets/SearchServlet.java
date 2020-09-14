@@ -45,39 +45,8 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
-
-  public static class Pair<K, V> {
-    private final K first;
-    private final V second;
-
-    public Pair(K first, V second) {
-      this.first = first;
-      this.second = second;
-    }
-
-    public K getFirst() {
-      return first;
-    }
-
-    public V getSecond() {
-      return second;
-    }
-  }
-
   // The number of recipes to be displayed on the search list.
   private static final int RECIPES_LIMIT = 10;
-
-  // Lists of options an user can choose for the filters.
-  private static final List<Pair> difficultiesList = Arrays.asList(
-    new Pair("easy", "Easy"),
-    new Pair("medium", "Medium"),
-    new Pair("hard", "Hard")
-  );
-  private static final List<Pair> cookingTimeList = Arrays.asList(
-    new Pair("30", "Less than 30 minutes"),
-    new Pair("60", "Less than 1h"),
-    new Pair("120", "Less than 2h")
-  );
 
   /**
    * Search and returns a list of first 10 recipes with the title matching the given parameters(searchterm, difficulty & time).
@@ -95,22 +64,16 @@ public class SearchServlet extends HttpServlet {
     String time = getParameter("time", request);
 
     request.setAttribute("searchTerm", searchTerm);
-    request.setAttribute("difficultySearchedFirst", difficulty);
-    request.setAttribute("timeSearchedFirst", time);
-
-    request.setAttribute("difficultyList", difficultiesList);
-    request.setAttribute("cookingTimeList", cookingTimeList);
+    request.setAttribute("difficulty", difficulty);
+    request.setAttribute("prepTime", time);
 
     searchTerm = sanitizeString(searchTerm);
     difficulty = sanitizeString(difficulty);
     request.setAttribute(
-      "difficultySearchedSecond",
-      getSelectedValue(difficultiesList, difficulty)
+      "difficulty",
+      difficulty
     );
-    request.setAttribute(
-      "timeSearchedSecond",
-      getSelectedValue(cookingTimeList, time)
-    );
+
 
     Integer timeValue;
     try {
@@ -132,18 +95,6 @@ public class SearchServlet extends HttpServlet {
       response.setStatus(505);
     }
     request.getRequestDispatcher("/search.jsp").forward(request, response);
-  }
-
-  private String getSelectedValue(
-    List<Pair> optionsList,
-    String valueSelected
-  ) {
-    for (Pair option : optionsList) {
-      if (
-        valueSelected.equals((String) option.getFirst())
-      ) return (String) option.getSecond();
-    }
-    return new String();
   }
 
   /**
