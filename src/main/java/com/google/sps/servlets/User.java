@@ -22,7 +22,7 @@ public class User {
   private String name;
   private String email;
   private String bio;
-  private String imgURL;
+  private String imageURL;
 
   public String getName() {
     return name;
@@ -44,7 +44,7 @@ public class User {
    * Returns a string with the url of the image.
    */
   public String getImage() {
-    return imgURL;
+    return imageURL;
   }
 
   public void setName(String givenName) {
@@ -67,6 +67,6 @@ public class User {
    * Set a string for the recipe's image URL.
    */
   public void setImage(String givenImage) {
-    imgURL = givenImage;
+    imageURL = givenImage;
   }
 }

@@ -83,7 +83,7 @@ public class ProfileEditServlet extends HttpServlet {
   ) {
     userEntity.setProperty("name", username);
     userEntity.setProperty("bio", bio);
-    if (!(imageUrl.isEmpty())) userEntity.setProperty("imageURL", imageUrl);
+    if (imageUrl != null && !imageUrl.isEmpty()) userEntity.setProperty("imageURL", imageUrl);
   }
 
   public Entity getUserById(DatastoreService datastore, long id)
