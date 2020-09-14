@@ -188,8 +188,6 @@ public class TestUploadServlet extends HttpServlet {
     Entity recipeEntity = new Entity(keyRange.getStart());
     String description =
       "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
-    Random rd = new Random();
-    Double number = rd.nextDouble();
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
@@ -201,7 +199,6 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("prep_time", prep_time);
     recipeEntity.setProperty("cook_time", "N/A");
     recipeEntity.setProperty("author_id", 1);
-    recipeEntity.setProperty("random_number", number);
 
     return recipeEntity;
   }
