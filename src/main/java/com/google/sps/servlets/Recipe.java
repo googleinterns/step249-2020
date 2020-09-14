@@ -24,13 +24,13 @@ public class Recipe {
   private String name;
   private String description;
   private String difficulty;
-  private String cookTime;
-  private String prepTime;
+  private Integer cookTime;
+  private Integer prepTime;
   private String author;
   private String imgURL;
   private ArrayList steps;
   private ArrayList ingredients;
-  private ArrayList<String>  ingredientsMatched;
+  private ArrayList<String>  ingredientsMatching;
 
   public String getName() {
     return name;
@@ -40,11 +40,11 @@ public class Recipe {
     return difficulty;
   }
 
-  public String getCookTime() {
+  public Integer getCookTime() {
     return cookTime;
   }
 
-  public String getPrepTime() {
+  public Integer getPrepTime() {
     return prepTime;
   }
 
@@ -62,8 +62,8 @@ public class Recipe {
   /**
    * Get the list of matched ingredients with a search for the recipe, from the snippet fields.
    */
-  public ArrayList<String> getIngredientsMatched() {
-    return ingredientsMatched;
+  public ArrayList<String> getMatchingIngredients() {
+    return ingredientsMatching;
   }
 
   public String getDescription() {
@@ -101,16 +101,16 @@ public class Recipe {
   }
 
   /**
-   * Set the cook time as a string, to contain both the time itself and the unit of measure.
+   * Set the preparation time in minutes.
    */
-  public void setPrepTime(String givenPTime) {
+  public void setPrepTime(Integer givenPTime) {
     prepTime = givenPTime;
   }
 
   /**
-   * Set the cook time as a string, to contain both the time itself and the unit of measure.
+   * Set the cook time in minutes.
    */
-  public void setCookTime(String givenCTime) {
+  public void setCookTime(Integer givenCTime) {
     cookTime = givenCTime;
   }
 
@@ -146,8 +146,8 @@ public class Recipe {
   /**
    * Set the matched ingredient the recipe, from the snippet fields when a search is made.
    */
-  public void setMatchedIngredient(ArrayList<String>  givenMatchedIngredients) {
-    ingredientsMatched = givenMatchedIngredients;
+  public void setMatchingIngredient(ArrayList<String>  givenMatchingIngredients) {
+    ingredientsMatching = givenMatchingIngredients;
   }
 
   @Override

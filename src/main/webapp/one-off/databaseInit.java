@@ -108,11 +108,13 @@ public class TestUploadServlet extends HttpServlet {
       imgURL,
       ingredients,
       stepList
+      30,
     );
     Document recipeDocument = buildRecipeDocument(
       recipeEntity,
       title.toLowerCase(),
-      ingredientsString.toLowerCase()
+      ingredientsString.toLowerCase(),
+      30
     );
 
     datastore.put(recipeEntity);
@@ -180,14 +182,14 @@ public class TestUploadServlet extends HttpServlet {
     String title,
     String imgURL,
     ArrayList<String> ingredients,
-    ArrayList<String> stepList
+    ArrayList<String> stepList,
+    int prep_time
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
     String description =
       "Lorem quam dolor dapibus ante, sit amet pellentesque turpis lacus eu ipsum. Duis quis mi ut tortor interdum efficitur quis at mi. Pellentesque quis mauris vel ligula commodo scelerisque. In vulputate quam nisl, vel sagittis ipsum molestie quis. Suspendisse quis ipsum a sem aliquam euismod mattis sed metus.";
     Random rd = new Random();
     Double number = rd.nextDouble();
-    Double prep_time = 30.00;
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
@@ -211,6 +213,7 @@ public class TestUploadServlet extends HttpServlet {
     Entity recipeEntity,
     String titleValue,
     String ingredientsValue
+    int prep_time
   ) {
     Document recipeDocument = Document
       .newBuilder()
@@ -223,7 +226,7 @@ public class TestUploadServlet extends HttpServlet {
         Field
           .newBuilder()
           .setName("prep_time")
-          .setNumber((Double) recipeEntity.getProperty("prep_time"))
+          .setNumber(prep_time)
       )
       .addField(
         Field

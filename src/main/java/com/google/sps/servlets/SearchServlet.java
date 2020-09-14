@@ -32,6 +32,7 @@ import com.google.appengine.api.search.*;
 import java.io.IOException;
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,39 @@ import org.apache.commons.lang3.StringUtils;
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
 
+  public static class Pair<K, V> {
+    private final K first;
+    private final V second;
+
+    public Pair(K first, V second) {
+      this.first = first;
+      this.second = second;
+    }
+
+    public K getFirst() {
+      return first;
+    }
+
+    public V getSecond() {
+      return second;
+    }
+  }
+
+  // The number of recipes to be displayed on the search list.
+  private static final int RECIPES_LIMIT = 10;
+
+  // Lists of options an user can choose for the filters.
+  private static final List<Pair> difficultiesList = Arrays.asList(
+    new Pair("easy", "Easy"),
+    new Pair("medium", "Medium"),
+    new Pair("hard", "Hard")
+  );
+  private static final List<Pair> cookingTimeList = Arrays.asList(
+    new Pair("30", "Less than 30 minutes"),
+    new Pair("60", "Less than 1h"),
+    new Pair("120", "Less than 2h")
+  );
+
   /**
    * Search and returns a list of first 10 recipes with the title matching the given parameters(searchterm, difficulty & time).
    * The index returns a list of documents in the ascending order by title.
@@ -56,80 +90,70 @@ public class SearchServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException, NullPointerException {
-    List<Recipe> recipesListToReturn = new ArrayList<>();
-    Integer timeValue;
-    String stringToMatch = getParameter("searchterm", request);
+    String searchTerm = getParameter("searchterm", request);
     String difficulty = getParameter("difficulty", request);
     String time = getParameter("time", request);
-    HashMap<String, String> difficultiesMap = createMapOfDifficulties();
-    HashMap<Integer, String> timeIntervalsMap = createMapOfTimeIntervals();
 
-    request.setAttribute("dataSearched", stringToMatch);
-    request.setAttribute("difficultySearchedKey", difficulty);
-    request.setAttribute("timeSearchedKey", time);
+    request.setAttribute("searchTerm", searchTerm);
+    request.setAttribute("difficultySearchedFirst", difficulty);
+    request.setAttribute("timeSearchedFirst", time);
+
+    request.setAttribute("difficultyList", difficultiesList);
+    request.setAttribute("cookingTimeList", cookingTimeList);
+
+    searchTerm = sanitizeString(searchTerm);
+    difficulty = sanitizeString(difficulty);
     request.setAttribute(
-      "difficultySearchedValue",
-      difficultiesMap.get(difficulty)
+      "difficultySearchedSecond",
+      getSelectedValue(difficultiesList, difficulty)
     );
-    request.setAttribute("difficultyList", difficultiesMap);
-    request.setAttribute("cookingTimeList", timeIntervalsMap);
+    request.setAttribute(
+      "timeSearchedSecond",
+      getSelectedValue(cookingTimeList, time)
+    );
 
-    stringToMatch = trimAndRemoveCommas(stringToMatch);
-    difficulty = trimAndRemoveCommas(difficulty);
+    Integer timeValue;
     try {
-      timeValue = Integer.valueOf(trimAndRemoveCommas(time));
+      timeValue = Integer.valueOf(sanitizeString(time));
     } catch (NumberFormatException e) {
       timeValue = 0;
     }
-    request.setAttribute("timeSearchedValue", timeIntervalsMap.get(timeValue));
 
     try {
-      recipesListToReturn =
-        recipesMatching(
-          request,
-          response,
-          stringToMatch,
-          difficulty,
-          timeValue
-        );
+      List<Recipe> recipesListToReturn = recipesMatching(
+        request,
+        response,
+        searchTerm,
+        difficulty,
+        timeValue
+      );
+      request.setAttribute("recipesList", recipesListToReturn);
     } catch (SearchQueryException e) {
-      request.getRequestDispatcher("/search.jsp").forward(request, response);
+      response.setStatus(505);
     }
-    request.setAttribute("recipesList", recipesListToReturn);
     request.getRequestDispatcher("/search.jsp").forward(request, response);
   }
 
-  /**
-   * Creates a map of values for the dropdown select for difficulties.
-   */
-  private HashMap<String, String> createMapOfDifficulties() {
-    HashMap<String, String> options = new HashMap<String, String>();
-    options.put("hard", "Hard");
-    options.put("medium", "Medium");
-    options.put("easy", "Easy");
-    return options;
-  }
-
-  /**
-   * Creates a map of values for the dropdown select for difficulties.
-   */
-  private HashMap<Integer, String> createMapOfTimeIntervals() {
-    HashMap<Integer, String> options = new HashMap<Integer, String>();
-    options.put(120, "Less than 2h");
-    options.put(60, "Less than 1h");
-    options.put(30, "Less than 30 minutes");
-    return options;
+  private String getSelectedValue(
+    List<Pair> optionsList,
+    String valueSelected
+  ) {
+    for (Pair option : optionsList) {
+      if (
+        valueSelected.equals((String) option.getFirst())
+      ) return (String) option.getSecond();
+    }
+    return new String();
   }
 
   /**
    * Replace and return the string with no commas and no multiple consecutive or trailing spaces.
    */
-  private String trimAndRemoveCommas(String stringToRemove) {
-    if (!StringUtils.isBlank(stringToRemove)) {
-      stringToRemove = stringToRemove.replaceAll("[,]+", " ");
-      stringToRemove = stringToRemove.replaceAll("  +", " ");
+  private String sanitizeString(String stringToSanitize) {
+    if (!StringUtils.isBlank(stringToSanitize)) {
+      stringToSanitize = stringToSanitize.replaceAll("(,\\s?)+", " ");
     }
-    return stringToRemove;
+    return stringToSanitize;
   }
 
   /**
@@ -157,43 +181,44 @@ public class SearchServlet extends HttpServlet {
   )
     throws ServletException, IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    List<Recipe> recipesMatchingList = new ArrayList<>();
     Index index = getIndex("recipes_index");
-
     Query query = buildQuery(stringToMatch, difficulty, time);
     Results<ScoredDocument> results = index.search(query);
+
+    List<Recipe> matchingRecipes = new ArrayList<>();
     for (ScoredDocument document : results) {
       try {
         Entity recipeEntity = getRecipeEntityFromDocument(datastore, document);
-        ArrayList<String> ingredientsMatched = returnMatchedIngredients(
+        ArrayList<String> matchingIngredients = returnMatchingIngredients(
           document
         );
 
-        Recipe recipe = buildRecipe(recipeEntity, ingredientsMatched);
-        recipesMatchingList.add(recipe);
+        Recipe recipe = buildRecipe(recipeEntity, matchingIngredients);
+        matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
         response.setStatus(505);
+        request.setAttribute("recipesList", new ArrayList<>());
         request.getRequestDispatcher("/search.jsp").forward(request, response);
-        return recipesMatchingList;
+        return matchingRecipes;
       }
     }
-    return recipesMatchingList;
+    return matchingRecipes;
   }
 
   /**
-   * Returns a list of matched ingredients snippet by the search query.
+   * Returns a list of matching ingredients snippet by the search query.
    */
-  private ArrayList<String> returnMatchedIngredients(ScoredDocument document) {
-    ArrayList<String> ingredientsMatched = new ArrayList<>();
+  private ArrayList<String> returnMatchingIngredients(ScoredDocument document) {
+    ArrayList<String> matchingIngredients = new ArrayList<>();
 
-    List<Field> listFields = document.getExpressions();
-    for (Field field : listFields) {
-      if (!StringUtils.isBlank(field.getHTML())) ingredientsMatched.add(
-        field.getHTML()
-      );
+    List<Field> fields = document.getExpressions();
+    for (Field field : fields) {
+      if (!StringUtils.isBlank(field.getHTML())) {
+        matchingIngredients.add(field.getHTML());
+      }
     }
 
-    return ingredientsMatched;
+    return matchingIngredients;
   }
 
   /**
@@ -213,7 +238,7 @@ public class SearchServlet extends HttpServlet {
     Cursor responseCursor = Cursor.newBuilder().build();
     QueryOptions options = QueryOptions
       .newBuilder()
-      .setLimit(10)
+      .setLimit(RECIPES_LIMIT)
       .setFieldsToSnippet("ingredients")
       .setSortOptions(
         SortOptions.newBuilder().setMatchScorer(MatchScorer.newBuilder())
@@ -242,38 +267,22 @@ public class SearchServlet extends HttpServlet {
         searchString +
         "((title=" +
         stringToMatch.replaceAll(" ", " AND ") +
-        ")";
-    }
-    if (!StringUtils.isBlank(stringToMatch)) {
-      searchString = searchString + " OR ";
-    }
-
-    if (!StringUtils.isBlank(stringToMatch)) {
-      searchString =
-        searchString +
-        "(ingredients=" +
+        ") OR (ingredients=" +
         stringToMatch.replaceAll(" ", " AND ") +
         "))";
     }
-    if (
-      !StringUtils.isBlank(stringToMatch) && !StringUtils.isBlank(difficulty)
-    ) {
-      searchString = searchString + " AND ";
-    }
 
     if (!StringUtils.isBlank(difficulty)) {
+      if (!StringUtils.isBlank(searchString)) {
+        searchString = searchString + " AND ";
+      }
       searchString = searchString + "difficulty=\"" + difficulty + "\"";
     }
 
-    if (
-      !StringUtils.isBlank(difficulty) &&
-      time != 0 ||
-      !StringUtils.isBlank(stringToMatch) &&
-      time != 0
-    ) {
-      searchString = searchString + " AND ";
-    }
     if (time != 0) {
+      if (!StringUtils.isBlank(searchString)) {
+        searchString = searchString + " AND ";
+      }
       searchString = searchString + "prep_time <=" + String.valueOf(time);
     }
 
@@ -285,7 +294,7 @@ public class SearchServlet extends HttpServlet {
    */
   private Recipe buildRecipe(
     Entity recipeEntity,
-    ArrayList<String> ingredientsMatched
+    ArrayList<String> ingredientsMatching
   ) {
     Long id = recipeEntity.getKey().getId();
     String name = (String) recipeEntity.getProperty("title");
@@ -297,7 +306,7 @@ public class SearchServlet extends HttpServlet {
     recipe.setName(name);
     recipe.setImage(imgURL);
     recipe.setDescription(description);
-    recipe.setMatchedIngredient(ingredientsMatched);
+    recipe.setMatchingIngredient(ingredientsMatching);
 
     return recipe;
   }
