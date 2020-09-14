@@ -31,49 +31,54 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/profile_edit")
-public class ProfileEditServlet extends HttpServlet {
+@WebServlet("/profile_creation")
+public class ProfileCreationServlet extends HttpServlet {
 
   /**
-   * doPost update the user attributes with the new ones inputted in the user profile edit form
+   * doPost creates a new user entity and assigns it the property inputed in the user creation form
    */
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     String username = request.getParameter("username");
     String bio = request.getParameter("bio");
 
     HttpSession session = request.getSession();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    long id = (long)session.getAttribute("id");
-    Entity userEntity = null;
-    try {
-      userEntity = getUserById(datastore, id);
-    } catch (EntityNotFoundException e) {
-      request.setAttribute("error", 1);
-    }
-    setEnitityAttributes(userEntity, username, bio);
+
+    Entity userEntity = new Entity("User");
+    setEnitityAttributes(userEntity, username, bio, session);
     datastore.put(userEntity);
 
-    session.setAttribute("name", username);
-    session.setAttribute("bio", bio);
+    setSessionAttributes(session, userEntity, username, bio);
 
-    response.sendRedirect("/user?id=" + id);
+    response.sendRedirect("/user?id=" + userEntity.getKey().getId());
   }
 
   public void setEnitityAttributes(
     Entity userEntity,
     String username,
-    String bio
+    String bio,
+    HttpSession session
   ) {
+    userEntity.setProperty(
+      "email",
+      session.getAttribute("uregisteredUserEmail")
+    );
     userEntity.setProperty("name", username);
     userEntity.setProperty("bio", bio);
     userEntity.setProperty("imageURL", "images/default.png");
   }
 
-  public Entity getUserById(DatastoreService datastore, long id)
-    throws IOException, EntityNotFoundException {
-    Entity userEntity = datastore.get(KeyFactory.createKey("User", id));
-    return userEntity;
+  public void setSessionAttributes(
+    HttpSession session,
+    Entity userEntity,
+    String username,
+    String bio
+  ) {
+    session.setAttribute("name", username);
+    session.setAttribute("bio", bio);
+    session.setAttribute("isLoggedIn", 1);
+    session.setAttribute("id", userEntity.getKey().getId());
   }
 }

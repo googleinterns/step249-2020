@@ -21,16 +21,16 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,66 +40,97 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class AuthServlet extends HttpServlet {
-  
 
   /**
-  * doGet checks if the user is currently logged in, and if the user has already a profile. It then returns the correct header
-  */
+   * doGet checks if the user is currently logged in, and if the user has already a profile. It then returns the correct header
+   */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
     UserService userService = UserServiceFactory.getUserService();
     HttpSession session = request.getSession();
 
     if (userService.isUserLoggedIn()) {
-       handleLogIn(response, session, userService);
+      handleLogIn(response, session, userService);
     } else {
-       session.invalidate();
-       response.sendRedirect("/");
+      session.invalidate();
+      response.sendRedirect("/");
     }
   }
 
-  public void handleLogIn(HttpServletResponse response, HttpSession session, UserService userService) throws IOException {
-       String url = "/login";
+  public void handleLogIn(
+    HttpServletResponse response,
+    HttpSession session,
+    UserService userService
+  )
+    throws IOException {
+    String urlToRedirectToAfterUserLogsOut = "/login";
 
-       Entity currentUser = queryForUser(userService);
-       if (Objects.isNull(currentUser)){
-             setLogInAttributes(0, session, url, userService);
-             response.sendRedirect("/profile_creation.jsp");
-        } else {
-            setLogInAttributes(1, session, url, userService);
-            setUserAttributes(currentUser, session);
-            response.sendRedirect("/user?id="+currentUser.getKey().getId());                
-        }
+    Entity currentUser = queryForUser(userService);
+    if (Objects.isNull(currentUser)) {
+      setRegistrationAttributes(
+        userService,
+        urlToRedirectToAfterUserLogsOut,
+        session
+      );
+      response.sendRedirect("/profile_creation.jsp");
+    } else {
+      setUserAttributes(
+        session,
+        urlToRedirectToAfterUserLogsOut,
+        userService,
+        currentUser
+      );
+      response.sendRedirect("/user?id=" + currentUser.getKey().getId());
+    }
   }
 
-  public Entity queryForUser(UserService userService){
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      Entity currentUser = null;
-      String userEmail = userService.getCurrentUser().getEmail();
-      Filter propertyFilter = new FilterPredicate(
-                "email",
-                FilterOperator.EQUAL,
-                userEmail
-        );
-       Query q = new Query("User").setFilter(propertyFilter);
-       PreparedQuery pq = datastore.prepare(q);
-       List<Entity> userEntityList = pq.asList(FetchOptions.Builder.withLimit(1));
-       if ( userEntityList.size() >= 1){currentUser = userEntityList.get(0);}
-       return currentUser;
-  }
-  
-  public void setLogInAttributes(int isLoggedIn, HttpSession session, String url, UserService userService) throws IOException {
-      String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = url;
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-
-      session.setAttribute("isLoggedIn", isLoggedIn);
-      session.setAttribute("userEmail", userEmail);
-      session.setAttribute("logoutURL", logoutUrl);
+  public Entity queryForUser(UserService userService) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity currentUser = null;
+    String userEmail = userService.getCurrentUser().getEmail();
+    Filter propertyFilter = new FilterPredicate(
+      "email",
+      FilterOperator.EQUAL,
+      userEmail
+    );
+    Query q = new Query("User").setFilter(propertyFilter);
+    PreparedQuery pq = datastore.prepare(q);
+    List<Entity> userEntityList = pq.asList(FetchOptions.Builder.withLimit(1));
+    if (userEntityList.size() >= 1) {
+      currentUser = userEntityList.get(0);
+    }
+    return currentUser;
   }
 
-  public void setUserAttributes(Entity userEntity, HttpSession session) throws IOException{
-      
-      session.setAttribute("username", userEntity.getProperty("name"));
+  public void setUserAttributes(
+    HttpSession session,
+    String url,
+    UserService userService,
+    Entity userEntity
+  )
+    throws IOException {
+    String userEmail = userService.getCurrentUser().getEmail();
+    String logoutUrl = userService.createLogoutURL(url);
+
+    session.setAttribute("isLoggedIn", 1);
+    session.setAttribute("userEmail", userEmail);
+    session.setAttribute("logoutURL", logoutUrl);
+    session.setAttribute("name", userEntity.getProperty("name"));
+    session.setAttribute("bio", userEntity.getProperty("bio"));
+    session.setAttribute("id", userEntity.getKey().getId());
+  }
+
+  public void setRegistrationAttributes(
+    UserService userService,
+    String url,
+    HttpSession session
+  )
+    throws IOException {
+    String userEmail = userService.getCurrentUser().getEmail();
+    String logoutUrl = userService.createLogoutURL(url);
+
+    session.setAttribute("uregisteredUserEmail", userEmail);
+    session.setAttribute("logoutURL", logoutUrl);
   }
 }
