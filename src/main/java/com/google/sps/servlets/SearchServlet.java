@@ -135,7 +135,6 @@ public class SearchServlet extends HttpServlet {
     Index index = getIndex("recipes_index");
     Query query = buildQuery(stringToMatch, difficulty, time);
     Results<ScoredDocument> results = index.search(query);
-
     List<Recipe> matchingRecipes = new ArrayList<>();
     for (ScoredDocument document : results) {
       try {
@@ -143,7 +142,6 @@ public class SearchServlet extends HttpServlet {
         ArrayList<String> matchingIngredients = returnMatchingIngredients(
           document
         );
-
         Recipe recipe = buildRecipe(recipeEntity, matchingIngredients);
         matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
@@ -196,9 +194,7 @@ public class SearchServlet extends HttpServlet {
       )
       .setCursor(responseCursor)
       .build();
-
-    String searchString = createSearchString(stringToMatch, difficulty, time);
-    Query query = Query.newBuilder().setOptions(options).build(searchString);
+    Query query = Query.newBuilder().setOptions(options).build(stringToMatch);
 
     return query;
   }
@@ -251,6 +247,16 @@ public class SearchServlet extends HttpServlet {
     String name = (String) recipeEntity.getProperty("title");
     String imgURL = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
+    String difficulty = (String) recipeEntity.getProperty("difficulty");
+    Double prep_time_double = (Double) recipeEntity.getProperty("prep_time");
+    Integer prep_time_int = prep_time_double.intValue();
+    Long authorId = (Long) recipeEntity.getProperty("author_id");
+    try{
+        authorName = getUserNameById(authorId, datastore);
+    }
+    catch(EntityNotFoundException e){
+        authorName = "";
+    }
 
     Recipe recipe = new Recipe();
     recipe.setId(id);
@@ -258,8 +264,21 @@ public class SearchServlet extends HttpServlet {
     recipe.setImage(imgURL);
     recipe.setDescription(description);
     recipe.setMatchingIngredient(ingredientsMatching);
+    recipe.setPrepTime(prep_time_int);
+    recipe.setDifficulty(StringUtils.capitalize(difficulty));
+    recipe.setAuthor(authorName);
 
     return recipe;
+  }
+
+  /**
+   * Returns the user name with the given id.
+   */
+  private String getUserNameById(Long userId, DatastoreService datastore)
+    throws EntityNotFoundException {
+    Entity userEntity = datastore.get(KeyFactory.createKey("User", userId));
+
+    return (String) userEntity.getProperty("name");
   }
 
   /**

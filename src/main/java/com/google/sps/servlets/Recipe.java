@@ -101,7 +101,7 @@ public class Recipe {
   }
 
   /**
-   * Set the preparation time in minutes.
+   * Set the prep time as a integer, to contain the number of minutes for a recipe to be prepared.
    */
   public void setPrepTime(Integer givenPTime) {
     prepTime = givenPTime;
