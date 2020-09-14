@@ -1,6 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<% BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+   String uploadUrl = blobstoreService.createUploadUrl("/recipe_post"); %>
+
+<c:set var = "upload"  value = "<%= uploadUrl %>" />
 
 <t:genericpage>
     <jsp:body>
@@ -8,7 +15,11 @@
         <c:choose>
         <c:when test="${isLoggedIn == 1}">
             <h2>Post your own recipe!</h2>
-            <form action="/recipe_post" method="POST">
+            <form action="${upload}" enctype="multipart/form-data" method="POST">
+             <div class="form-group">
+                <label for="image">Upload Main Recipe Image</label>
+                <input type="file" class="form-control-file" name="image" required>
+             </div>
              <div class="form-group">
                 <label for="title">Recipe Title</label>
                 <input type="text" class="form-control" name="title" placeholder="Type your recipe title" maxlength="50" required>
