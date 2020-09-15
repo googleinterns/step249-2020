@@ -118,7 +118,6 @@ public class SearchServlet extends HttpServlet {
     Index index = getIndex("recipes_index");
     Query query = buildQuery(stringToMatch, difficulty, time);
     Results<ScoredDocument> results = index.search(query);
-
     List<Recipe> matchingRecipes = new ArrayList<>();
     for (ScoredDocument document : results) {
       try {
@@ -126,7 +125,6 @@ public class SearchServlet extends HttpServlet {
         ArrayList<String> matchingIngredients = returnMatchingIngredients(
           document
         );
-
         Recipe recipe = buildRecipe(recipeEntity, matchingIngredients, datastore);
         matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
@@ -195,9 +193,9 @@ public class SearchServlet extends HttpServlet {
       searchString =
         searchString +
         "(title=(" +
-        stringToMatch.replaceAll(" ", " AND ") +
+        stringToMatch.trim() +
         ") OR ingredients=(" +
-        stringToMatch.replaceAll(" ", " AND ") +
+        stringToMatch.trim() +
         "))";
     }
 

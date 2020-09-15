@@ -7,7 +7,6 @@
         <div class="row">
             <div class="col-md-2">
                 <form action="search">
-                    <h1>${length}</h1>
                     <input type="hidden" placeholder="Type recipe title" name="searchterm" value="${searchterm}"/>
                     <select class="custom-select custom-select-sm mb-3" name="difficulty">
                         <option ${empty difficulty ? 'selected' : ''} disabled hidden value=" ">Difficulty</option>
