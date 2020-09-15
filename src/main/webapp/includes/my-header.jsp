@@ -8,7 +8,7 @@
         <a href="/" class="link nav-item logo">Piece of Cake</a>
         <form action="search" class="form-line">
             <div class="input-group">
-                <input type="text" class="form-control searchbar" placeholder="Recipe title or ingredients" name="searchterm">
+          <input type="text" class="form-control searchbar" placeholder="Recipe title or ingredients" name="searchterm" value="${searchterm}"/>
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-secondary" value="search">Search</button>
                 </div>
