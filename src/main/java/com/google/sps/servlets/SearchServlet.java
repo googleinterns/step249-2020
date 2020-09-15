@@ -62,17 +62,10 @@ public class SearchServlet extends HttpServlet {
     String searchterm = getParameter("searchterm", request);
     String difficulty = getParameter("difficulty", request);
     String time = getParameter("time", request);
-
+    Integer timeValue = parseInt(time);
     request.setAttribute("searchterm", searchterm);
     request.setAttribute("difficulty", difficulty);
     request.setAttribute("prepTime", time);
-
-    Integer timeValue;
-    try {
-      timeValue = Integer.valueOf(sanitizeString(time));
-    } catch (NumberFormatException e) {
-      timeValue = 0;
-    }
 
     try {
       List<Recipe> recipesListToReturn = recipesMatching(
@@ -86,6 +79,18 @@ public class SearchServlet extends HttpServlet {
     }
     request.getRequestDispatcher("/search.jsp").forward(request, response);
   }
+
+  /**
+  * Get a string and return its integer value after the string was sanitized.
+  */
+  private Integer parseInt(String stringGiven){
+    try {
+      return Integer.valueOf(sanitizeString(stringGiven));
+    } catch (NumberFormatException e) {
+      return 0;
+    }
+  }
+
 
   /**
    * Replace and return the string with no commas and no multiple consecutive or trailing spaces.
@@ -245,8 +250,8 @@ public class SearchServlet extends HttpServlet {
     recipe.setName(name);
     recipe.setImage(imgURL);
     recipe.setDescription(description);
-    recipe.setMatchingIngredient(ingredientsMatching);
-	  recipe.setPrepTime(prep_time);
+    recipe.setMatchingIngredients(ingredientsMatching);
+	recipe.setPrepTime(prep_time);
     recipe.setDifficulty(StringUtils.capitalize(difficulty));
     recipe.setAuthor(authorName);
 

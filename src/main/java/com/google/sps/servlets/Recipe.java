@@ -142,4 +142,11 @@ public class Recipe {
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
   }
+
+  /**
+   * Set a list of strings as the matching ingredients for the recipe.
+   */
+  public void setMatchingIngredients(ArrayList<String> givenIngredients) {
+    ingredientsMatching = givenIngredients;
+  }
 }
