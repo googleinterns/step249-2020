@@ -14,6 +14,11 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -23,6 +28,9 @@ import com.google.appengine.api.datastore.KeyRange;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
@@ -32,27 +40,19 @@ import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SearchException;
 import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.appengine.api.search.StatusCode;
-import com.google.appengine.api.blobstore.BlobInfo;
-import com.google.appengine.api.blobstore.BlobInfoFactory;
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.images.ImagesService;
-import com.google.appengine.api.images.ImagesServiceFactory;
-import com.google.appengine.api.images.ServingUrlOptions;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
 import com.google.gson.Gson;
 import java.io.*;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.lang.*;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,47 +62,47 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/recipe_post")
 public class RecipePostServlet extends HttpServlet {
-  
+
   /**
-   * doPost creates a new recipe entity with the attributes inputted in the post 
+   * doPost creates a new recipe entity with the attributes inputted in the post
    */
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      
-      String title = request.getParameter("title");
-      String imgURL = getUploadedFileUrl(request, "image");
-      String description = request.getParameter("description");
-      int prepTime = getPrepTime(request);
-      String difficulty = request.getParameter("difficulty");
-      ArrayList<String> ingredients = getIngredient(request);
-      ArrayList<String> stepList = getSteps(request);
-      
-      IndexSpec indexSpec = IndexSpec
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String title = request.getParameter("title");
+    String imgURL = getUploadedFileUrl(request, "image");
+    String description = request.getParameter("description");
+    int prepTime = getPrepTime(request);
+    String difficulty = request.getParameter("difficulty");
+    ArrayList<String> ingredients = getIngredient(request);
+    ArrayList<String> stepList = getSteps(request);
+
+    IndexSpec indexSpec = IndexSpec
       .newBuilder()
       .setName("recipesIndex")
       .build();
-      Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-      KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
+    KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
 
-      Entity recipeEntity = buildRecipeEntity(
-          keyRange,
-          title,
-          imgURL,
-          description,
-          prepTime,
-          difficulty,
-          ingredients,
-          stepList,
-          request
-      );
-      Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity);
-      
-      datastore.put(recipeEntity);
-      index.put(recipeDocument);
+    Entity recipeEntity = buildRecipeEntity(
+      keyRange,
+      title,
+      imgURL,
+      description,
+      prepTime,
+      difficulty,
+      ingredients,
+      stepList,
+      request
+    );
+    Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity);
 
-      response.sendRedirect("/recipe?id=" + recipeEntity.getKey().getId());
+    datastore.put(recipeEntity);
+    index.put(recipeDocument);
+
+    response.sendRedirect("/recipe?id=" + recipeEntity.getKey().getId());
   }
 
   private Entity buildRecipeEntity(
@@ -115,7 +115,7 @@ public class RecipePostServlet extends HttpServlet {
     ArrayList<String> ingredients,
     ArrayList<String> stepList,
     HttpServletRequest request
-    ) {
+  ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
     Random rd = new Random();
     Double number = rd.nextDouble();
@@ -124,16 +124,22 @@ public class RecipePostServlet extends HttpServlet {
     recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
-    recipeEntity.setProperty("author", request.getSession().getAttribute("name"));
+    recipeEntity.setProperty(
+      "author",
+      request.getSession().getAttribute("name")
+    );
     recipeEntity.setProperty("description", description);
     recipeEntity.setProperty("difficulty", difficulty);
     recipeEntity.setProperty("prep_time", prepTime);
-    recipeEntity.setProperty("author_id", request.getSession().getAttribute("id"));
+    recipeEntity.setProperty(
+      "author_id",
+      request.getSession().getAttribute("id")
+    );
     recipeEntity.setProperty("random_number", number);
 
     return recipeEntity;
   }
- 
+
   private Document buildRecipeDocumentForIndexing(Entity recipeEntity) {
     Document recipeDocument = Document
       .newBuilder()
@@ -149,31 +155,38 @@ public class RecipePostServlet extends HttpServlet {
     return recipeDocument;
   }
 
-  private int getPrepTime(HttpServletRequest request){
-      int min = Integer.parseInt(request.getParameter("hour"))*60 + Integer.parseInt(request.getParameter("min"));
-      return min;
+  private int getPrepTime(HttpServletRequest request) {
+    int min =
+      Integer.parseInt(request.getParameter("hour")) *
+      60 +
+      Integer.parseInt(request.getParameter("min"));
+    return min;
   }
 
-  private ArrayList<String> getSteps(HttpServletRequest request){
-      String[] param= request.getParameterValues("step[]");
-      ArrayList<String> steps =  new ArrayList<String>();
-      for (String i : param) steps.add(i);
-      return steps;
+  private ArrayList<String> getSteps(HttpServletRequest request) {
+    String[] param = request.getParameterValues("step[]");
+    ArrayList<String> steps = new ArrayList<String>();
+    for (String i : param) steps.add(i);
+    return steps;
   }
 
- private ArrayList<String> getIngredient(HttpServletRequest request){
-      String[] quantity = request.getParameterValues("ingredients[][quantity]");
-      String[] measure = request.getParameterValues("ingredients[][measure]");
-      String[] ingr = request.getParameterValues("ingredients[][ingredient]");
-      ArrayList ingredientsList= new ArrayList();
-      for( int i = 0; i < quantity.length; i++){
-         String ingredient = "("+quantity[i]+", "+measure[i]+", "+ingr[i]+")";
-         ingredientsList.add(ingredient);
-      }
-      return ingredientsList;
+  private ArrayList<String> getIngredient(HttpServletRequest request) {
+    String[] quantity = request.getParameterValues("ingredients[][quantity]");
+    String[] measure = request.getParameterValues("ingredients[][measure]");
+    String[] ingr = request.getParameterValues("ingredients[][ingredient]");
+    ArrayList ingredientsList = new ArrayList();
+    for (int i = 0; i < quantity.length; i++) {
+      String ingredient =
+        "(" + quantity[i] + ", " + measure[i] + ", " + ingr[i] + ")";
+      ingredientsList.add(ingredient);
+    }
+    return ingredientsList;
   }
 
-    private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+  private String getUploadedFileUrl(
+    HttpServletRequest request,
+    String formInputElementName
+  ) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");

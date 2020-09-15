@@ -104,12 +104,12 @@ public class UserDetailsServlet extends HttpServlet {
   private Recipe buildRecipe(Entity recipeEntity) {
     Long id = recipeEntity.getKey().getId();
     String name = (String) recipeEntity.getProperty("title");
-    String imageUrl = (String) recipeEntity.getProperty( "imgURL");
+    String imageUrl = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
     Recipe recipe = new Recipe();
     recipe.setId(id);
     recipe.setName(name);
-    recipe.setImage (imageUrl);
+    recipe.setImage(imageUrl);
     recipe.setDescription(description);
 
     return recipe;

@@ -14,6 +14,11 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -21,16 +26,11 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.api.blobstore.BlobInfo;
-import com.google.appengine.api.blobstore.BlobInfoFactory;
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -59,7 +59,7 @@ public class ProfileEditServlet extends HttpServlet {
 
     HttpSession session = request.getSession();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    long id = (long)session.getAttribute("id");
+    long id = (long) session.getAttribute("id");
     Entity userEntity = null;
     try {
       userEntity = getUserById(datastore, id);
@@ -83,7 +83,10 @@ public class ProfileEditServlet extends HttpServlet {
   ) {
     userEntity.setProperty("name", username);
     userEntity.setProperty("bio", bio);
-    if (imageUrl != null && !imageUrl.isEmpty()) userEntity.setProperty("imageURL", imageUrl);
+    if (imageUrl != null && !imageUrl.isEmpty()) userEntity.setProperty(
+      "imageURL",
+      imageUrl
+    );
   }
 
   public Entity getUserById(DatastoreService datastore, long id)
@@ -92,7 +95,10 @@ public class ProfileEditServlet extends HttpServlet {
     return userEntity;
   }
 
-    private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+  private String getUploadedFileUrl(
+    HttpServletRequest request,
+    String formInputElementName
+  ) {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");
