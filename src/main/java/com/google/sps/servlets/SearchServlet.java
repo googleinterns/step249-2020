@@ -246,7 +246,7 @@ public class SearchServlet extends HttpServlet {
     recipe.setImage(imgURL);
     recipe.setDescription(description);
     recipe.setMatchingIngredient(ingredientsMatching);
-	recipe.setPrepTime(prep_time);
+	  recipe.setPrepTime(prep_time);
     recipe.setDifficulty(StringUtils.capitalize(difficulty));
     recipe.setAuthor(authorName);
 

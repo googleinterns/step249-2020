@@ -101,7 +101,7 @@ public class Recipe {
   }
 
   /**
-   * Set the preparation time in minutes.
+   * Set the prep time as a integer, to contain the number of minutes for a recipe to be prepared.
    */
   public void setPrepTime(Integer givenPTime) {
     prepTime = givenPTime;
@@ -141,25 +141,5 @@ public class Recipe {
    */
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
-  }
-
-  /**
-   * Set the matched ingredient the recipe, from the snippet fields when a search is made.
-   */
-  public void setMatchingIngredient(ArrayList<String>  givenMatchingIngredients) {
-    ingredientsMatching = givenMatchingIngredients;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == this) {
-      return true;
-    }
-    if (obj == null || obj.getClass() != this.getClass()) {
-      return false;
-    }
-
-    Recipe guest = (Recipe) obj;
-    return id == guest.getId();
   }
 }

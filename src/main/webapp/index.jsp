@@ -6,7 +6,7 @@
       <div class="home-page content">
         <h1 class="welcome">Welcome to Piece of Cake!</h1>
         <form class="searchbar" method="GET" action="search">
-             <input type="text" class="form-control searchbar" placeholder="Type the recipe title or ingredients separated by comma" name="searchterm">
+             <input type="text" class="form-control searchbar" placeholder="Recipe title or ingredients" name="searchterm">
              <input type="hidden" name="difficulty" value=""/>
              <input type="hidden" name="time" value=""/>
              <div class="btn-line">

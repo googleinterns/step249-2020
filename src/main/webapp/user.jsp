@@ -17,7 +17,10 @@
                         <img src="${user.getImage()}" class="img-circle"  width="200" height="200" alt="${user.getName()}">
                     </div>
                     <div class="col-8">
-                        <h1>${user.getName()}</h1>
+                        <div class="row">
+                            <h1>${user.getName()}</h1>
+                            <a href="/profile_edit.jsp" class="btn btn-secondary my-3">edit</a>
+                        </div>
                         <h4>${user.getBio()}</h4>
                     </div>
                 </div>
