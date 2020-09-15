@@ -25,7 +25,7 @@ public class Recipe {
   private String description;
   private String difficulty;
   private String cookTime;
-  private String prepTime;
+  private Integer prepTime;
   private String author;
   private String imgURL;
   private ArrayList steps;
@@ -43,7 +43,7 @@ public class Recipe {
     return cookTime;
   }
 
-  public String getPrepTime() {
+  public Integer getPrepTime() {
     return prepTime;
   }
 
@@ -93,9 +93,9 @@ public class Recipe {
   }
 
   /**
-   * Set the cook time as a string, to contain both the time itself and the unit of measure
+   * Set the prep time as a integer, to contain the number of minutes for a recipe to be prepared.
    */
-  public void setPrepTime(String givenPTime) {
+  public void setPrepTime(Integer givenPTime) {
     prepTime = givenPTime;
   }
 
