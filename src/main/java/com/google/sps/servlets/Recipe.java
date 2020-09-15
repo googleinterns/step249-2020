@@ -24,12 +24,12 @@ public class Recipe {
   private String name;
   private String description;
   private String difficulty;
-  private String cookTime;
   private Integer prepTime;
   private String author;
   private String imgURL;
   private ArrayList steps;
   private ArrayList ingredients;
+  private ArrayList<String>  ingredientsMatching;
 
   public String getName() {
     return name;
@@ -37,10 +37,6 @@ public class Recipe {
 
   public String getDifficulty() {
     return difficulty;
-  }
-
-  public String getCookTime() {
-    return cookTime;
   }
 
   public Integer getPrepTime() {
@@ -52,10 +48,17 @@ public class Recipe {
   }
 
   /**
-   * Get the list of ingredients for the recipe
+   * Get the list of ingredients for the recipe.
    */
   public ArrayList getIngredients() {
     return ingredients;
+  }
+
+  /**
+   * Get the list of matched ingredients with a search for the recipe, from the snippet fields.
+   */
+  public ArrayList<String> getMatchingIngredients() {
+    return ingredientsMatching;
   }
 
   public String getDescription() {
@@ -74,7 +77,7 @@ public class Recipe {
   }
 
   /**
-   * Get the list of steps/instruction for the recipe
+   * Get the list of steps/instruction for the recipe.
    */
   public ArrayList<String> getSteps() {
     return steps;
@@ -99,13 +102,6 @@ public class Recipe {
     prepTime = givenPTime;
   }
 
-  /**
-   * Set the cook time as a string, to contain both the time itself and the unit of measure
-   */
-  public void setCookTime(String givenCTime) {
-    cookTime = givenCTime;
-  }
-
   public void setAuthor(String givenAuthor) {
     author = givenAuthor;
   }
@@ -122,16 +118,23 @@ public class Recipe {
   }
 
   /**
-   * Set a list of strings as instruction/steps for the recipe
+   * Set a list of strings as instruction/steps for the recipe.
    */
   public void setSteps(ArrayList<String> givenSteps) {
     steps = givenSteps;
   }
 
   /**
-   * Set a list of strings as the ingredients for the recipe
+   * Set a list of strings as the ingredients for the recipe.
    */
   public void setIngredients(ArrayList<String> givenIngredients) {
     ingredients = givenIngredients;
+  }
+
+  /**
+   * Set a list of strings as the matching ingredients for the recipe.
+   */
+  public void setMatchingIngredients(ArrayList<String> givenIngredients) {
+    ingredientsMatching = givenIngredients;
   }
 }

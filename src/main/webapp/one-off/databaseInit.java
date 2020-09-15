@@ -108,11 +108,13 @@ public class TestUploadServlet extends HttpServlet {
       imgURL,
       ingredients,
       stepList
+      30,
     );
     Document recipeDocument = buildRecipeDocument(
       recipeEntity,
       title.toLowerCase(),
-      ingredientsString.toLowerCase()
+      ingredientsString.toLowerCase(),
+      30
     );
 
     datastore.put(recipeEntity);
@@ -186,7 +188,8 @@ public class TestUploadServlet extends HttpServlet {
     String title,
     String imgURL,
     ArrayList<String> ingredients,
-    ArrayList<String> stepList
+    ArrayList<String> stepList,
+    int prep_time
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
     String description =
@@ -200,8 +203,8 @@ public class TestUploadServlet extends HttpServlet {
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("author", "Piece of Cake");
     recipeEntity.setProperty("description", description);
-    recipeEntity.setProperty("difficulty", "N/A");
-    recipeEntity.setProperty("prep_time", "N/A");
+    recipeEntity.setProperty("difficulty", "easy");
+    recipeEntity.setProperty("prep_time", prep_time);
     recipeEntity.setProperty("cook_time", "N/A");
     recipeEntity.setProperty("author_id", 1);
     recipeEntity.setProperty("random_number", number);
@@ -216,6 +219,7 @@ public class TestUploadServlet extends HttpServlet {
     Entity recipeEntity,
     String titleValue,
     String ingredientsValue
+    int prep_time
   ) {
     Document recipeDocument = Document
       .newBuilder()
@@ -223,6 +227,18 @@ public class TestUploadServlet extends HttpServlet {
       .addField(Field.newBuilder().setName("title").setText(titleValue))
       .addField(
         Field.newBuilder().setName("ingredients").setText(ingredientsValue)
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("prep_time")
+          .setNumber(prep_time)
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("difficulty")
+          .setText((String) recipeEntity.getProperty("difficulty"))
       )
       .build();
 
