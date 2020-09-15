@@ -68,12 +68,11 @@ public class AuthServlet extends HttpServlet {
 
     Entity currentUser = queryForUser(userService);
     if (Objects.isNull(currentUser)) {
-      setRegistartionAttributes(
+      setRegistrationAttributes(
         userService,
         urlToRedirectToAfterUserLogsOut,
         session
       );
-      //TODO redirect response to profile creation . js
       response.sendRedirect("/profile_creation.jsp");
     } else {
       setUserAttributes(
@@ -122,7 +121,7 @@ public class AuthServlet extends HttpServlet {
     session.setAttribute("id", userEntity.getKey().getId());
   }
 
-  public void setRegistartionAttributes(
+  public void setRegistrationAttributes(
     UserService userService,
     String url,
     HttpSession session
