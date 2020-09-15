@@ -1,3 +1,41 @@
+:root {
+  --logo-background: #fdf4f1;
+  --orange-1: #ec8f60;
+  --orange-2: #f09e8e;
+  --pink-1: #f4b9dd;
+  --pink-2: #f4aebc;
+  --pink-dark-1: #cc39a9;
+  --pink-dark-2: #b91e94;
+  --text: #212529;
+}
+
+/* Bootstrap overrides */
+.btn-secondary {
+  background: var(--orange-2);
+  border: 0;
+}
+.btn-secondary:hover {
+  background: var(--pink-2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Poppins, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+a {
+  color: var(--pink-dark-1);
+}
+
+a:hover {
+  color: var(--pink-dark-2);
+}
+
 body {
   display: flex;
   align-items: center;
@@ -5,10 +43,21 @@ body {
   flex-direction: column;
 }
 
+.logo {
+  background: url(/images/default.png) no-repeat 50%;
+  background-size: 100px 100px;
+  display: inline-block;
+  height: 50px;
+  color: transparent !important; /* Hide the text inside the element. */
+  overflow: hidden;
+}
+
 .navbar {
   width: 100%;
   max-width: 1400px;
   flex-flow: row nowrap;
+  margin-bottom: 0;
+  border: 0;
 }
 
 .form-line {
@@ -22,30 +71,40 @@ body {
 
 .wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
-  background-color: #a9a9a9;
+  background-color: var(--logo-background);
   width: 100%;
 }
 
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  min-height: 30px;
-  height: 5vh;
+.header.wrapper {
+  position: sticky;
+  top: 0;
+  margin-top: -1px;
+  z-index: 1;
 }
 
-.links {
-  text-transform: uppercase;
+.header.wrapper:after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(to right, var(--orange-1), var(--pink-1));
+}
+
+.footer {
+  min-height: 30px;
+  height: 5vh;
+  background: none;
 }
 
 .link {
-  color: black;
+  color: var(--text);
 }
 
 .link:hover {
-  color: black;
+  text-decoration: none;
+  border-bottom: solid 1px var(--pink-1);
 }
 
 .home-page {
@@ -71,9 +130,8 @@ body {
   justify-content: center;
 }
 
-.btn {
-  margin: 0 0 0 8px;
-  height: 40px;
+.btn-line .btn {
+  margin: 0 8px;
 }
 
 .content {
@@ -83,4 +141,27 @@ body {
   max-width: 1200px;
   min-height: 67vh;
   margin: 10vh;
+}
+
+.recipe-thumbnail {
+  width: 200px;
+  height: 120px;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.search-result {
+  color: var(--text);
+}
+
+.search-result:hover {
+  background: var(--logo-background);
+  text-decoration: none;
+}
+
+.search-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
