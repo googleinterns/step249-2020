@@ -49,7 +49,7 @@ public class SearchServlet extends HttpServlet {
   private static final int RECIPES_LIMIT = 10;
 
   /**
-   * Search and returns a list of first 10 recipes with the title matching the given parameters(searchterm, difficulty & time).
+   * Search and returns a list of first 10 recipes matching the given parameters(searchterm, difficulty & time).
    * The index returns a list of documents in the ascending order by title.
    * Special characters inside the search terms are replaced with space.
    * We compute and return the intersection of the following lists:
@@ -59,21 +59,13 @@ public class SearchServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException, NullPointerException {
-    String searchTerm = getParameter("searchterm", request);
+    String searchterm = getParameter("searchterm", request);
     String difficulty = getParameter("difficulty", request);
     String time = getParameter("time", request);
 
-    request.setAttribute("searchTerm", searchTerm);
+    request.setAttribute("searchterm", searchterm);
     request.setAttribute("difficulty", difficulty);
     request.setAttribute("prepTime", time);
-
-    searchTerm = sanitizeString(searchTerm);
-    difficulty = sanitizeString(difficulty);
-    request.setAttribute(
-      "difficulty",
-      difficulty
-    );
-
 
     Integer timeValue;
     try {
@@ -84,10 +76,8 @@ public class SearchServlet extends HttpServlet {
 
     try {
       List<Recipe> recipesListToReturn = recipesMatching(
-        request,
-        response,
-        searchTerm,
-        difficulty,
+        sanitizeString(searchterm),
+        sanitizeString(difficulty),
         timeValue
       );
       request.setAttribute("recipesList", recipesListToReturn);
@@ -111,21 +101,14 @@ public class SearchServlet extends HttpServlet {
    * If the fields exists, returns the parameter from the request, otherwise it returns an empty string.
    */
   private String getParameter(String field, HttpServletRequest request) {
-    String parameter = new String();
-    try {
-      parameter = request.getParameter(field);
-    } catch (NullPointerException e) {
-      parameter = "";
-    }
-    return parameter;
+    if (!StringUtils.isBlank(field)) return request.getParameter(field);
+    return "";
   }
 
   /**
    * Returns a list of recipes matching the given title and ingredients.
    */
   private List<Recipe> recipesMatching(
-    HttpServletRequest request,
-    HttpServletResponse response,
     String stringToMatch,
     String difficulty,
     Integer time
@@ -144,13 +127,10 @@ public class SearchServlet extends HttpServlet {
           document
         );
 
-        Recipe recipe = buildRecipe(recipeEntity, matchingIngredients);
+        Recipe recipe = buildRecipe(recipeEntity, matchingIngredients, datastore);
         matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
-        response.setStatus(505);
-        request.setAttribute("recipesList", new ArrayList<>());
-        request.getRequestDispatcher("/search.jsp").forward(request, response);
-        return matchingRecipes;
+        return new ArrayList<>();
       }
     }
     return matchingRecipes;
@@ -199,7 +179,6 @@ public class SearchServlet extends HttpServlet {
 
     String searchString = createSearchString(stringToMatch, difficulty, time);
     Query query = Query.newBuilder().setOptions(options).build(searchString);
-
     return query;
   }
 
@@ -212,13 +191,12 @@ public class SearchServlet extends HttpServlet {
     Integer time
   ) {
     String searchString = new String();
-
     if (!StringUtils.isBlank(stringToMatch)) {
       searchString =
         searchString +
-        "((title=" +
+        "(title=(" +
         stringToMatch.replaceAll(" ", " AND ") +
-        ") OR (ingredients=" +
+        ") OR ingredients=(" +
         stringToMatch.replaceAll(" ", " AND ") +
         "))";
     }
@@ -245,12 +223,24 @@ public class SearchServlet extends HttpServlet {
    */
   private Recipe buildRecipe(
     Entity recipeEntity,
-    ArrayList<String> ingredientsMatching
+    ArrayList<String> ingredientsMatching,
+    DatastoreService datastore
   ) {
     Long id = recipeEntity.getKey().getId();
+    String authorName = new String();
     String name = (String) recipeEntity.getProperty("title");
     String imgURL = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
+    String difficulty = (String) recipeEntity.getProperty("difficulty");
+    Integer prep_time = ((Long) recipeEntity.getProperty("prep_time")).intValue();
+    Long authorId = (Long) recipeEntity.getProperty("author_id");
+    
+    try{
+        authorName = getUserNameById(authorId, datastore);
+    }
+    catch(EntityNotFoundException e){
+        authorName = "";
+    }
 
     Recipe recipe = new Recipe();
     recipe.setId(id);
@@ -258,8 +248,21 @@ public class SearchServlet extends HttpServlet {
     recipe.setImage(imgURL);
     recipe.setDescription(description);
     recipe.setMatchingIngredient(ingredientsMatching);
+	recipe.setPrepTime(prep_time);
+    recipe.setDifficulty(StringUtils.capitalize(difficulty));
+    recipe.setAuthor(authorName);
 
     return recipe;
+  }
+
+  /**
+   * Returns the user's name with the given id.
+   */
+  private String getUserNameById(Long userId, DatastoreService datastore)
+    throws EntityNotFoundException {
+    Entity userEntity = datastore.get(KeyFactory.createKey("User", userId));
+
+    return (String) userEntity.getProperty("name");
   }
 
   /**

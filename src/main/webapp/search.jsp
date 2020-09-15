@@ -7,7 +7,8 @@
         <div class="row">
             <div class="col-md-2">
                 <form action="search">
-                    <input type="hidden" placeholder="Type recipe title" name="searchterm" value="${searchTerm}"/>
+                    <h1>${length}</h1>
+                    <input type="hidden" placeholder="Type recipe title" name="searchterm" value="${searchterm}"/>
                     <select class="custom-select custom-select-sm mb-3" name="difficulty">
                         <option ${empty difficulty ? 'selected' : ''} disabled hidden value=" ">Difficulty</option>
                         <option ${difficulty == "easy" ? 'selected' : ''} value="easy">Easy</option>
@@ -32,6 +33,14 @@
                                     <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="${recipe.getName()}">
                                         <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
                                         <p>
+                                        <p>
+                                        <b>Time</b>:
+                                        <c:out value="${recipe.getPrepTime()}" /> min, 
+                                        <b>Author</b>:
+                                        <c:out value="${recipe.getAuthor()}" />, 
+                                        <b>Difficulty</b>:
+                                        <c:out value="${recipe.getDifficulty()}"/>  
+                                        </p>
                                         <c:choose>
                                             <c:when test="${recipe.getMatchingIngredients().size() > 0}">
                                                 <ul id="results" class="list-group list-group-flush">

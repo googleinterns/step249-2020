@@ -20,15 +20,19 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.KeyRange;
 import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.ServletException;
@@ -57,47 +61,62 @@ public class RandomRecipeServlet extends HttpServlet {
    * This function generates a random double and returns the id of the first Entity with the closest value of "random_number".
    */
   private long returnRandomId(DatastoreService datastore) {
-    Random randomGenerator = new Random();
-    Double numberGenerated = randomGenerator.nextDouble();
-    try {
-      return closestRecipeRandomId(
-        numberGenerated,
-        datastore,
-        Query.FilterOperator.LESS_THAN_OR_EQUAL,
-        Query.SortDirection.DESCENDING
-      );
-    } catch (IndexOutOfBoundsException e) {
-      return closestRecipeRandomId(
-        numberGenerated,
-        datastore,
-        Query.FilterOperator.GREATER_THAN_OR_EQUAL,
-        Query.SortDirection.ASCENDING
-      );
-    }
+    int position = getRandomPosition(datastore);
+    Results<ScoredDocument> recipes = getRecipeDocumentFromPosition(
+      datastore,
+      position
+    );
+    Iterator iter = recipes.iterator();
+    ScoredDocument document = (ScoredDocument) iter.next();
+    return Long.parseLong(document.getId());
   }
 
   /**
-   * Return the recipe's id with the minimum difference between numberGenerated and recipe's random_number.
+   * QueryForSize is a class that returns the number of entities inside the datastore.
+   * This is computed in a different class because the datastore.Query class (used for counting entities)
+   * conflicts with search.Query class (used for searching for a recipe).
    */
-  private long closestRecipeRandomId(
-    Double numberGenerated,
-    DatastoreService datastore,
-    Query.FilterOperator filter,
-    Query.SortDirection direction
-  ) {
-    Filter propertyFilter = new FilterPredicate(
-      "random_number",
-      filter,
-      numberGenerated
-    );
-    Query query = new Query("Recipe")
-      .setFilter(propertyFilter)
-      .addSort("random_number", direction);
+  private int getRandomPosition(DatastoreService datastore) {
+    int recipesNumber = countRecipes();
+    Random randomGenerator = new Random();
+    int randomPosition = randomGenerator.nextInt(recipesNumber);
 
+    return randomPosition;
+  }
+
+  private Results<ScoredDocument> getRecipeDocumentFromPosition(
+    DatastoreService datastore,
+    int position
+  ) {
+    QueryOptions options = QueryOptions
+      .newBuilder()
+      .setLimit(1)
+      .setOffset(position)
+      .build();
+    Query query = Query.newBuilder().setOptions(options).build("");
+    Index index = getIndex("recipes_index");
+
+    return index.search(query);
+  }
+
+  /**
+   * Returns the index that stores the recipes documents
+   */
+  private Index getIndex(String indexName) {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    return index;
+  }
+
+  public static int countRecipes() {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    com.google.appengine.api.datastore.Query query = new com.google.appengine.api.datastore.Query(
+      "Recipe"
+    )
+    .addSort("title", SortDirection.ASCENDING);
     PreparedQuery preparedQuery = datastore.prepare(query);
-    List<Entity> recipeEntity = preparedQuery.asList(
-      FetchOptions.Builder.withLimit(1)
-    );
-    return recipeEntity.get(0).getKey().getId();
+    int lengthOfQuery = preparedQuery.countEntities();
+
+    return lengthOfQuery;
   }
 }
