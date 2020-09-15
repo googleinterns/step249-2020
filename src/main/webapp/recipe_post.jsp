@@ -70,18 +70,19 @@
                       <input type="text" class="form-control" name="ingredients[][ingredient]" placeholder="ingredient" maxlength="50" required>
                   </div>
                  </div>
+                 <a href="javascript:void(0);" class="ingredient-remove-button">REMOVE</a></div>
                 </div>
                 <a href="javascript:void(0);" class="ingredient-add-button" title="add-step">ADD INGREDIENT</a>
                 </div>
-             </div>
              <div class="form-group">
                 <label for="step">Steps</label>
                 <div class="step-wrapper">
                   <div class="step-form">
                    <textarea class="form-control" name="step[]" rows="3" maxlength="500" required></textarea>
+                   <a href="javascript:void(0);" class="step-remove-button">REMOVE</a></div>
                   </div>
-                   <a href="javascript:void(0);" class="step-add-button" title="add-step">ADD STEP</a>
                 </div>
+                <a href="javascript:void(0);" class="step-add-button" title="add-step">ADD STEP</a>
              </div>
              <button type="submit" class="btn btn-secondary my-3">submit</button>
             </form>

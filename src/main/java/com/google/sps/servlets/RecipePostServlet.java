@@ -51,7 +51,7 @@ import org.apache.commons.lang3.StringUtils;
 public class RecipePostServlet extends HttpServlet {
 
   /**
-   * doPost creates a new recipe entity with the attributes inputted in the post
+   * doPost creates a new recipe entity with the attributes inputted in the post request
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -101,8 +101,7 @@ public class RecipePostServlet extends HttpServlet {
     HttpServletRequest request
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
-    Random rd = new Random();
-    Double number = rd.nextDouble();
+
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
@@ -119,7 +118,6 @@ public class RecipePostServlet extends HttpServlet {
       "author_id",
       request.getSession().getAttribute("id")
     );
-    recipeEntity.setProperty("random_number", number);
 
     return recipeEntity;
   }
@@ -133,6 +131,21 @@ public class RecipePostServlet extends HttpServlet {
           .newBuilder()
           .setName("title")
           .setText((String) recipeEntity.getProperty("index_title"))
+      )
+      .addField(
+        Field.newBuilder().setName("ingredients").setText((String)recipeEntity.getProperty("ingredients"))
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("prep_time")
+          .setNumber((long) recipeEntity.getProperty("prep_time"))
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("difficulty")
+          .setText((String) recipeEntity.getProperty("difficulty"))
       )
       .build();
 
@@ -158,6 +171,7 @@ public class RecipePostServlet extends HttpServlet {
     String[] quantity = request.getParameterValues("ingredients[][quantity]");
     String[] measure = request.getParameterValues("ingredients[][measure]");
     String[] ingr = request.getParameterValues("ingredients[][ingredient]");
+    
     ArrayList ingredientsList = new ArrayList();
     for (int i = 0; i < quantity.length; i++) {
       String ingredient =

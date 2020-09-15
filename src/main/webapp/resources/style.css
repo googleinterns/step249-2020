@@ -165,3 +165,11 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.ingredient-remove-button:first-of-type {
+  display: none;
+}
+
+.step-remove-button:first-of-type {
+  display: none;
+}

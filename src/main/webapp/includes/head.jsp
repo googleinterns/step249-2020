@@ -5,5 +5,5 @@
 
     <link rel="stylesheet" href=<c:url value="/resources/style.css" /> >
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src=<c:url value="/resources/script.js" /> ></script>
