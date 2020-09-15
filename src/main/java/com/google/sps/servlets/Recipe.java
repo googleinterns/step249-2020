@@ -24,7 +24,6 @@ public class Recipe {
   private String name;
   private String description;
   private String difficulty;
-  private Integer cookTime;
   private Integer prepTime;
   private String author;
   private String imgURL;
@@ -38,10 +37,6 @@ public class Recipe {
 
   public String getDifficulty() {
     return difficulty;
-  }
-
-  public Integer getCookTime() {
-    return cookTime;
   }
 
   public Integer getPrepTime() {
@@ -105,13 +100,6 @@ public class Recipe {
    */
   public void setPrepTime(Integer givenPTime) {
     prepTime = givenPTime;
-  }
-
-  /**
-   * Set the cook time in minutes.
-   */
-  public void setCookTime(Integer givenCTime) {
-    cookTime = givenCTime;
   }
 
   public void setAuthor(String givenAuthor) {
