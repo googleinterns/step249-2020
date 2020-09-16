@@ -29,20 +29,21 @@ import com.google.appengine.api.search.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /** Servlet that returns a random recipe*/
 @WebServlet("/random")
 public class RandomRecipeServlet extends HttpServlet {
 
   /**
-   * This function creates an url from a random recipe's id.
+   * This function creates and redirects to an url from a random recipe's id.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +55,7 @@ public class RandomRecipeServlet extends HttpServlet {
   }
 
   /**
-   * This function generates a random double and returns the id of the first Entity with the closest value of "random_number".
+   * This function returns a random recipe's id.
    */
   private long returnRandomId(DatastoreService datastore) {
     int position = getRandomPosition(datastore);
@@ -68,9 +69,7 @@ public class RandomRecipeServlet extends HttpServlet {
   }
 
   /**
-   * QueryForSize is a class that returns the number of entities inside the datastore.
-   * This is computed in a different class because the datastore.Query class (used for counting entities)
-   * conflicts with search.Query class (used for searching for a recipe).
+   * This function generates and returns an integer in the range [0, number of recipes).
    */
   private int getRandomPosition(DatastoreService datastore) {
     int recipesNumber = countRecipes();
@@ -104,6 +103,9 @@ public class RandomRecipeServlet extends HttpServlet {
     return index;
   }
 
+  /**
+   * Count the number of Recipe entities inside the datastore.
+   */
   public static int countRecipes() {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     com.google.appengine.api.datastore.Query query = new com.google.appengine.api.datastore.Query(
