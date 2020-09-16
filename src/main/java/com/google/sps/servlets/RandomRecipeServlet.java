@@ -41,6 +41,8 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns a random recipe*/
 @WebServlet("/random")
 public class RandomRecipeServlet extends HttpServlet {
+  // Name of the index used.
+  private static final String INDEX_NAME = "recipes_index";
 
   /**
    * This function creates and redirects to an url from a random recipe's id.
@@ -89,7 +91,7 @@ public class RandomRecipeServlet extends HttpServlet {
       .setOffset(position)
       .build();
     Query query = Query.newBuilder().setOptions(options).build("");
-    Index index = getIndex("recipes_index");
+    Index index = getIndex(INDEX_NAME);
 
     return index.search(query);
   }
