@@ -32,6 +32,7 @@ import com.google.appengine.api.search.*;
 import java.io.IOException;
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +45,11 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
+  // The number of recipes to be displayed on the search list.
+  private static final int RECIPES_LIMIT = 10;
 
   /**
-   * Search and returns a list of first 10 recipes with the title matching the given parameter(searchterm).
+   * Search and returns a list of first 10 recipes matching the given parameters(searchterm, difficulty & time).
    * The index returns a list of documents in the ascending order by title.
    * Special characters inside the search terms are replaced with space.
    * We compute and return the intersection of the following lists:
@@ -55,64 +58,101 @@ public class SearchServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-    String stringToMatch = request.getParameter("searchterm");
-    stringToMatch = trimAndRemoveCommas(stringToMatch);
-    request.setAttribute("searchQuery", stringToMatch);
+    throws ServletException, IOException, NullPointerException {
+    String searchterm = getParameter("searchterm", request);
+    String difficulty = getParameter("difficulty", request);
+    String time = getParameter("time", request);
+    Integer timeValue = parseInt(time);
+    request.setAttribute("searchterm", searchterm);
+    request.setAttribute("difficulty", difficulty);
+    request.setAttribute("prepTime", time);
 
-    List<Recipe> recipesListToReturn = recipesMatching(
-      request,
-      response,
-      stringToMatch
-    );
-
-    request.setAttribute("recipesList", recipesListToReturn);
+    try {
+      List<Recipe> recipesListToReturn = recipesMatching(
+        sanitizeString(searchterm),
+        sanitizeString(difficulty),
+        timeValue
+      );
+      request.setAttribute("recipesList", recipesListToReturn);
+    } catch (SearchQueryException e) {
+      response.setStatus(505);
+    }
     request.getRequestDispatcher("/search.jsp").forward(request, response);
   }
 
   /**
+  * Get a string and return its integer value after the string was sanitized.
+  */
+  private Integer parseInt(String stringGiven){
+    try {
+      return Integer.valueOf(sanitizeString(stringGiven));
+    } catch (NumberFormatException e) {
+      return 0;
+    }
+  }
+
+
+  /**
    * Replace and return the string with no commas and no multiple consecutive or trailing spaces.
    */
-  private String trimAndRemoveCommas(String stringToRemove) {
-    if (!StringUtils.isBlank(stringToRemove)) {
-      stringToRemove = stringToRemove.replaceAll("[,]+", " ");
-      stringToRemove = stringToRemove.replaceAll("  +", " ");
+  private String sanitizeString(String stringToSanitize) {
+    if (!StringUtils.isBlank(stringToSanitize)) {
+      stringToSanitize = stringToSanitize.replaceAll("(,\\s?)+", " ");
     }
-    return stringToRemove;
+    return stringToSanitize;
   }
 
   /**
-   * Returns a list of recipes matching the given title and/or ingredients.
+   * If the fields exists, returns the parameter from the request, otherwise it returns an empty string.
+   */
+  private String getParameter(String field, HttpServletRequest request) {
+    if (!StringUtils.isBlank(field)) return request.getParameter(field);
+    return "";
+  }
+
+  /**
+   * Returns a list of recipes matching the given title and ingredients.
    */
   private List<Recipe> recipesMatching(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String stringToMatch
+    String stringToMatch,
+    String difficulty,
+    Integer time
   )
     throws ServletException, IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    List<Recipe> recipesMatchingList = new ArrayList<>();
     Index index = getIndex("recipes_index");
-
-    Query query = buildQuery(stringToMatch, 10);
+    Query query = buildQuery(stringToMatch, difficulty, time);
     Results<ScoredDocument> results = index.search(query);
-    for (ScoredDocument entity : results) {
+    List<Recipe> matchingRecipes = new ArrayList<>();
+    for (ScoredDocument document : results) {
       try {
-        Entity recipeEntity = getRecipeEntityFromDocumentEntity(
-          datastore,
-          entity
+        Entity recipeEntity = getRecipeEntityFromDocument(datastore, document);
+        ArrayList<String> matchingIngredients = returnMatchingIngredients(
+          document
         );
-
-        Recipe recipe = buildRecipe(recipeEntity, datastore);
-        recipesMatchingList.add(recipe);
+        Recipe recipe = buildRecipe(recipeEntity, matchingIngredients, datastore);
+        matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
-        response.setStatus(505);
-        request.getRequestDispatcher("/search.jsp").forward(request, response);
         return new ArrayList<>();
       }
     }
+    return matchingRecipes;
+  }
 
-    return recipesMatchingList;
+  /**
+   * Returns a list of matching ingredients snippet by the search query.
+   */
+  private ArrayList<String> returnMatchingIngredients(ScoredDocument document) {
+    ArrayList<String> matchingIngredients = new ArrayList<>();
+
+    List<Field> fields = document.getExpressions();
+    for (Field field : fields) {
+      if (!StringUtils.isBlank(field.getHTML())) {
+        matchingIngredients.add(field.getHTML());
+      }
+    }
+
+    return matchingIngredients;
   }
 
   /**
@@ -124,39 +164,85 @@ public class SearchServlet extends HttpServlet {
     return index;
   }
 
-  private Query buildQuery(String stringToMatch, int limit) {
+  private Query buildQuery(
+    String stringToMatch,
+    String difficulty,
+    Integer time
+  ) {
     Cursor responseCursor = Cursor.newBuilder().build();
     QueryOptions options = QueryOptions
       .newBuilder()
-      .setLimit(limit)
+      .setLimit(RECIPES_LIMIT)
+      .setFieldsToSnippet("ingredients")
       .setSortOptions(
         SortOptions.newBuilder().setMatchScorer(MatchScorer.newBuilder())
       )
       .setCursor(responseCursor)
       .build();
 
-    Query query = Query.newBuilder().setOptions(options).build(stringToMatch);
-
+    String searchString = createSearchString(stringToMatch, difficulty, time);
+    Query query = Query.newBuilder().setOptions(options).build(searchString);
     return query;
+  }
+
+  /**
+   * This function creates and returns the string used inside the search query.
+   */
+  private String createSearchString(
+    String stringToMatch,
+    String difficulty,
+    Integer time
+  ) {
+    String searchString = new String();
+    if (!StringUtils.isBlank(stringToMatch)) {
+      searchString =
+        searchString +
+        "(title=(" +
+        stringToMatch.trim() +
+        ") OR ingredients=(" +
+        stringToMatch.trim() +
+        "))";
+    }
+
+    if (!StringUtils.isBlank(difficulty)) {
+      if (!StringUtils.isBlank(searchString)) {
+        searchString = searchString + " AND ";
+      }
+      searchString = searchString + "difficulty=\"" + difficulty + "\"";
+    }
+
+    if (time != 0) {
+      if (!StringUtils.isBlank(searchString)) {
+        searchString = searchString + " AND ";
+      }
+      searchString = searchString + "prep_time <=" + String.valueOf(time);
+    }
+
+    return searchString;
   }
 
   /**
    * Build a Recipe Object with the given Entity.
    */
-  private Recipe buildRecipe(Entity recipeEntity, DatastoreService datastore) {
-    String authorName = new String();
+  private Recipe buildRecipe(
+    Entity recipeEntity,
+    ArrayList<String> ingredientsMatching,
+    DatastoreService datastore
+  ) {
     Long id = recipeEntity.getKey().getId();
+    String authorName = new String();
     String name = (String) recipeEntity.getProperty("title");
     String imgURL = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
     String difficulty = (String) recipeEntity.getProperty("difficulty");
-    Double prep_time_double = (Double) recipeEntity.getProperty("prep_time");
-    Integer prep_time_int = prep_time_double.intValue();
+    Integer prep_time = ((Long) recipeEntity.getProperty("prep_time")).intValue();
     Long authorId = (Long) recipeEntity.getProperty("author_id");
-    try {
-      authorName = getUserNameById(authorId, datastore);
-    } catch (EntityNotFoundException e) {
-      authorName = "";
+    
+    try{
+        authorName = getUserNameById(authorId, datastore);
+    }
+    catch(EntityNotFoundException e){
+        authorName = "";
     }
 
     Recipe recipe = new Recipe();
@@ -164,7 +250,8 @@ public class SearchServlet extends HttpServlet {
     recipe.setName(name);
     recipe.setImage(imgURL);
     recipe.setDescription(description);
-    recipe.setPrepTime(prep_time_int);
+    recipe.setMatchingIngredients(ingredientsMatching);
+	recipe.setPrepTime(prep_time);
     recipe.setDifficulty(StringUtils.capitalize(difficulty));
     recipe.setAuthor(authorName);
 
@@ -172,7 +259,7 @@ public class SearchServlet extends HttpServlet {
   }
 
   /**
-   * Returns the user name with the given id.
+   * Returns the user's name with the given id.
    */
   private String getUserNameById(Long userId, DatastoreService datastore)
     throws EntityNotFoundException {
@@ -184,7 +271,7 @@ public class SearchServlet extends HttpServlet {
   /**
    * Build a Recipe Entity with the given Document.
    */
-  private Entity getRecipeEntityFromDocumentEntity(
+  private Entity getRecipeEntityFromDocument(
     DatastoreService datastore,
     ScoredDocument entity
   )
