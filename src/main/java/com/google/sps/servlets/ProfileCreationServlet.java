@@ -38,16 +38,30 @@ public class ProfileCreationServlet extends HttpServlet {
    * doPost creates a new user entity and assigns it the property inputed in the user creation form
    */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    String username = request.getParameter("username");
-    String bio = request.getParameter("bio");
 
     HttpSession session = request.getSession();
+    if (((int)session.getAttribute("isLoggedIn"))== 1) {
+        editProfile(request, response, session);
+    } else {
+        createProfile(request, response, session);
+    }
+  }
+
+  public void createProfile(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    HttpSession session
+   )  throws IOException {
+    String username = request.getParameter("username");
+    String bio = request.getParameter("bio");
+    String email = (String) session.getAttribute("uregisteredUserEmail");
+ 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Entity userEntity = new Entity("User");
-    setEnitityAttributes(userEntity, username, bio, session);
+    setEnitityAttributes(userEntity, username, bio, email);
     datastore.put(userEntity);
 
     setSessionAttributes(session, userEntity, username, bio);
@@ -55,16 +69,41 @@ public class ProfileCreationServlet extends HttpServlet {
     response.sendRedirect("/user?id=" + userEntity.getKey().getId());
   }
 
+   public void editProfile(
+    HttpServletRequest request,
+    HttpServletResponse response,
+    HttpSession session
+   )  throws IOException {
+    String username = request.getParameter("username");
+    String bio = request.getParameter("bio");
+    String email = "";
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    long id = (long) session.getAttribute("id");
+    Entity userEntity = null;
+    try {
+      userEntity = getUserById(datastore, id);
+      email = (String) userEntity.getProperty("email");
+    } catch (EntityNotFoundException e) {
+      request.setAttribute("error", 1);
+    }
+
+    setEnitityAttributes(userEntity, username, bio, email);
+    datastore.put(userEntity);
+
+    session.setAttribute("name", username);
+    session.setAttribute("bio", bio);
+
+    response.sendRedirect("/user?id=" + id);
+  }
+
   public void setEnitityAttributes(
     Entity userEntity,
     String username,
     String bio,
-    HttpSession session
+    String email
   ) {
-    userEntity.setProperty(
-      "email",
-      session.getAttribute("uregisteredUserEmail")
-    );
+    userEntity.setProperty("email", email);
     userEntity.setProperty("name", username);
     userEntity.setProperty("bio", bio);
     userEntity.setProperty("imageURL", "images/default.png");
@@ -80,5 +119,11 @@ public class ProfileCreationServlet extends HttpServlet {
     session.setAttribute("bio", bio);
     session.setAttribute("isLoggedIn", 1);
     session.setAttribute("id", userEntity.getKey().getId());
+  }
+
+  public Entity getUserById(DatastoreService datastore, long id)
+    throws IOException, EntityNotFoundException {
+    Entity userEntity = datastore.get(KeyFactory.createKey("User", id));
+    return userEntity;
   }
 }

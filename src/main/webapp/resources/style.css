@@ -159,7 +159,7 @@ body {
   text-decoration: none;
 }
 
-.search-description {
+.search-description:first-of-type {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
