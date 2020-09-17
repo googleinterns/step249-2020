@@ -5,6 +5,8 @@
 <t:genericpage>
     <jsp:body>
        <div class="content">
+        <c:choose>
+        <c:when test="${isLoggedIn == 1}">
         <h3>User Registration</h3>
         <h5 class="mb-3">To complete your user registration please fill the fom below and click submit</h5>
         <form action="/profile_creation" method="GET">
