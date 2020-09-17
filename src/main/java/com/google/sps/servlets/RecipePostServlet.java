@@ -50,6 +50,8 @@ import org.apache.commons.lang3.StringUtils;
 @WebServlet("/recipe_post")
 public class RecipePostServlet extends HttpServlet {
 
+  // Name of the index used.
+  private static final String INDEX_NAME = "recipes_index";
   /**
    * doPost creates a new recipe entity with the attributes inputted in the post request
    */
@@ -65,7 +67,7 @@ public class RecipePostServlet extends HttpServlet {
 
     IndexSpec indexSpec = IndexSpec
       .newBuilder()
-      .setName("recipesIndex")
+      .setName(INDEX_NAME)
       .build();
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
