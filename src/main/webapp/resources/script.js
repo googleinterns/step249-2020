@@ -18,14 +18,14 @@ $(document).ready(function () {
   addRemove(
     step,
     ".step-add-button",
-    ".step-wrapper",
+    ".steps-wrapper",
     ".step-form",
     ".step-remove-button"
   );
   addRemove(
     ingredient,
     ".ingredient-add-button",
-    ".ingredient-wrapper",
+    ".ingredients-wrapper",
     ".ingredient-form",
     ".ingredient-remove-button"
   );
