@@ -75,7 +75,8 @@ import org.apache.commons.lang3.StringUtils;
 public class TestUploadServlet extends HttpServlet {
   private static final String RECIPES_DIRECTORY = "ABSOLUTE_PATH";
   private static final String RECIPE_FILE_EXTENSION = ".txt";
-
+  // Name of the index used.
+  private static final String INDEX_NAME = "recipes_index";
   /**
    * Receives a recipe's properties and creates an entity, for the database and a document for the index.
    */
@@ -87,7 +88,7 @@ public class TestUploadServlet extends HttpServlet {
     ArrayList<String> stepList
   )
     throws Exception, InterruptedException, IOException {
-    Index index = getIndex("recipes_index");
+    Index index = getIndex(INDEX_NAME);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     // We use an index to store the documents; every document contains a recipe's title and its ID.
