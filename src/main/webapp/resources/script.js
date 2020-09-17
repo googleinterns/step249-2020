@@ -31,15 +31,15 @@ $(document).ready(function () {
   );
 });
 
-function addRemove(x, addButton, wrapper, form, removeButton) {
-  const MAX_NUMBER_OF_FIELD = 50;
+function addRemove(numberOfForm, addButton, wrapper, form, removeButton) {
+  const MAX_NUMBER_OF_FIELDS = 50;
   //Once add button is clicked
   $(addButton).click(function () {
     var inputBox = $(form).clone();
     var fieldHTML = "<div>" + inputBox.html() + "</div>"; //New input field html
     //Check maximum number of input fields
-    if (x < MAX_NUMBER_OF_FIELD) {
-      x++; //Increment field counter
+    if (numberOfForm < MAX_NUMBER_OF_FIELDS) {
+      numberOfForm++; //Increment field counter
       $(wrapper).append(fieldHTML); //Add field html
     }
   });
@@ -48,6 +48,6 @@ function addRemove(x, addButton, wrapper, form, removeButton) {
   $(wrapper).on("click", removeButton, function (e) {
     e.preventDefault();
     $(this).parent("div").remove(); //Remove field html
-    x--; //Decrement field counter
+    numberOfForm--; //Decrement field counter
   });
 }
