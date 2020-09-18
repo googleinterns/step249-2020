@@ -56,13 +56,14 @@ public class RecipePostServlet extends HttpServlet {
    * doPost creates a new recipe entity with the attributes inputted in the post request
    */
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) 
+    throws ServletException, IOException {
     String title = request.getParameter("title");
     String imgURL = "TODO Add url here";
     String description = request.getParameter("description");
     int prepTime = getPrepTime(request);
     String difficulty = request.getParameter("difficulty");
-    ArrayList<String> ingredients = getIngredient(request);
+    ArrayList<String> ingredients = getIngredients(request);
     ArrayList<String> stepList = getSteps(request);
 
     IndexSpec indexSpec = IndexSpec
@@ -85,10 +86,11 @@ public class RecipePostServlet extends HttpServlet {
       stepList,
       request
     );
-    Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity);
+    Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity, ingredients);
 
     datastore.put(recipeEntity);
     index.put(recipeDocument);
+    response.sendRedirect("/recipe?id=" + Long.toString(recipeEntity.getKey().getId()));
   }
 
   private Entity buildRecipeEntity(
@@ -104,10 +106,16 @@ public class RecipePostServlet extends HttpServlet {
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
 
+    ArrayList<String> ingredientsDisplayName = new ArrayList<>();
+    for (String ingredient: ingredients) {
+        String[] details = ingredient.split(",");
+        ingredientsDisplayName.add(details[0] + " " + details[1] + " of " + details[2]);
+    }
+
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
-    recipeEntity.setProperty("ingredients", ingredients);
+    recipeEntity.setProperty("ingredients", ingredientsDisplayName);
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty(
       "author",
@@ -124,7 +132,13 @@ public class RecipePostServlet extends HttpServlet {
     return recipeEntity;
   }
 
-  private Document buildRecipeDocumentForIndexing(Entity recipeEntity) {
+  private Document buildRecipeDocumentForIndexing(Entity recipeEntity, ArrayList<String> ingredients) {
+    ArrayList<String> ingredientsNames = new ArrayList<>();
+    for (String ingredient: ingredients) {
+        String[] details = ingredient.split(",");
+        ingredientsNames.add(details[2]);
+    }
+
     Document recipeDocument = Document
       .newBuilder()
       .setId(String.valueOf(recipeEntity.getKey().getId()))
@@ -135,13 +149,13 @@ public class RecipePostServlet extends HttpServlet {
           .setText((String) recipeEntity.getProperty("index_title"))
       )
       .addField(
-        Field.newBuilder().setName("ingredients").setText((String)recipeEntity.getProperty("ingredients"))
+        Field.newBuilder().setName("ingredients").setText(String.join(" ", ingredientsNames))
       )
       .addField(
         Field
           .newBuilder()
           .setName("prep_time")
-          .setNumber((long) recipeEntity.getProperty("prep_time"))
+          .setNumber((Integer) recipeEntity.getProperty("prep_time"))
       )
       .addField(
         Field
@@ -169,15 +183,15 @@ public class RecipePostServlet extends HttpServlet {
     return steps;
   }
 
-  private ArrayList<String> getIngredient(HttpServletRequest request) {
+  private ArrayList<String> getIngredients(HttpServletRequest request) {
     String[] quantity = request.getParameterValues("ingredients[][quantity]");
     String[] measure = request.getParameterValues("ingredients[][measure]");
-    String[] ingr = request.getParameterValues("ingredients[][ingredient]");
+    String[] ingredientName = request.getParameterValues("ingredients[][ingredient]");
     
     ArrayList ingredientsList = new ArrayList();
     for (int i = 0; i < quantity.length; i++) {
       String ingredient =
-        "(" + quantity[i] + ", " + measure[i] + ", " + ingr[i] + ")";
+        quantity[i] + ", " + measure[i] + ", " + ingredientName[i];
       ingredientsList.add(ingredient);
     }
     return ingredientsList;
