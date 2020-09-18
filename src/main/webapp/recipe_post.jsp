@@ -68,7 +68,7 @@
              </div>
              <div class="form-group">
                 <label>Ingredients</label>
-                <div class="ingredient-wrapper">
+                <div class="ingredients-wrapper">
                 <div class="ingredient-form">
                  <div class="form-row">
                   <div class="col">
@@ -87,7 +87,7 @@
                 </div>
              <div class="form-group">
                 <label for="step">Steps</label>
-                <div class="step-wrapper">
+                <div class="steps-wrapper">
                   <div class="step-form">
                    <textarea class="form-control" name="step[]" rows="3" maxlength="500" required></textarea>
                    <a href="javascript:void(0);" class="step-remove-button">REMOVE</a></div>
