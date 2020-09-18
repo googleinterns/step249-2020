@@ -72,7 +72,7 @@ public class UserDetailsServlet extends HttpServlet {
     user.setId(userEntity.getKey().getId());
     user.setName((String) userEntity.getProperty("name"));
     user.setBio((String) userEntity.getProperty("bio"));
-    user.setImage((String) userEntity.getProperty("imgURL"));
+    user.setImage((String) userEntity.getProperty("imageURL"));
     user.setEmail((String) userEntity.getProperty("email"));
 
     return user;
@@ -104,12 +104,12 @@ public class UserDetailsServlet extends HttpServlet {
   private Recipe buildRecipe(Entity recipeEntity) {
     Long id = recipeEntity.getKey().getId();
     String name = (String) recipeEntity.getProperty("title");
-    String imgURL = (String) recipeEntity.getProperty("imgURL");
+    String imageUrl = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
     Recipe recipe = new Recipe();
     recipe.setId(id);
     recipe.setName(name);
-    recipe.setImage(imgURL);
+    recipe.setImage(imageUrl);
     recipe.setDescription(description);
 
     return recipe;
