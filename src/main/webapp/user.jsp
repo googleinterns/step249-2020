@@ -30,7 +30,9 @@
                     <c:forEach items="${recipesList}" var="recipe">
                         <li class="list-group-item">
                             <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="${recipe.getName()}">
-                                <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
+                                <div class="row">
+                                  <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
+                                </div>
                                 <p>
                                 <c:out value="${recipe.getDescription()}" /> 
                                 </p>
