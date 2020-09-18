@@ -153,7 +153,6 @@ public class TestUploadServlet extends HttpServlet {
     // The ingredients list is starting from the line 7.
     int currentLineIndex = 7;
 
-
     // Reads all the ingredients until the first blank line.
     // StringBuilder is used to create a string, it is not efficient to do string += another_string multiple times
     // because a string builder is created everytime.
@@ -166,7 +165,6 @@ public class TestUploadServlet extends HttpServlet {
       currentLineIndex += 1;
     }
 
-    
     //Removes the blank line and the paragraph: "Steps:".
     //Reads all the steps until the first blank line.
     currentLineIndex += 2;

@@ -12,3 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+$(document).ready(function () {
+  var step = 1;
+  var ingredient = 1;
+  addRemove(
+    step,
+    ".step-add-button",
+    ".steps-wrapper",
+    ".step-form",
+    ".step-remove-button"
+  );
+  addRemove(
+    ingredient,
+    ".ingredient-add-button",
+    ".ingredients-wrapper",
+    ".ingredient-form",
+    ".ingredient-remove-button"
+  );
+});
+
+function addRemove(numberOfForm, addButton, wrapper, form, removeButton) {
+  const MAX_NUMBER_OF_FIELDS = 50;
+  //Once add button is clicked
+  $(addButton).click(function () {
+    var inputBox = $(form).clone();
+    var fieldHTML = "<div>" + inputBox.html() + "</div>"; //New input field html
+    //Check maximum number of input fields
+    if (numberOfForm < MAX_NUMBER_OF_FIELDS) {
+      numberOfForm++; //Increment field counter
+      $(wrapper).append(fieldHTML); //Add field html
+    }
+  });
+
+  //Once remove button is clicked
+  $(wrapper).on("click", removeButton, function (e) {
+    e.preventDefault();
+    $(this).parent("div").remove(); //Remove field html
+    numberOfForm--; //Decrement field counter
+  });
+}

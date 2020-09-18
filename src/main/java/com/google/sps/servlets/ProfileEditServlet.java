@@ -45,7 +45,7 @@ public class ProfileEditServlet extends HttpServlet {
 
     HttpSession session = request.getSession();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    long id = (long)session.getAttribute("id");
+    long id = (long) session.getAttribute("id");
     Entity userEntity = null;
     try {
       userEntity = getUserById(datastore, id);
