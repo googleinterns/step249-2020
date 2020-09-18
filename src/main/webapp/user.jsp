@@ -19,7 +19,7 @@
                     <div class="col-8">
                         <div class="row">
                             <h1>${user.getName()}</h1>
-                            <a href="/profile_edit.jsp" class="btn btn-secondary my-3">edit</a>
+                            <a href="/profile_creation.jsp" class="btn btn-secondary my-3">edit</a>
                         </div>
                         <h4>${user.getBio()}</h4>
                     </div>

@@ -117,8 +117,7 @@ public class RecipePostServlet extends HttpServlet {
     HttpServletRequest request
   ) {
     Entity recipeEntity = new Entity(keyRange.getStart());
-    Random rd = new Random();
-    Double number = rd.nextDouble();
+
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
     recipeEntity.setProperty("imgURL", imgURL);
@@ -135,7 +134,6 @@ public class RecipePostServlet extends HttpServlet {
       "author_id",
       request.getSession().getAttribute("id")
     );
-    recipeEntity.setProperty("random_number", number);
 
     return recipeEntity;
   }
@@ -149,6 +147,21 @@ public class RecipePostServlet extends HttpServlet {
           .newBuilder()
           .setName("title")
           .setText((String) recipeEntity.getProperty("index_title"))
+      )
+      .addField(
+        Field.newBuilder().setName("ingredients").setText( String.join(" ",(ArrayList<String>) recipeEntity.getProperty("ingredients")))
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("prep_time")
+          .setNumber((int) recipeEntity.getProperty("prep_time"))
+      )
+      .addField(
+        Field
+          .newBuilder()
+          .setName("difficulty")
+          .setText((String) recipeEntity.getProperty("difficulty"))
       )
       .build();
 
