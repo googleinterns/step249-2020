@@ -55,7 +55,7 @@ public class ProfileCreationServlet extends HttpServlet {
     throws ServletException, IOException {
 
     HttpSession session = request.getSession();
-    if (((int)session.getAttribute("isLoggedIn"))== 1) {
+    if (((int) session.getAttribute("isLoggedIn"))== 1) {
         editProfile(request, response, session);
     } else {
         createProfile(request, response, session);
@@ -69,7 +69,7 @@ public class ProfileCreationServlet extends HttpServlet {
    )  throws IOException {
     String username = request.getParameter("username");
     String bio = request.getParameter("bio");
-    String email = (String) session.getAttribute("uregisteredUserEmail");
+    String email = (String) session.getAttribute("unregisteredUserEmail");
     String imageUrl = getUploadedFileUrl(request, "image");
  
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -92,12 +92,12 @@ public class ProfileCreationServlet extends HttpServlet {
     String bio = request.getParameter("bio");
     String email = "";
     String imageUrl = getUploadedFileUrl(request, "image");
+    long userId = (long) session.getAttribute("id");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    long id = (long) session.getAttribute("id");
     Entity userEntity = null;
     try {
-      userEntity = getUserById(datastore, id);
+      userEntity = getUserById(datastore, userId);
       email = (String) userEntity.getProperty("email");
     } catch (EntityNotFoundException e) {
       request.setAttribute("error", 1);
@@ -109,7 +109,7 @@ public class ProfileCreationServlet extends HttpServlet {
     session.setAttribute("name", username);
     session.setAttribute("bio", bio);
 
-    response.sendRedirect("/user?id=" + id);
+    response.sendRedirect("/user?id=" + userId);
   }
 
   public void setEnitityAttributes(
