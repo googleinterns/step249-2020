@@ -22,6 +22,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.KeyRange;
@@ -65,6 +66,25 @@ public class RecipePostServlet extends HttpServlet {
 
   // Name of the index used.
   private static final String INDEX_NAME = "recipes_index";
+
+  /**
+   * doGet retrieves the attributes of the recipe to be edited and sets them as reqest attributes
+   */
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Entity recipeEntity = null;
+    try {
+      recipeEntity = getRecipeById(datastore, request.getParameter("id"));
+    } catch (EntityNotFoundException e) {
+      request.setAttribute("error", 1);
+    }
+    setRecipePropertiesInRequest(request, recipeEntity);
+    request.setAttribute("edit", 1);
+    request.getRequestDispatcher("/recipe_post.jsp").forward(request, response);
+  }
+            
+
   /**
    * doPost creates a new recipe entity with the attributes inputted in the post
    */
@@ -128,7 +148,7 @@ public class RecipePostServlet extends HttpServlet {
 
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
-    recipeEntity.setProperty("imgURL", imgURL);
+    if (imgURL != null && !imgURL.isEmpty()) recipeEntity.setProperty("imgURL", imgURL);
     recipeEntity.setProperty("ingredients", ingredientsDisplayName);
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty(
@@ -250,4 +270,33 @@ public class RecipePostServlet extends HttpServlet {
       return imagesService.getServingUrl(options);
     }
   }
+
+public void setRecipePropertiesInRequest(
+    HttpServletRequest request,
+    Entity recipeEntity
+  )
+    throws IOException {
+    request.setAttribute("title", recipeEntity.getProperty("title"));
+    request.setAttribute("author_id", recipeEntity.getProperty("author_id"));
+    request.setAttribute(
+      "description",
+      recipeEntity.getProperty("description")
+    );
+    request.setAttribute("imgURL", recipeEntity.getProperty("imgURL"));
+    request.setAttribute("difficulty", recipeEntity.getProperty("difficulty"));
+    request.setAttribute("prepTime", recipeEntity.getProperty("prep_time"));
+    request.setAttribute(
+      "ingredients",
+      recipeEntity.getProperty("ingredients")
+    );
+    request.setAttribute("steps", recipeEntity.getProperty("stepList"));
+  }
+
+public Entity getRecipeById(DatastoreService datastore, String idRecipe)
+    throws IOException, EntityNotFoundException {
+    long id = Long.parseLong(idRecipe);
+    Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));
+    return recipeEntity;
+ }
+
 }

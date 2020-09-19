@@ -16,7 +16,6 @@
             <img src=${imgURL} class="img-fluid my-3" alt="${title}">
             <ul class="list-group list-group-horizontal w-100 mb-3">
                 <li class="list-group-item">Prep Time: ${prepTime}</li>
-                <li class="list-group-item">Cooking Time: ${cookTime}</li>
                 <li class="list-group-item">Difficulty: ${difficulty}</li>
             </ul>
 

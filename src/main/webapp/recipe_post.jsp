@@ -13,20 +13,27 @@
     <jsp:body>
        <div class="content">
         <c:choose>
+        <c:when test="${edit != 1}">
+            <c:set var="title_p" value="Type your recipe title"/>
+            <c:set var="descriprion_p" value="Add a short description for your recipe"/>
+            <c:set var="img" value="required"/>
+        </c:when>
+        </c:choose>
+        <c:choose>
         <c:when test="${isLoggedIn == 1}">
             <h2>Post your own recipe!</h2>
             <form action="${upload}" enctype="multipart/form-data" method="POST">
              <div class="form-group">
                 <label for="image">Upload Main Recipe Image</label>
-                <input type="file" class="form-control-file" name="image" required>
+                <input type="file" class="form-control-file" name="image" ${img}>
              </div>
              <div class="form-group">
                 <label for="title">Recipe Title</label>
-                <input type="text" class="form-control" name="title" placeholder="Type your recipe title" maxlength="50" required>
+                <input type="text" class="form-control" name="title" placeholder="${title_p}" value="${title}" maxlength="50" required>
              </div>
              <div class="form-group">
                 <label for="description">Overview</label>
-                <textarea class="form-control" name="description" rows="3" placeholder="Add a short description for your recipe" maxlength="500" required></textarea>
+                <textarea class="form-control" name="description" rows="3" placeholder="${description_p}" maxlength="500" required>${description}</textarea>
              </div>
              <fieldset class="form-group">
                 <label>Select the difficulty</label>
@@ -88,9 +95,19 @@
              <div class="form-group">
                 <label for="step">Steps</label>
                 <div class="steps-wrapper">
+                  <c:forEach items="${steps}" var="step">
+                      <div class ="step-form">
+                        <textarea class="form-control" name="step[]" rows="3" maxlength="500" required>${step}</textarea>
+                        <a href="javascript:void(0);" class="step-remove-button">REMOVE</a>
+                        </div>
+                  </c:forEach>
                   <div class="step-form">
                    <textarea class="form-control" name="step[]" rows="3" maxlength="500" required></textarea>
-                   <a href="javascript:void(0);" class="step-remove-button">REMOVE</a></div>
+                   <a href="javascript:void(0);" class="step-remove-button">REMOVE</a>
+                  </div>
+                  <div class="step-clone" style="display:none">
+                   <textarea class="form-control" name="step[]" rows="3" maxlength="500" required></textarea>
+                   <a href="javascript:void(0);" class="step-remove-button">REMOVE</a>
                   </div>
                 </div>
                 <a href="javascript:void(0);" class="step-add-button" title="add-step">ADD STEP</a>
