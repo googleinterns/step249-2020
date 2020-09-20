@@ -91,7 +91,7 @@ public class ProfileCreationServlet extends HttpServlet {
    )  throws IOException {
     String username = request.getParameter("username");
     String bio = request.getParameter("bio");
-    String email = "";
+    String email = (String) session.getAttribute("userEmail");
     String imageUrl = getUploadedFileUrl(request, "image");
     long userId = (long) session.getAttribute("id");
 

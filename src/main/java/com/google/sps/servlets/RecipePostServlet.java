@@ -79,18 +79,26 @@ public class RecipePostServlet extends HttpServlet {
     } catch (EntityNotFoundException e) {
       request.setAttribute("error", 1);
     }
-    setRecipePropertiesInRequest(request, recipeEntity);
-    request.setAttribute("edit", 1);
+    if (recipeEntity != null) {
+        request.setAttribute("edit", 1);
+        setEditRecipePropertiesInRequest(request, recipeEntity);
+    }
     request.getRequestDispatcher("/recipe_post.jsp").forward(request, response);
-  }
-            
+  }         
 
   /**
-   * doPost creates a new recipe entity with the attributes inputted in the post
+   * doPost checks if the recipe is being edited or if it is a new recipe being submitted 
    */
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) 
-    throws ServletException, IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    if (request.getParameter("edited").toString() == "yes"){
+        editRecipe(request, response);
+    } else { 
+        createRecipe(request, response);
+    }
+  }
+ 
+  public void createRecipe(HttpServletRequest request, HttpServletResponse response) throws IOException{
     String title = request.getParameter("title");
     String imgURL = getUploadedFileUrl(request, "image");
     String description = request.getParameter("description");
@@ -107,9 +115,10 @@ public class RecipePostServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
+    Entity recipeEntity = new Entity(keyRange.getStart());
 
-    Entity recipeEntity = buildRecipeEntity(
-      keyRange,
+    recipeEntity = setRecipeEntityProperties(
+      recipeEntity,
       title,
       imgURL,
       description,
@@ -127,8 +136,40 @@ public class RecipePostServlet extends HttpServlet {
     response.sendRedirect("/recipe?id=" + Long.toString(recipeEntity.getKey().getId()));
   }
 
-  private Entity buildRecipeEntity(
-    KeyRange keyRange,
+  public void editRecipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      String title = request.getParameter("title");
+      String imgURL = getUploadedFileUrl(request, "image");
+      String description = request.getParameter("description");
+      int prepTime = getPrepTime(request);
+      String difficulty = request.getParameter("difficulty");
+      ArrayList<String> ingredients = getIngredients(request);
+      ArrayList<String> stepList = getSteps(request);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      Entity recipeEntity = null;
+      try {
+             recipeEntity = getRecipeById(datastore, request.getParameter("id"));
+      } catch (EntityNotFoundException e) {
+             request.setAttribute("error", 1);
+      }
+      if (recipeEntity != null) {
+        recipeEntity = setRecipeEntityProperties(
+             recipeEntity,
+             title,
+             imgURL,
+             description,
+             prepTime,
+             difficulty,
+             ingredients,
+             stepList,
+             request
+          );
+
+        datastore.put(recipeEntity);
+      }else{ response.sendRedirect("/");}
+  }
+
+  private Entity setRecipeEntityProperties(
+    Entity recipeEntity,
     String title,
     String imgURL,
     String description,
@@ -138,18 +179,10 @@ public class RecipePostServlet extends HttpServlet {
     ArrayList<String> stepList,
     HttpServletRequest request
   ) {
-    Entity recipeEntity = new Entity(keyRange.getStart());
-
-    ArrayList<String> ingredientsDisplayName = new ArrayList<>();
-    for (String ingredient: ingredients) {
-        String[] details = ingredient.split(",");
-        ingredientsDisplayName.add(details[0] + " " + details[1] + " of " + details[2]);
-    }
-
     recipeEntity.setProperty("title", title);
     recipeEntity.setProperty("index_title", title.toLowerCase());
     if (imgURL != null && !imgURL.isEmpty()) recipeEntity.setProperty("imgURL", imgURL);
-    recipeEntity.setProperty("ingredients", ingredientsDisplayName);
+    recipeEntity.setProperty("ingredients", ingredients);
     recipeEntity.setProperty("stepList", stepList);
     recipeEntity.setProperty(
       "author",
@@ -167,11 +200,6 @@ public class RecipePostServlet extends HttpServlet {
   }
 
   private Document buildRecipeDocumentForIndexing(Entity recipeEntity, ArrayList<String> ingredients) {
-    ArrayList<String> ingredientsNames = new ArrayList<>();
-    for (String ingredient: ingredients) {
-        String[] details = ingredient.split(",");
-        ingredientsNames.add(details[2]);
-    }
 
     Document recipeDocument = Document
       .newBuilder()
@@ -183,7 +211,7 @@ public class RecipePostServlet extends HttpServlet {
           .setText((String) recipeEntity.getProperty("index_title"))
       )
       .addField(
-        Field.newBuilder().setName("ingredients").setText(String.join(" ", ingredientsNames))
+        Field.newBuilder().setName("ingredients").setText(String.join(" ", ingredients))
       )
       .addField(
         Field
@@ -213,23 +241,21 @@ public class RecipePostServlet extends HttpServlet {
   private ArrayList<String> getSteps(HttpServletRequest request) {
     String[] param = request.getParameterValues("step[]");
     ArrayList<String> steps = new ArrayList<String>();
-    for (String i : param) steps.add(i);
+    for (String i : param) {
+        if (!i.isEmpty()) steps.add(i);
+    }
     return steps;
   }
 
   private ArrayList<String> getIngredients(HttpServletRequest request) {
-    String[] quantity = request.getParameterValues("ingredients[][quantity]");
-    String[] measure = request.getParameterValues("ingredients[][measure]");
-    String[] ingredientName = request.getParameterValues("ingredients[][ingredient]");
-    
-    ArrayList ingredientsList = new ArrayList();
-    for (int i = 0; i < quantity.length; i++) {
-      String ingredient =
-        quantity[i] + ", " + measure[i] + ", " + ingredientName[i];
-      ingredientsList.add(ingredient);
+    String[] param = request.getParameterValues("ingredients[]");
+    ArrayList<String> ingredients = new ArrayList<String>();
+    for (String i : param) {
+       if (!i.isEmpty()) ingredients.add(i);
     }
-    return ingredientsList;
+    return ingredients;
   }
+
 
   private String getUploadedFileUrl(
     HttpServletRequest request,
@@ -271,28 +297,31 @@ public class RecipePostServlet extends HttpServlet {
     }
   }
 
-public void setRecipePropertiesInRequest(
+ public void setEditRecipePropertiesInRequest(
     HttpServletRequest request,
     Entity recipeEntity
   )
     throws IOException {
+    String difficulty = (String)recipeEntity.getProperty("difficulty");
+    long hour = (long) recipeEntity.getProperty("prep_time")/60;
+    long min = (long) recipeEntity.getProperty("prep_time")%60;
+
     request.setAttribute("title", recipeEntity.getProperty("title"));
-    request.setAttribute("author_id", recipeEntity.getProperty("author_id"));
     request.setAttribute(
       "description",
       recipeEntity.getProperty("description")
     );
-    request.setAttribute("imgURL", recipeEntity.getProperty("imgURL"));
-    request.setAttribute("difficulty", recipeEntity.getProperty("difficulty"));
-    request.setAttribute("prepTime", recipeEntity.getProperty("prep_time"));
+    request.setAttribute(difficulty+"Checked", "checked");
+    request.setAttribute("selected"+hour, "selected");
+    request.setAttribute("selected"+min, "selected");
     request.setAttribute(
       "ingredients",
       recipeEntity.getProperty("ingredients")
     );
     request.setAttribute("steps", recipeEntity.getProperty("stepList"));
-  }
+ }
 
-public Entity getRecipeById(DatastoreService datastore, String idRecipe)
+ public Entity getRecipeById(DatastoreService datastore, String idRecipe)
     throws IOException, EntityNotFoundException {
     long id = Long.parseLong(idRecipe);
     Entity recipeEntity = datastore.get(KeyFactory.createKey("Recipe", id));

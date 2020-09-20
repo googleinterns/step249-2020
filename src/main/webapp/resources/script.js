@@ -28,7 +28,7 @@ $(document).ready(function () {
     "ingredient-form",
     ".ingredient-add-button",
     ".ingredients-wrapper",
-    ".ingredient-form",
+    ".ingredient-clone",
     ".ingredient-remove-button"
   );
 });
