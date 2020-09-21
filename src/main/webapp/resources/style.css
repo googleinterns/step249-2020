@@ -93,9 +93,22 @@ body {
   background: linear-gradient(to right, var(--orange-1), var(--pink-1));
 }
 
+.page-container {
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.content-wrap {
+  padding-bottom: 30px;    /* Footer height */
+}
+
 .footer {
-  min-height: 30px;
-  height: 5vh;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  height: 30px;            /* Footer height */
   background: none;
 }
 
