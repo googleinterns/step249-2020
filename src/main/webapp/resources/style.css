@@ -135,6 +135,10 @@ body {
   justify-content: center;
 }
 
+.main-logo {
+  width: 220px;
+}
+
 #welcome-message {
   margin: 30px;
   text-align: center;
