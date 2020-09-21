@@ -53,13 +53,12 @@ public class ProfileCreationServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
     HttpSession session = request.getSession();
     Integer isLoggedIn = (Integer) session.getAttribute("isLoggedIn");
-    if ((isLoggedIn != null)&&(isLoggedIn == 1)) {
-        editProfile(request, response, session);
+    if ((isLoggedIn != null) && (isLoggedIn == 1)) {
+      editProfile(request, response, session);
     } else {
-        createProfile(request, response, session);
+      createProfile(request, response, session);
     }
   }
 
@@ -67,12 +66,13 @@ public class ProfileCreationServlet extends HttpServlet {
     HttpServletRequest request,
     HttpServletResponse response,
     HttpSession session
-   )  throws IOException {
+  )
+    throws IOException {
     String username = request.getParameter("username");
     String bio = request.getParameter("bio");
     String email = (String) session.getAttribute("unregisteredUserEmail");
     String imageUrl = getUploadedFileUrl(request, "image");
- 
+
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Entity userEntity = new Entity("User");
@@ -84,11 +84,12 @@ public class ProfileCreationServlet extends HttpServlet {
     response.sendRedirect("/user?id=" + userEntity.getKey().getId());
   }
 
-   public void editProfile(
+  public void editProfile(
     HttpServletRequest request,
     HttpServletResponse response,
     HttpSession session
-   )  throws IOException {
+  )
+    throws IOException {
     String username = request.getParameter("username");
     String bio = request.getParameter("bio");
     String email = (String) session.getAttribute("userEmail");
@@ -123,7 +124,10 @@ public class ProfileCreationServlet extends HttpServlet {
     userEntity.setProperty("email", email);
     userEntity.setProperty("name", username);
     userEntity.setProperty("bio", bio);
-    if (imageUrl != null && !imageUrl.isEmpty()) userEntity.setProperty("imageURL",imageUrl);
+    if (imageUrl != null && !imageUrl.isEmpty()) userEntity.setProperty(
+      "imageURL",
+      imageUrl
+    );
   }
 
   public void setSessionAttributes(
@@ -142,7 +146,8 @@ public class ProfileCreationServlet extends HttpServlet {
     throws IOException, EntityNotFoundException {
     Entity userEntity = datastore.get(KeyFactory.createKey("User", id));
     return userEntity;
-    }
+  }
+
   private String getUploadedFileUrl(
     HttpServletRequest request,
     String formInputElementName

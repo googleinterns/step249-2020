@@ -33,12 +33,19 @@ $(document).ready(function () {
   );
 });
 
-function addRemove(numberOfForm, formName, addButton, wrapper, form, removeButton) {
+function addRemove(
+  numberOfForm,
+  formName,
+  addButton,
+  wrapper,
+  form,
+  removeButton
+) {
   const MAX_NUMBER_OF_FIELDS = 50;
   //Once add button is clicked
   $(addButton).click(function () {
     var inputBox = $(form).clone();
-    var fieldHTML = "<div class="+formName+">" + inputBox.html() + "</div>"; //New input field html
+    var fieldHTML = "<div class=" + formName + ">" + inputBox.html() + "</div>"; //New input field html
     //Check maximum number of input fields
     if (numberOfForm < MAX_NUMBER_OF_FIELDS) {
       numberOfForm++; //Increment field counter

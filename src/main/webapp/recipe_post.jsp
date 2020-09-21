@@ -14,18 +14,18 @@
        <div class="content">
         <c:choose>
         <c:when test="${edit}">
-            <c:set var="welcome" value="Edit your recipe!"/>
+            <c:set var="welcome_message" value="Edit your recipe!"/>
         </c:when>
         <c:otherwise>
-            <c:set var="welcome" value="Post your own recipe!"/>
-            <c:set var="title_p" value="Type your recipe title"/>
-            <c:set var="descriprion_p" value="Add a short description for your recipe"/>
+            <c:set var="welcome_message" value="Post your own recipe!"/>
+            <c:set var="title_placeholder" value="Type your recipe title"/>
+            <c:set var="descriprion_placeholder" value="Add a short description for your recipe"/>
             <c:set var="img" value="required"/>
         </c:otherwise>
         </c:choose>
         <c:choose>
         <c:when test="${isLoggedIn == 1}">
-            <h2>${welcome}</h2>
+            <h2>${welcome_message}</h2>
             <form action="${upload}" enctype="multipart/form-data" method="POST">
             <c:if test="${edit}">
                 <input type="hidden" name="edited" value="true"/>
@@ -37,11 +37,11 @@
              </div>
              <div class="form-group">
                 <label for="title">Recipe Title</label>
-                <input type="text" class="form-control" name="title" placeholder="${title_p}" value="${title}" maxlength="50" required>
+                <input type="text" class="form-control" name="title" placeholder="${title_placeholder}" value="${title}" maxlength="50" required>
              </div>
              <div class="form-group">
                 <label for="description">Overview</label>
-                <textarea class="form-control" name="description" rows="3" placeholder="${description_p}" maxlength="500" required>${description}</textarea>
+                <textarea class="form-control" name="description" rows="3" placeholder="${description_placeholder}" maxlength="500" required>${description}</textarea>
              </div>
              <fieldset class="form-group">
                 <label>Select the difficulty</label>

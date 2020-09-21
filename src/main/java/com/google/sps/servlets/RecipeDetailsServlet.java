@@ -74,8 +74,14 @@ public class RecipeDetailsServlet extends HttpServlet {
     );
     request.setAttribute("imgURL", recipeEntity.getProperty("imgURL"));
     request.setAttribute("difficulty", recipeEntity.getProperty("difficulty"));
-    request.setAttribute("hour", (long) recipeEntity.getProperty("prep_time")/60);
-    request.setAttribute("min", (long) recipeEntity.getProperty("prep_time")%60);
+    request.setAttribute(
+      "hour",
+      (long) recipeEntity.getProperty("prep_time") / 60
+    );
+    request.setAttribute(
+      "min",
+      (long) recipeEntity.getProperty("prep_time") % 60
+    );
     request.setAttribute(
       "ingredients",
       recipeEntity.getProperty("ingredients")
