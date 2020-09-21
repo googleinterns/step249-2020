@@ -80,7 +80,7 @@ public class RecipePostServlet extends HttpServlet {
       request.setAttribute("error", 1);
     }
     if (recipeEntity != null) {
-        request.setAttribute("edit", 1);
+        request.setAttribute("edit", true);
         request.setAttribute("recipeId", request.getParameter("id"));
         setEditRecipePropertiesInRequest(request, recipeEntity);
     }
@@ -92,10 +92,10 @@ public class RecipePostServlet extends HttpServlet {
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    if (request.getParameter("edited").toString().equals("yes")){
-        editRecipe(request, response);
-    } else { 
+    if (request.getParameter("edited") == null) {
         createRecipe(request, response);
+    } else { 
+        editRecipe(request, response);
     }
   }
  
@@ -145,8 +145,15 @@ public class RecipePostServlet extends HttpServlet {
       String difficulty = request.getParameter("difficulty");
       ArrayList<String> ingredients = getIngredients(request);
       ArrayList<String> stepList = getSteps(request);
+
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      IndexSpec indexSpec = IndexSpec
+         .newBuilder()
+         .setName(INDEX_NAME)
+         .build();
+      Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
       Entity recipeEntity = null;
+
       try {
              recipeEntity = getRecipeById(datastore, request.getParameter("recipeId"));
       } catch (EntityNotFoundException e) {
@@ -164,9 +171,13 @@ public class RecipePostServlet extends HttpServlet {
              stepList,
              request
           );
-
+    
+        index.delete(String.valueOf(recipeEntity.getKey().getId()));
+        Document recipeDocument = buildRecipeDocumentForIndexing(recipeEntity, ingredients);
         datastore.put(recipeEntity);
+        index.put(recipeDocument);
         response.sendRedirect("/recipe?id=" + Long.toString(recipeEntity.getKey().getId()));
+
       }else{ response.sendRedirect("/");}
       
   }

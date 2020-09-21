@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@taglib prefix="my" uri="/WEB-INF/my.tld"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
@@ -14,12 +13,10 @@
     <jsp:body>
        <div class="content">
         <c:choose>
-        <c:when test="${edit == 1}">
-            <c:set var="isEditing" value="yes"/>
+        <c:when test="${edit}">
             <c:set var="welcome" value="Edit your recipe!"/>
         </c:when>
         <c:otherwise>
-            <c:set var="isEditing" value="no"/>
             <c:set var="welcome" value="Post your own recipe!"/>
             <c:set var="title_p" value="Type your recipe title"/>
             <c:set var="descriprion_p" value="Add a short description for your recipe"/>
@@ -30,8 +27,10 @@
         <c:when test="${isLoggedIn == 1}">
             <h2>${welcome}</h2>
             <form action="${upload}" enctype="multipart/form-data" method="POST">
-            <input type="hidden" name="edited" value="${isEditing}"/>
-            <input type="hidden" name="recipeId" value="${recipeId}"/>
+            <c:if test="${edit}">
+                <input type="hidden" name="edited" value="true"/>
+                <input type="hidden" name="recipeId" value="${recipeId}"/>
+            </c:if>
              <div class="form-group">
                 <label for="image">Upload Main Recipe Image</label>
                 <input type="file" class="form-control-file" name="image" ${img}>
@@ -86,7 +85,7 @@
                 <label>Ingredients</label>
                 <div class="ingredients-wrapper">
                 <c:choose>
-                  <c:when test="${edit == 1}">
+                  <c:when test="${edit}">
                       <c:forEach items="${ingredients}" var="ingredient">
                         <div class ="ingredient-form">
                            <input type="text" class="form-control" name="ingredients[]" maxlength="50" value="${ingredient}" required>
@@ -108,7 +107,7 @@
                 <label for="step">Steps</label>
                 <div class="steps-wrapper">
                   <c:choose>
-                  <c:when test="${edit == 1}">
+                  <c:when test="${edit}">
                      <c:forEach items="${steps}" var="step">
                        <div class ="step-form">
                             <textarea class="form-control" name="step[]" rows="3" maxlength="500" required>${step}</textarea>
