@@ -29,7 +29,7 @@ public class Recipe {
   private String imgURL;
   private ArrayList steps;
   private ArrayList ingredients;
-  private ArrayList<String>  ingredientsMatching;
+  private ArrayList<String> ingredientsMatching;
 
   public String getName() {
     return name;

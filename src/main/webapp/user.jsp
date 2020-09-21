@@ -9,8 +9,14 @@
          <c:when test="${error == 1}">
               <h1>Sorry! </br>
               No user matching the input id.</h1>
+         </c:when>   
+         <c:when test="${user.getId() == id}">
+              <c:set var="edit" value=""/>
          </c:when>    
-       <c:otherwise>
+         <c:otherwise>
+               <c:set var="edit" value="none"/>
+         </c:otherwise> 
+       </c:choose>
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -19,7 +25,7 @@
                     <div class="col-8">
                         <div class="row">
                             <h1>${user.getName()}</h1>
-                            <a href="/profile_creation.jsp" class="btn btn-secondary my-3">edit</a>
+                            <a href="/profile_creation.jsp" style="display:${edit}" class="btn btn-secondary my-3" >edit</a>
                         </div>
                         <h4>${user.getBio()}</h4>
                     </div>
@@ -32,6 +38,7 @@
                             <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="${recipe.getName()}">
                                 <div class="row">
                                   <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
+                                  <a href="/recipe_post?id=${recipe.getId()}" style="display:${edit}" class="btn btn-secondary my-3"  display="${edit}">edit</a>
                                 </div>
                                 <p>
                                 <c:out value="${recipe.getDescription()}" /> 
@@ -39,9 +46,6 @@
                         </li>
                     </c:forEach>
                 </ul>
-            
-       </c:otherwise> 
-      </c:choose>
       </div>
     </jsp:body>
 </t:genericpage>

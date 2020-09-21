@@ -130,7 +130,7 @@ public class AuthServlet extends HttpServlet {
     String userEmail = userService.getCurrentUser().getEmail();
     String logoutUrl = userService.createLogoutURL(url);
 
-    session.setAttribute("uregisteredUserEmail", userEmail);
+    session.setAttribute("unregisteredUserEmail", userEmail);
     session.setAttribute("logoutURL", logoutUrl);
   }
 }

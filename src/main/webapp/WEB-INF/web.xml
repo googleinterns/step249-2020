@@ -22,5 +22,11 @@
         <servlet-name>login</servlet-name>
         <servlet-class>com.google.sps.servlets.AuthServlet</servlet-class>
     </servlet>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <scripting-invalid>false</scripting-invalid>
+        </jsp-property-group>
+    </jsp-config>
 
 </web-app>

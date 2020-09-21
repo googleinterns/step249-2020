@@ -83,16 +83,15 @@ public class SearchServlet extends HttpServlet {
   }
 
   /**
-  * Get a string and return its integer value after the string was sanitized.
-  */
-  private Integer parseInt(String stringGiven){
+   * Get a string and return its integer value after the string was sanitized.
+   */
+  private Integer parseInt(String stringGiven) {
     try {
       return Integer.valueOf(sanitizeString(stringGiven));
     } catch (NumberFormatException e) {
       return 0;
     }
   }
-
 
   /**
    * Replace and return the string with no commas and no multiple consecutive or trailing spaces.
@@ -132,7 +131,11 @@ public class SearchServlet extends HttpServlet {
         ArrayList<String> matchingIngredients = returnMatchingIngredients(
           document
         );
-        Recipe recipe = buildRecipe(recipeEntity, matchingIngredients, datastore);
+        Recipe recipe = buildRecipe(
+          recipeEntity,
+          matchingIngredients,
+          datastore
+        );
         matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
         return new ArrayList<>();
@@ -237,14 +240,14 @@ public class SearchServlet extends HttpServlet {
     String imgURL = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
     String difficulty = (String) recipeEntity.getProperty("difficulty");
-    Integer prep_time = ((Long) recipeEntity.getProperty("prep_time")).intValue();
+    Integer prep_time =
+      ((Long) recipeEntity.getProperty("prep_time")).intValue();
     Long authorId = (Long) recipeEntity.getProperty("author_id");
-    
-    try{
-        authorName = getUserNameById(authorId, datastore);
-    }
-    catch(EntityNotFoundException e){
-        authorName = "";
+
+    try {
+      authorName = getUserNameById(authorId, datastore);
+    } catch (EntityNotFoundException e) {
+      authorName = "";
     }
 
     Recipe recipe = new Recipe();
@@ -253,7 +256,7 @@ public class SearchServlet extends HttpServlet {
     recipe.setImage(imgURL);
     recipe.setDescription(description);
     recipe.setMatchingIngredients(ingredientsMatching);
-	recipe.setPrepTime(prep_time);
+    recipe.setPrepTime(prep_time);
     recipe.setDifficulty(StringUtils.capitalize(difficulty));
     recipe.setAuthor(authorName);
 

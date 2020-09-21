@@ -17,26 +17,35 @@ $(document).ready(function () {
   var ingredient = 1;
   addRemove(
     step,
+    "step-form",
     ".step-add-button",
     ".steps-wrapper",
-    ".step-form",
+    ".step-clone",
     ".step-remove-button"
   );
   addRemove(
     ingredient,
+    "ingredient-form",
     ".ingredient-add-button",
     ".ingredients-wrapper",
-    ".ingredient-form",
+    ".ingredient-clone",
     ".ingredient-remove-button"
   );
 });
 
-function addRemove(numberOfForm, addButton, wrapper, form, removeButton) {
+function addRemove(
+  numberOfForm,
+  formName,
+  addButton,
+  wrapper,
+  form,
+  removeButton
+) {
   const MAX_NUMBER_OF_FIELDS = 50;
   //Once add button is clicked
   $(addButton).click(function () {
     var inputBox = $(form).clone();
-    var fieldHTML = "<div>" + inputBox.html() + "</div>"; //New input field html
+    var fieldHTML = "<div class=" + formName + ">" + inputBox.html() + "</div>"; //New input field html
     //Check maximum number of input fields
     if (numberOfForm < MAX_NUMBER_OF_FIELDS) {
       numberOfForm++; //Increment field counter
