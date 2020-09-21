@@ -11,7 +11,7 @@
              <input type="hidden" name="time" value=""/>
              <div class="btn-line">
                 <button type="submit" class="btn btn-secondary my-3 " value="search">Search</button>
-                <a href="/random" class="btn btn-secondary my-3">I'm feeling hungry</a>
+                <a href="/random" class="btn btn-secondary my-3">I'm Feeling Hungry</a>
              </div>
         </form>
       </div>
