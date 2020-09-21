@@ -55,7 +55,8 @@ public class ProfileCreationServlet extends HttpServlet {
     throws ServletException, IOException {
 
     HttpSession session = request.getSession();
-    if (((int) session.getAttribute("isLoggedIn"))== 1) {
+    Integer isLoggedIn = (Integer) session.getAttribute("isLoggedIn");
+    if ((isLoggedIn != null)&&(isLoggedIn == 1)) {
         editProfile(request, response, session);
     } else {
         createProfile(request, response, session);

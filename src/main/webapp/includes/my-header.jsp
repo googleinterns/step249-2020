@@ -24,11 +24,11 @@
            <a href="/recipe_post.jsp" class="link nav-item mx-3">Post a Recipe</a>
             <c:choose>
              <c:when test="${isLoggedIn == 1}">
-                  <a href="/user?id=${id}" class="link nav-item mx-3">my profile</a>
-                  <a href="${logoutURL}" class="link nav-item mx-3">log out</a>
+                  <a href="/user?id=${id}" class="link nav-item mx-3">My Profile</a>
+                  <a href="${logoutURL}" class="link nav-item mx-3">Log Out</a>
              </c:when>
              <c:otherwise>
-                  <a href="${login}" class="link nav-item mx-3">Log in/Sign up</a>
+                  <a href="${login}" class="link nav-item mx-3">Log In/Sign Up</a>
              </c:otherwise>
             </c:choose>
      </div>

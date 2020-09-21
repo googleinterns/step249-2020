@@ -16,18 +16,20 @@
             <h5 class="mb-3">To edit your user profile please fill the form below</h5>
             <c:set var="user_name" value="${name}"/>
             <c:set var="user_bio" value="${bio}"/>
+            <c:set var="require_img" value=""/>
         </c:when>
         <c:otherwise>
             <h3>User Registration</h3>
             <h5 class="mb-3">To complete your user registration please fill the fom below and click submit</h5>
             <c:set var="user_name" value="type your username"/>
             <c:set var="user_bio" value=""/>
+            <c:set var="require_img" value="required"/>
         </c:otherwise>
         </c:choose> 
         <form action="${upload}" enctype="multipart/form-data" method="POST">
             <div class="form-group">
               <label for="image">Upload Profile image</label>
-              <input type="file" class="form-control-file" name="image" >
+              <input type="file" class="form-control-file" name="image" ${require_img}>
            </div>
            <div class="form-group">
               <label for="username">Display Name</label>
