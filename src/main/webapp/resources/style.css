@@ -50,6 +50,7 @@ body {
   height: 50px;
   color: transparent !important; /* Hide the text inside the element. */
   overflow: hidden;
+  margin-right: 20px;
 }
 
 .navbar {
@@ -57,7 +58,7 @@ body {
   width: 100%;
   max-width: 1400px;
   flex-flow: row nowrap;
-  margin-bottom: 0;
+  margin: 0 auto;
   border: 0;
 }
 
@@ -93,10 +94,27 @@ body {
   background: linear-gradient(to right, var(--orange-1), var(--pink-1));
 }
 
+.page-container {
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.content-wrap {
+  padding-bottom: 30px;    /* Footer height */
+}
+
 .footer {
-  min-height: 30px;
-  height: 5vh;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  height: 30px;            /* Footer height */
   background: none;
+}
+
+.navbar .links {
+  margin-left: 5px;
 }
 
 .link {
@@ -142,10 +160,9 @@ body {
 .content {
   display: flex;
   flex-direction: column;
-  width: 75%;
   max-width: 1200px;
   min-height: 67vh;
-  margin: 10vh;
+  margin: 5vh auto;
 }
 
 .recipe-thumbnail {
@@ -153,6 +170,10 @@ body {
   height: 120px;
   background-size: cover;
   background-position: 50%;
+}
+
+.recipe-details {
+  margin-top: 20px;
 }
 
 .search-result {

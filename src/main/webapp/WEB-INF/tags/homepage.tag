@@ -7,8 +7,12 @@
     <jsp:include page="/includes/head.jsp"/>
   </head>
   <body>
-    <jsp:include page="/includes/homepage-header.jsp"/>
-    <jsp:doBody/>
-    <jsp:include page="/includes/my-footer.jsp"/>
+    <div class="page-container">
+      <div class="content-wrap">
+        <jsp:include page="/includes/homepage-header.jsp"/>
+        <jsp:doBody/>
+      </div>
+      <jsp:include page="/includes/my-footer.jsp"/>
+    </div>
   </body>
 </html>

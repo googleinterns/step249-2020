@@ -24,7 +24,7 @@
                 <li class="list-group-item">Difficulty: ${difficulty}</li>
             </ul>
 
-            <div class="container p-0">
+            <div class="recipe-details">
                 <div class="row">
                     <div class="col-4">
                         <ul class="list-group" >
