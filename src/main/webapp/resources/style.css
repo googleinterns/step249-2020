@@ -50,6 +50,7 @@ body {
   height: 50px;
   color: transparent !important; /* Hide the text inside the element. */
   overflow: hidden;
+  margin-right: 20px;
 }
 
 .navbar {
@@ -110,6 +111,10 @@ body {
   width: 100%;
   height: 30px;            /* Footer height */
   background: none;
+}
+
+.navbar .links {
+  margin-left: 5px;
 }
 
 .link {
