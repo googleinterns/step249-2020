@@ -160,10 +160,9 @@ body {
 .content {
   display: flex;
   flex-direction: column;
-  width: 75%;
   max-width: 1200px;
   min-height: 67vh;
-  margin: 10vh auto;
+  margin: 5vh auto;
 }
 
 .recipe-thumbnail {
@@ -171,6 +170,10 @@ body {
   height: 120px;
   background-size: cover;
   background-position: 50%;
+}
+
+.recipe-details {
+  margin-top: 20px;
 }
 
 .search-result {
