@@ -81,6 +81,7 @@ public class RecipePostServlet extends HttpServlet {
     }
     if (recipeEntity != null) {
         request.setAttribute("edit", 1);
+        request.setAttribute("recipeId", request.getParameter("id"));
         setEditRecipePropertiesInRequest(request, recipeEntity);
     }
     request.getRequestDispatcher("/recipe_post.jsp").forward(request, response);
@@ -91,7 +92,7 @@ public class RecipePostServlet extends HttpServlet {
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    if (request.getParameter("edited").toString() == "yes"){
+    if (request.getParameter("edited").toString().equals("yes")){
         editRecipe(request, response);
     } else { 
         createRecipe(request, response);
@@ -147,7 +148,7 @@ public class RecipePostServlet extends HttpServlet {
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       Entity recipeEntity = null;
       try {
-             recipeEntity = getRecipeById(datastore, request.getParameter("id"));
+             recipeEntity = getRecipeById(datastore, request.getParameter("recipeId"));
       } catch (EntityNotFoundException e) {
              request.setAttribute("error", 1);
       }
@@ -165,7 +166,9 @@ public class RecipePostServlet extends HttpServlet {
           );
 
         datastore.put(recipeEntity);
+        response.sendRedirect("/recipe?id=" + Long.toString(recipeEntity.getKey().getId()));
       }else{ response.sendRedirect("/");}
+      
   }
 
   private Entity setRecipeEntityProperties(

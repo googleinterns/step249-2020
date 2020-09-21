@@ -15,7 +15,12 @@
             <a href="/user?id=${author_id}"><h3>by ${author}</h3></a>
             <img src=${imgURL} class="img-fluid my-3" alt="${title}">
             <ul class="list-group list-group-horizontal w-100 mb-3">
-                <li class="list-group-item">Prep Time: ${hour} h and ${min} minutes</li>
+                <c:if test="${hour == 4}">
+                    <li class="list-group-item">Prep Time: more than 3 hours</li>
+                </c:if>
+                <c:if test="${hour < 4}">
+                    <li class="list-group-item">Prep Time: ${hour} h and ${min} minutes</li>
+                </c:if>
                 <li class="list-group-item">Difficulty: ${difficulty}</li>
             </ul>
 

@@ -30,7 +30,8 @@
         <c:when test="${isLoggedIn == 1}">
             <h2>${welcome}</h2>
             <form action="${upload}" enctype="multipart/form-data" method="POST">
-            <input type="text" style="display:none" name="edited" value="${isEditing}"/>
+            <input type="hidden" name="edited" value="${isEditing}"/>
+            <input type="hidden" name="recipeId" value="${recipeId}"/>
              <div class="form-group">
                 <label for="image">Upload Main Recipe Image</label>
                 <input type="file" class="form-control-file" name="image" ${img}>
@@ -100,6 +101,7 @@
                         </div>
                   </c:otherwise>
                   </c:choose>
+                </div>
                 <a href="javascript:void(0);" class="ingredient-add-button" title="add-step">ADD INGREDIENT</a>
                 </div>
              <div class="form-group">
