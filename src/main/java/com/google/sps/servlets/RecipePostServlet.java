@@ -103,7 +103,7 @@ public class RecipePostServlet extends HttpServlet {
     String title = request.getParameter("title");
     String imgURL = getUploadedFileUrl(request, "image");
     String description = request.getParameter("description");
-    int prepTime = getPrepTime(request);
+    int prepTime =  Integer.parseInt(request.getParameter("time"));
     String difficulty = request.getParameter("difficulty");
     ArrayList<String> ingredients = getIngredients(request);
     ArrayList<String> stepList = getSteps(request);
@@ -141,7 +141,7 @@ public class RecipePostServlet extends HttpServlet {
       String title = request.getParameter("title");
       String imgURL = getUploadedFileUrl(request, "image");
       String description = request.getParameter("description");
-      int prepTime = getPrepTime(request);
+      int prepTime =  Integer.parseInt(request.getParameter("time"));
       String difficulty = request.getParameter("difficulty");
       ArrayList<String> ingredients = getIngredients(request);
       ArrayList<String> stepList = getSteps(request);
@@ -244,13 +244,6 @@ public class RecipePostServlet extends HttpServlet {
     return recipeDocument;
   }
 
-  private int getPrepTime(HttpServletRequest request) {
-    int min =
-      Integer.parseInt(request.getParameter("hour")) *
-      60 +
-      Integer.parseInt(request.getParameter("min"));
-    return min;
-  }
 
   private ArrayList<String> getSteps(HttpServletRequest request) {
     String[] param = request.getParameterValues("step[]");
@@ -317,8 +310,6 @@ public class RecipePostServlet extends HttpServlet {
   )
     throws IOException {
     String difficulty = (String)recipeEntity.getProperty("difficulty");
-    long hour = (long) recipeEntity.getProperty("prep_time")/60;
-    long min = (long) recipeEntity.getProperty("prep_time")%60;
 
     request.setAttribute("title", recipeEntity.getProperty("title"));
     request.setAttribute(
@@ -326,8 +317,7 @@ public class RecipePostServlet extends HttpServlet {
       recipeEntity.getProperty("description")
     );
     request.setAttribute(difficulty+"Checked", "checked");
-    request.setAttribute("selected"+hour, "selected");
-    request.setAttribute("selected"+min, "selected");
+    request.setAttribute("time", recipeEntity.getProperty("prep_time"));
     request.setAttribute(
       "ingredients",
       recipeEntity.getProperty("ingredients")

@@ -64,20 +64,8 @@
              <div class="form-group">
                  <label>Select the prearation time for your recipe</label>
                  <div class="form-row">
-                      <label class="form-inline" for="hour">
-                           <select class="form-control m-3" id="hour" name="hour">
-                             <option value="1" ${selected1}>1</option>
-                             <option value="2" ${selected2}>2</option>
-                             <option value="3" ${selected3}>3</option>
-                             <option value="4" ${selected4}>more than 3</option>
-                           </select>hour
-                      </label>
-                      <label class="form-inline" for="min">
-                           <select class="form-control m-3" id="min" name="min">
-                             <option value="15" ${selected15}>15</option>
-                             <option value="30" ${selected30}>30</option>
-                             <option value="45" ${selected45}>45</option>
-                           </select>minutes
+                      <label class="form-inline" for="time">
+                       <input type="number" class="form-control" name="time" min="15" value="${time}"  placeholder="input prep time in minutes" required>
                       </label>
                  </div>
              </div>

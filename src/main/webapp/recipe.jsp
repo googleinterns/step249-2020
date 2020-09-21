@@ -28,6 +28,7 @@
                 <div class="row">
                     <div class="col-4">
                         <ul class="list-group" >
+                             <li class="list-group-item">Ingredients:</li>
                         <c:forEach items="${ingredients}" var="ingr">
                             <li class="list-group-item"><c:out value="${ingr}" /></li>
                         </c:forEach>  
