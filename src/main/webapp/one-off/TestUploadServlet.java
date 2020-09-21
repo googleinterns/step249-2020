@@ -1,13 +1,25 @@
+// Copyright 2019 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 //  ++++++ READ ME +++++++
 //
 //  How to download the 60 init recipes to your database.
 //
-//  STEP1: Create a new servlet named TestUploadServlet.java in your src/main/java/com/google/sps/servlets/ directory
-//  STEP2: Go to line 119 and  change the string to your absolute path to where your recipe folder is (mine is /home/beatricemarch/capstone/step249-2020/src/main/webapp/one-off/recipe/ )
-//  STEP3: Copy and paste the code below in the TestUploadServlet.java
-//  STEP4: Run the script from the url "/test" (you can run it both on localhost and in the deployed version)
-//  STEP5: Delete the servlet.
+//  STEP1: Copy this file to your src/main/java/com/google/sps/servlets/ directory
+//  STEP2: Set the constant "RECIPES_DIRECTORY" to where your recipe folder is (e.g is /home/beatricemarch/capstone/step249-2020/src/main/webapp/one-off/recipe/)
+//  STEP3: Run the script from the url "/test" (you can run it both on localhost and in the deployed version)
+//  STEP4: Delete the servlet.
 //
 //  Trobleshooting
 //
@@ -22,20 +34,6 @@
 //  + sustitute isBlank by StringUtils.isBlank in the code
 //
 //  +++++++++++++++++++++++
-//
-// Copyright 2019 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
 package com.google.sps.servlets;
 
@@ -108,8 +106,8 @@ public class TestUploadServlet extends HttpServlet {
       title,
       imgURL,
       ingredients,
-      stepList
-      30,
+      stepList,
+      30
     );
     Document recipeDocument = buildRecipeDocument(
       recipeEntity,
@@ -217,7 +215,7 @@ public class TestUploadServlet extends HttpServlet {
   private Document buildRecipeDocument(
     Entity recipeEntity,
     String titleValue,
-    String ingredientsValue
+    String ingredientsValue,
     int prep_time
   ) {
     Document recipeDocument = Document
