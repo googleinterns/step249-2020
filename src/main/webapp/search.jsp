@@ -26,35 +26,38 @@
             <div class="col-md-10">
                 <c:choose>
                     <c:when test="${recipesList.size() > 0}">
-                        <ul id="results" class="list-group list-group-flush">
+                        <ul id="results" class="list-unstyled">
                             <c:forEach items="${recipesList}" var="recipe">
-                                <li class="list-group-item">
-                                    <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="${recipe.getName()}">
-                                        <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
-                                        <p>
-                                        <p>
-                                        <b>Time</b>:
-                                        <c:out value="${recipe.getPrepTime()}" /> min, 
-                                        <b>Author</b>:
-                                        <c:out value="${recipe.getAuthor()}" />, 
-                                        <b>Difficulty</b>:
-                                        <c:out value="${recipe.getDifficulty()}"/>  
-                                        </p>
-                                        <c:choose>
-                                            <c:when test="${recipe.getMatchingIngredients().size() > 0}">
-                                                <ul id="results" class="list-group list-group-flush">
-                                                    <c:forEach items="${recipe.getMatchingIngredients()}" var="ingredient">
+                                <li class="my-4">
+                                    <a class="media rounded search-result p-1" href="recipe?id=${recipe.getId()}">
+                                        <div class="rounded img-thumbnail mr-3 recipe-thumbnail" style="background-image: url('${recipe.getImage()}');">
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mt-0"><c:out value="${recipe.getName()}" /></h5>
+                                            <p>
+                                                <b>Time</b>:
+                                                <c:out value="${recipe.getPrepTime()}" /> min, 
+                                                <b>Author</b>:
+                                                <c:out value="${recipe.getAuthor()}" />, 
+                                                <b>Difficulty</b>:
+                                                <c:out value="${recipe.getDifficulty()}"/>  
+                                            </p>
+                                            <c:choose>
+                                                <c:when test="${recipe.getMatchingIngredients().size() > 0}">
+                                                    <ul id="results" class="list-group list-group-flush">
+                                                        <c:forEach items="${recipe.getMatchingIngredients()}" var="ingredient">
                                                             <li class="list-group-item">
                                                                 ${ingredient}
                                                             </li>
-                                                    </c:forEach>
-                                                </ul>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:out value="${recipe.getDescription()}" /> 
-                                            </c:otherwise>
-                                        </c:choose>
-                                        </p>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:out value="${recipe.getDescription()}" /> 
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </a>
                                 </li>
                             </c:forEach>
                         </ul>

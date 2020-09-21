@@ -20,32 +20,61 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <img src="${user.getImage()}" class="img-circle"  width="200" height="200" alt="${user.getName()}">
+                    <c:choose>
+                        <c:when test="${error == 1}">
+                            <img src="${user.getImage()}" class="border rounded-circle" width="200" height="200" alt="${user.getName()}">
+                        </c:when>    
+                        <c:otherwise>
+                            <img src="/images/default.png" class="border rounded-circle" width="200" height="200" alt="${user.getName()}">
+                        </c:otherwise> 
+                    </c:choose>              
                     </div>
                     <div class="col-8">
                         <div class="row">
-                            <h1>${user.getName()}</h1>
-                            <a href="/profile_creation.jsp" style="display:${edit}" class="btn btn-secondary my-3" >edit</a>
+                            <h1 class="col-11">${user.getName()}</h1>
+                            <a href="/profile_creation.jsp" style="display:${edit}" class="btn btn-secondary my-3 col-1" >edit</a>
                         </div>
-                        <h4>${user.getBio()}</h4>
+                        <h6>${user.getBio()}</h6>
                     </div>
                 </div>
             </div>
-            <h2>List of recipes posted by the user:</h2>
-                <ul id="results" class="list-group list-group-flush">
-                    <c:forEach items="${recipesList}" var="recipe">
-                        <li class="list-group-item">
-                            <img src="${recipe.getImage()}" class="img-thumbnail my-3 mr-3 float-left" width="200" height="200" alt="${recipe.getName()}">
-                                <div class="row">
-                                  <h3><a href="recipe?id=${recipe.getId()}"> <c:out value="${recipe.getName()}" /> </a></h3>
-                                  <a href="/recipe_post?id=${recipe.getId()}" style="display:${edit}" class="btn btn-secondary my-3"  display="${edit}">edit</a>
-                                </div>
+            <hr />
+            <h3>List of recipes posted by the user:</h3>
+            <ul id="results" class="list-unstyled">
+                <c:forEach items="${recipesList}" var="recipe">
+                    <li class="my-4">
+                        <a class="media search-result p-1 rounded" href="recipe?id=${recipe.getId()}">
+                            <div class="img-thumbnail rounded mr-3 recipe-thumbnail" style="background-image: url('${recipe.getImage()}');">
+                            </div>
+                            <div class="media-body">
+                                <h5 class="mt-0"><c:out value="${recipe.getName()}" /></h5>
                                 <p>
-                                <c:out value="${recipe.getDescription()}" /> 
+                                    <b>Time</b>:
+                                    <c:out value="${recipe.getPrepTime()}" /> min, 
+                                    <b>Author</b>:
+                                    <c:out value="${recipe.getAuthor()}" />, 
+                                    <b>Difficulty</b>:
+                                    <c:out value="${recipe.getDifficulty()}"/>  
                                 </p>
-                        </li>
-                    </c:forEach>
-                </ul>
+                                <c:choose>
+                                    <c:when test="${recipe.getMatchingIngredients().size() > 0}">
+                                        <ul id="results" class="list-group list-group-flush">
+                                            <c:forEach items="${recipe.getMatchingIngredients()}" var="ingredient">
+                                                <li class="list-group-item">
+                                                    ${ingredient}
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:out value="${recipe.getDescription()}" /> 
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </a>
+                    </li>
+                </c:forEach>
+            </ul>
       </div>
     </jsp:body>
 </t:genericpage>

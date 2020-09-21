@@ -83,7 +83,7 @@
                   </c:when>
                   <c:otherwise>
                        <div class="ingredient-form">
-                                <input type="text" class="form-control" name="ingredients[]" placeholder="qunatity, unti of measure and ingredient" maxlength="50" required>
+                                <input type="text" class="form-control" name="ingredients[]" placeholder="Example: 4 cups of sugar, 2 onions, ... " maxlength="50" required>
                                 <a href="javascript:void(0);" class="ingredient-remove-button">REMOVE</a>
                         </div>
                   </c:otherwise>
