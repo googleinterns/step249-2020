@@ -18,7 +18,6 @@
         </c:when>
         <c:otherwise>
             <c:set var="welcome_message" value="Post your own recipe!"/>
-            <c:set var="title_placeholder" value="Type your recipe title"/>
             <c:set var="descriprion_placeholder" value="Add a short description for your recipe"/>
             <c:set var="img" value="required"/>
         </c:otherwise>
@@ -37,7 +36,7 @@
              </div>
              <div class="form-group">
                 <label for="title">Recipe Title</label>
-                <input type="text" class="form-control" name="title" placeholder="${title_placeholder}" value="${title}" maxlength="50" required>
+                <input type="text" class="form-control" name="title" value="${title}" maxlength="50" required>
              </div>
              <div class="form-group">
                 <label for="description">Overview</label>
@@ -62,10 +61,10 @@
                          </div>
              </fieldset>
              <div class="form-group">
-                 <label>Select the prearation time for your recipe</label>
+                 <label>Preparation time (in minutes)</label>
                  <div class="form-row">
                       <label class="form-inline" for="time">
-                       <input type="number" class="form-control" name="time" min="15" value="${time}"  placeholder="input prep time in minutes" required>
+                       <input type="number" class="form-control" name="time" min="15" value="${time}" required>
                       </label>
                  </div>
              </div>
@@ -83,7 +82,7 @@
                   </c:when>
                   <c:otherwise>
                        <div class="ingredient-form">
-                                <input type="text" class="form-control" name="ingredients[]" placeholder="Example: 4 cups of sugar, 2 onions, ... " maxlength="50" required>
+                                <input type="text" class="form-control" name="ingredients[]" placeholder="Example: 4 cups of sugar" maxlength="50" required>
                                 <a href="javascript:void(0);" class="ingredient-remove-button">REMOVE</a>
                         </div>
                   </c:otherwise>
