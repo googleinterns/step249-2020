@@ -10,6 +10,14 @@
 }
 
 /* Bootstrap overrides */
+.btn-primary {
+  background: var(--orange-1);
+  border: 0;
+}
+.btn-primary:hover {
+  background: var(--pink-1);
+}
+
 .btn-secondary {
   background: var(--orange-2);
   border: 0;
@@ -204,10 +212,7 @@ body {
   overflow: hidden;
 }
 
-.step-form:first-of-type .step-remove-button {
-  visibility: hidden;
-}
-
-.ingredient-form:first-of-type .ingredient-remove-button {
-  visibility: hidden;
+.steps-wrapper,
+.ingredients-wrapper {
+    display: contents;
 }

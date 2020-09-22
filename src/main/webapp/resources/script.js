@@ -23,6 +23,7 @@ $(document).ready(function () {
     ".step-clone",
     ".step-remove-button"
   );
+
   addRemove(
     ingredient,
     "ingredient-form",
@@ -35,7 +36,7 @@ $(document).ready(function () {
 
 function addRemove(
   numberOfForm,
-  formName,
+  className,
   addButton,
   wrapper,
   form,
@@ -45,7 +46,7 @@ function addRemove(
   //Once add button is clicked
   $(addButton).click(function () {
     var inputBox = $(form).clone();
-    var fieldHTML = "<div class=" + formName + ">" + inputBox.html() + "</div>"; //New input field html
+    var fieldHTML = inputBox.html();
     //Check maximum number of input fields
     if (numberOfForm < MAX_NUMBER_OF_FIELDS) {
       numberOfForm++; //Increment field counter
@@ -55,8 +56,10 @@ function addRemove(
 
   //Once remove button is clicked
   $(wrapper).on("click", removeButton, function (e) {
-    e.preventDefault();
-    $(this).parent("div").remove(); //Remove field html
-    numberOfForm--; //Decrement field counter
+     e.preventDefault();
+     if(confirm('Are you sure you want to remove this element?')) {          
+        $(e.target).closest("li").remove(); //Remove field html
+        numberOfForm--; //Decrement field counter
+     }
   });
 }
