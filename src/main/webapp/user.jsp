@@ -32,7 +32,7 @@
                     <div class="col-8">
                         <div class="row">
                             <h1 class="col-11">${user.getName()}</h1>
-                            <a href="/profile_creation.jsp" style="display:${edit}" class="btn btn-secondary my-3 col-1" >edit</a>
+                            <a href="/profile_creation.jsp" style="display:${edit}" class="btn btn-secondary my-3 col-1" >Edit</a>
                         </div>
                         <h6>${user.getBio()}</h6>
                     </div>
@@ -70,6 +70,7 @@
                                 </c:choose>
                             </div>
                         </a>
+                      <a href="/recipe_post?id=${recipe.getId()}" style="display:${edit}" class="btn btn-secondary my-3 col-1" >Edit</a>
                     </li>
                 </c:forEach>
             </ul>
