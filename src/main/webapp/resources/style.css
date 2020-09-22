@@ -188,6 +188,10 @@ body {
   margin-top: 20px;
 }
 
+.search-results li:first-of-type {
+  margin-top: 0!important;
+}
+
 .search-result {
   color: var(--text);
 }
@@ -195,6 +199,10 @@ body {
 .search-result:hover {
   background: var(--logo-background);
   text-decoration: none;
+}
+
+.search-result ul.matching-ingredients-results li {
+  background: none;
 }
 
 .search-description:first-of-type {

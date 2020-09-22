@@ -26,7 +26,7 @@
             <div class="col-md-10">
                 <c:choose>
                     <c:when test="${recipesList.size() > 0}">
-                        <ul id="results" class="list-unstyled">
+                        <ul class="list-unstyled search-results">
                             <c:forEach items="${recipesList}" var="recipe">
                                 <li class="my-4">
                                     <a class="media rounded search-result p-1" href="recipe?id=${recipe.getId()}">
@@ -44,7 +44,7 @@
                                             </p>
                                             <c:choose>
                                                 <c:when test="${recipe.getMatchingIngredients().size() > 0}">
-                                                    <ul id="results" class="list-group list-group-flush">
+                                                    <ul class="list-group list-group-flush matching-ingredients-results">
                                                         <c:forEach items="${recipe.getMatchingIngredients()}" var="ingredient">
                                                             <li class="list-group-item">
                                                                 ${ingredient}
