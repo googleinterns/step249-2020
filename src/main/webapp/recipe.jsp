@@ -11,9 +11,13 @@
               No recipe matching the input id</h1>
          </c:when>    
        <c:otherwise>
-            <h1>${title}</h1>
+            <h1>${title}
+                  <c:if test="${author_id == id}"> 
+                      <a href="/recipe_post?id=${recipe_id}" style="float:right;" class="btn btn-secondary my-3 col-1" >edit</a>
+                  </c:if>
+            </h1>
             <a href="/user?id=${author_id}"><h3>by ${author}</h3></a>
-            <img src=${imgURL} class="img-fluid my-3" alt="${title}">
+            <div class="img-thumbnail rounded mb-3 recipe-img" style="background-image: url('${imgURL}');"></div>
             <ul class="list-group list-group-horizontal w-100 mb-3">
                 <c:if test="${hour == 4}">
                     <li class="list-group-item">Prep Time: more than 3 hours</li>
