@@ -35,6 +35,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/user")
 public class UserDetailsServlet extends HttpServlet {
@@ -101,16 +102,23 @@ public class UserDetailsServlet extends HttpServlet {
     return recipesList;
   }
 
-  private Recipe buildRecipe(Entity recipeEntity) {
+private Recipe buildRecipe(Entity recipeEntity) {
     Long id = recipeEntity.getKey().getId();
+    String authorName = new String();
     String name = (String) recipeEntity.getProperty("title");
-    String imageUrl = (String) recipeEntity.getProperty("imgURL");
+    String imgURL = (String) recipeEntity.getProperty("imgURL");
     String description = (String) recipeEntity.getProperty("description");
+    String difficulty = (String) recipeEntity.getProperty("difficulty");
+    Integer prep_time =
+      ((Long) recipeEntity.getProperty("prep_time")).intValue();
+
     Recipe recipe = new Recipe();
     recipe.setId(id);
     recipe.setName(name);
-    recipe.setImage(imageUrl);
+    recipe.setImage(imgURL);
     recipe.setDescription(description);
+    recipe.setPrepTime(prep_time);
+    recipe.setDifficulty(StringUtils.capitalize(difficulty));
 
     return recipe;
   }
