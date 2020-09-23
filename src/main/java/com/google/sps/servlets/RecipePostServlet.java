@@ -63,8 +63,6 @@ import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/recipe_post")
 public class RecipePostServlet extends HttpServlet {
-  // Name of the index used.
-  private static final String INDEX_NAME = "recipes_index";
 
   /**
    * doGet retrieves the attributes of the recipe to be edited and sets them as reqest attributes
@@ -113,8 +111,6 @@ public class RecipePostServlet extends HttpServlet {
     ArrayList<String> ingredients = getIngredients(request);
     ArrayList<String> stepList = getSteps(request);
 
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName(INDEX_NAME).build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
@@ -132,13 +128,9 @@ public class RecipePostServlet extends HttpServlet {
         stepList,
         request
       );
-    Document recipeDocument = buildRecipeDocumentForIndexing(
-      recipeEntity,
-      ingredients
-    );
 
     datastore.put(recipeEntity);
-    index.put(recipeDocument);
+    IndexHelper.addRecipe(recipeEntity, ingredients);
 
     response.sendRedirect(
       "/recipe?id=" + Long.toString(recipeEntity.getKey().getId())
@@ -159,8 +151,7 @@ public class RecipePostServlet extends HttpServlet {
     ArrayList<String> stepList = getSteps(request);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName(INDEX_NAME).build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+
     Entity recipeEntity = null;
 
     try {
@@ -182,13 +173,9 @@ public class RecipePostServlet extends HttpServlet {
           request
         );
 
-      index.delete(String.valueOf(recipeEntity.getKey().getId()));
-      Document recipeDocument = buildRecipeDocumentForIndexing(
-        recipeEntity,
-        ingredients
-      );
+      IndexHelper.deleteRecipe(recipeEntity);
+      IndexHelper.addRecipe(recipeEntity, ingredients);
       datastore.put(recipeEntity);
-      index.put(recipeDocument);
       response.sendRedirect(
         "/recipe?id=" + Long.toString(recipeEntity.getKey().getId())
       );
@@ -231,41 +218,6 @@ public class RecipePostServlet extends HttpServlet {
     return recipeEntity;
   }
 
-  private Document buildRecipeDocumentForIndexing(
-    Entity recipeEntity,
-    ArrayList<String> ingredients
-  ) {
-    Document recipeDocument = Document
-      .newBuilder()
-      .setId(String.valueOf(recipeEntity.getKey().getId()))
-      .addField(
-        Field
-          .newBuilder()
-          .setName("title")
-          .setText((String) recipeEntity.getProperty("index_title"))
-      )
-      .addField(
-        Field
-          .newBuilder()
-          .setName("ingredients")
-          .setText(String.join(" ", ingredients))
-      )
-      .addField(
-        Field
-          .newBuilder()
-          .setName("prep_time")
-          .setNumber((Integer) recipeEntity.getProperty("prep_time"))
-      )
-      .addField(
-        Field
-          .newBuilder()
-          .setName("difficulty")
-          .setText((String) recipeEntity.getProperty("difficulty"))
-      )
-      .build();
-
-    return recipeDocument;
-  }
 
   private ArrayList<String> getSteps(HttpServletRequest request) {
     String[] stepsFromParameter = request.getParameterValues("step[]");
