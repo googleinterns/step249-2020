@@ -121,7 +121,7 @@ public class SearchServlet extends HttpServlet {
   )
     throws ServletException, IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Index index = getIndex(INDEX_NAME);
+    Index index = IndexHelper.getIndex(INDEX_NAME);
     Query query = buildQuery(stringToMatch, difficulty, time);
     Results<ScoredDocument> results = index.search(query);
     List<Recipe> matchingRecipes = new ArrayList<>();
@@ -163,11 +163,6 @@ public class SearchServlet extends HttpServlet {
   /**
    * Returns the index that stores the recipes documents
    */
-  private Index getIndex(String indexName) {
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
-    return index;
-  }
 
   private Query buildQuery(
     String stringToMatch,

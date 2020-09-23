@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+package com.google.sps.servlets;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -91,18 +92,9 @@ public class RandomRecipeServlet extends HttpServlet {
       .setOffset(position)
       .build();
     Query query = Query.newBuilder().setOptions(options).build("");
-    Index index = getIndex(INDEX_NAME);
+    Index index = IndexHelper.getIndex(INDEX_NAME);
 
     return index.search(query);
-  }
-
-  /**
-   * Returns the index that stores the recipes documents
-   */
-  private Index getIndex(String indexName) {
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
-    return index;
   }
 
   /**
