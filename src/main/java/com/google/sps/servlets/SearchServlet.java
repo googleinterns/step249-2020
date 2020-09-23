@@ -47,8 +47,6 @@ import org.apache.commons.lang3.StringUtils;
 public class SearchServlet extends HttpServlet {
   // The number of recipes to be displayed on the search list.
   private static final int RECIPES_LIMIT = 10;
-  // Name of the index used.
-  private static final String INDEX_NAME = "recipes_index";
 
   /**
    * Search and returns a list of first 10 recipes matching the given parameters(searchterm, difficulty & time).
@@ -121,9 +119,8 @@ public class SearchServlet extends HttpServlet {
   )
     throws ServletException, IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Index index = IndexHelper.getIndex(INDEX_NAME);
     Query query = buildQuery(stringToMatch, difficulty, time);
-    Results<ScoredDocument> results = index.search(query);
+    Results<ScoredDocument> results = IndexHelper.searchRecipes(query);
     List<Recipe> matchingRecipes = new ArrayList<>();
     for (ScoredDocument document : results) {
       try {
@@ -159,10 +156,6 @@ public class SearchServlet extends HttpServlet {
 
     return matchingIngredients;
   }
-
-  /**
-   * Returns the index that stores the recipes documents
-   */
 
   private Query buildQuery(
     String stringToMatch,
