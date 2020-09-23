@@ -102,7 +102,7 @@ public class UserDetailsServlet extends HttpServlet {
     return recipesList;
   }
 
-private Recipe buildRecipe(Entity recipeEntity) {
+  private Recipe buildRecipe(Entity recipeEntity) {
     Long id = recipeEntity.getKey().getId();
     String authorName = new String();
     String name = (String) recipeEntity.getProperty("title");
