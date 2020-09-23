@@ -50,11 +50,8 @@ public class SearchServlet extends HttpServlet {
 
   /**
    * Search and returns a list of first 10 recipes matching the given parameters(searchterm, difficulty & time).
-   * The index returns a list of documents in the ascending order by title.
+   * The list of documents is ordered in the ascending order by title.
    * Special characters inside the search terms are replaced with space.
-   * We compute and return the intersection of the following lists:
-   * - recipes that are matching by title;
-   * - recipes that are matching by the ingredients.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
