@@ -51,8 +51,6 @@
                                 <p>
                                     <b>Time</b>:
                                     <c:out value="${recipe.getPrepTime()}" /> min, 
-                                    <b>Author</b>:
-                                    <c:out value="${recipe.getAuthor()}" />, 
                                     <b>Difficulty</b>:
                                     <c:out value="${recipe.getDifficulty()}"/>  
                                 </p>
