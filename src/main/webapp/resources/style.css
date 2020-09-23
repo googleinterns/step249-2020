@@ -26,6 +26,11 @@
   background: var(--pink-2);
 }
 
+.img-recipe{
+    height: 100%;
+    width: 100%;
+}
+
 h1,
 h2,
 h3,
@@ -215,4 +220,18 @@ body {
 .steps-wrapper,
 .ingredients-wrapper {
     display: contents;
+}
+
+.profile-thumbnail{
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-position: 50%;
+}
+
+.recipe-img{
+    width: 100vw;
+    height: 400px;
+    background-size: cover;
+    background-position: 50%;
 }

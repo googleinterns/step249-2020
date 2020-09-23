@@ -21,11 +21,11 @@
                 <div class="row">
                     <div class="col">
                     <c:choose>
-                        <c:when test="${error == 1}">
-                            <img src="${user.getImage()}" class="border rounded-circle" width="200" height="200" alt="${user.getName()}">
+                        <c:when test="${user.getImage() != null}">
+                             <div class="img-thumbnail rounded-circle mr-3 profile-thumbnail" style="background-image: url('${user.getImage()}');"></div>
                         </c:when>    
                         <c:otherwise>
-                            <img src="/images/default.png" class="border rounded-circle" width="200" height="200" alt="${user.getName()}">
+                             <div class="img-thumbnail rounded-circle mr-3 profile-thumbnail" style="background-image: url('/images/default.png');"></div>
                         </c:otherwise> 
                     </c:choose>              
                     </div>
