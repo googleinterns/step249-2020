@@ -33,7 +33,7 @@
                         <div class="row">
                             <h1 class="col-11">${user.getName()}</h1>
                             <a href="/profile_creation.jsp" style="display:${edit}" class="btn btn-secondary my-3 col-1" >edit</a>
-                        </div>cd cd
+                        </div>
                         <h6>${user.getBio()}</h6>
                     </div>
                 </div>
