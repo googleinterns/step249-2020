@@ -27,6 +27,7 @@ import java.util.ArrayList;
  */
 public class Recipe {
   private long id;
+  private long author_id;
   private String name;
   private String description;
   private String difficulty;
@@ -49,7 +50,8 @@ public class Recipe {
     String givenAuthor,
     String givenImg,
     ArrayList<String> givenSteps,
-    ArrayList<String> givenIngredients
+    ArrayList<String> givenIngredients,
+    long givenAuthorId
   ) {
     id = givenId;
     name = givenName;
@@ -60,9 +62,10 @@ public class Recipe {
     imgURL = givenImg;
     steps = givenSteps;
     ingredients = givenIngredients;
+    author_id = givenAuthorId;
   }
 
-  // This constructor takes the recipe entity, ingredientsMatched & authorName and constructs the recipe
+  // This constructor takes the recipe entity, ingredientsMatched & authorName and constructs the recipe.
   public Recipe(
     Entity recipeEntity,
     ArrayList<String> givenIngredientsMatched,
@@ -77,6 +80,17 @@ public class Recipe {
     Long longPrepTime = ((Long) recipeEntity.getProperty("prep_time"));
     prepTime = longPrepTime.intValue();
     ingredientsMatching = givenIngredientsMatched;
+  }
+
+  // This constructor takes the recipe entity and constructs the recipe.
+  public Recipe(Entity recipeEntity) {
+    id = recipeEntity.getKey().getId();
+    name = (String) recipeEntity.getProperty("title");
+    imgURL = (String) recipeEntity.getProperty("imgURL");
+    description = (String) recipeEntity.getProperty("description");
+    difficulty = (String) recipeEntity.getProperty("difficulty");
+    Long longPrepTime = ((Long) recipeEntity.getProperty("prep_time"));
+    prepTime = longPrepTime.intValue();
   }
 
   // Creates and returns the corresponding recipe entity.
@@ -97,7 +111,7 @@ public class Recipe {
     recipeEntity.setProperty("description", description);
     recipeEntity.setProperty("difficulty", difficulty);
     recipeEntity.setProperty("prep_time", prepTime);
-
+    recipeEntity.setProperty("author_id", author_id);
     return recipeEntity;
   }
 

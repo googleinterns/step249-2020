@@ -96,7 +96,7 @@ public class UserDetailsServlet extends HttpServlet {
       FetchOptions.Builder.withDefaults()
     );
     for (Entity entity : recipesEntityList) {
-      recipesList.add(buildRecipe(entity));
+      recipesList.add(new Recipe(entity));
     }
 
     return recipesList;

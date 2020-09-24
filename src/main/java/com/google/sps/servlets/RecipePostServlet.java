@@ -125,13 +125,10 @@ public class RecipePostServlet extends HttpServlet {
       (String) request.getSession().getAttribute("name"),
       imgURL,
       stepList,
-      ingredients
+      ingredients,
+      (long) request.getSession().getAttribute("id")
     );
     recipeEntity = recipe.getEntity();
-    recipeEntity.setProperty(
-      "author_id",
-      request.getSession().getAttribute("id")
-    );
 
     datastore.put(recipeEntity);
     IndexHelper.addRecipe(recipeEntity, ingredients);
@@ -161,34 +158,29 @@ public class RecipePostServlet extends HttpServlet {
       recipeEntity = getRecipeById(datastore, request.getParameter("recipeId"));
     } catch (EntityNotFoundException e) {
       request.setAttribute("error", 1);
-    }
-    if (recipeEntity != null) {
-      Recipe recipe = new Recipe(
-        recipeEntity.getKey().getId(),
-        title,
-        description,
-        difficulty,
-        prepTime,
-        (String) request.getSession().getAttribute("name"),
-        imgURL,
-        stepList,
-        ingredients
-      );
-      recipeEntity = recipe.getEntity();
-      recipeEntity.setProperty(
-        "author_id",
-        request.getSession().getAttribute("id")
-      );
-
-      IndexHelper.deleteRecipe(recipeEntity);
-      IndexHelper.addRecipe(recipeEntity, ingredients);
-      datastore.put(recipeEntity);
-      response.sendRedirect(
-        "/recipe?id=" + Long.toString(recipeEntity.getKey().getId())
-      );
-    } else {
       response.sendRedirect("/");
+      return;
     }
+    Recipe recipe = new Recipe(
+      recipeEntity.getKey().getId(),
+      title,
+      description,
+      difficulty,
+      prepTime,
+      (String) request.getSession().getAttribute("name"),
+      imgURL,
+      stepList,
+      ingredients,
+      (long) request.getSession().getAttribute("id")
+    );
+    recipeEntity = recipe.getEntity();
+
+    IndexHelper.deleteRecipe(recipeEntity);
+    IndexHelper.addRecipe(recipeEntity, ingredients);
+    datastore.put(recipeEntity);
+    response.sendRedirect(
+      "/recipe?id=" + Long.toString(recipeEntity.getKey().getId())
+    );
   }
 
   private ArrayList<String> getSteps(HttpServletRequest request) {
