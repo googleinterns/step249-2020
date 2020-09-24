@@ -14,6 +14,12 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.KeyRange;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +27,7 @@ import java.util.ArrayList;
  */
 public class Recipe {
   private long id;
+  private long author_id;
   private String name;
   private String description;
   private String difficulty;
@@ -30,6 +37,83 @@ public class Recipe {
   private ArrayList steps;
   private ArrayList ingredients;
   private ArrayList<String> ingredientsMatching;
+
+  public Recipe() {}
+
+  // This constructor takes the values and constructs the recipe.
+  public Recipe(
+    long givenId,
+    String givenName,
+    String givenDescription,
+    String givenDifficulty,
+    Integer givenPrepTime,
+    String givenAuthor,
+    String givenImg,
+    ArrayList<String> givenSteps,
+    ArrayList<String> givenIngredients,
+    long givenAuthorId
+  ) {
+    id = givenId;
+    name = givenName;
+    description = givenDescription;
+    difficulty = givenDifficulty;
+    prepTime = givenPrepTime;
+    author = givenAuthor;
+    imgURL = givenImg;
+    steps = givenSteps;
+    ingredients = givenIngredients;
+    author_id = givenAuthorId;
+  }
+
+  // This constructor takes the recipe entity, ingredientsMatched & authorName and constructs the recipe.
+  public Recipe(
+    Entity recipeEntity,
+    ArrayList<String> givenIngredientsMatched,
+    String authorName
+  ) {
+    id = recipeEntity.getKey().getId();
+    author = authorName;
+    name = (String) recipeEntity.getProperty("title");
+    imgURL = (String) recipeEntity.getProperty("imgURL");
+    description = (String) recipeEntity.getProperty("description");
+    difficulty = (String) recipeEntity.getProperty("difficulty");
+    Long longPrepTime = ((Long) recipeEntity.getProperty("prep_time"));
+    prepTime = longPrepTime.intValue();
+    ingredientsMatching = givenIngredientsMatched;
+  }
+
+  // This constructor takes the recipe entity and constructs the recipe.
+  public Recipe(Entity recipeEntity) {
+    id = recipeEntity.getKey().getId();
+    name = (String) recipeEntity.getProperty("title");
+    imgURL = (String) recipeEntity.getProperty("imgURL");
+    description = (String) recipeEntity.getProperty("description");
+    difficulty = (String) recipeEntity.getProperty("difficulty");
+    Long longPrepTime = ((Long) recipeEntity.getProperty("prep_time"));
+    prepTime = longPrepTime.intValue();
+  }
+
+  // Creates and returns the corresponding recipe entity.
+  public Entity getEntity() {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    KeyRange keyRange = datastore.allocateIds("Recipe", 1L);
+    Entity recipeEntity = new Entity(keyRange.getStart());
+
+    recipeEntity.setProperty("title", name);
+    recipeEntity.setProperty("index_title", name.toLowerCase());
+    if (imgURL != null && !imgURL.isEmpty()) recipeEntity.setProperty(
+      "imgURL",
+      imgURL
+    );
+    recipeEntity.setProperty("ingredients", ingredients);
+    recipeEntity.setProperty("stepList", steps);
+    recipeEntity.setProperty("author", author);
+    recipeEntity.setProperty("description", description);
+    recipeEntity.setProperty("difficulty", difficulty);
+    recipeEntity.setProperty("prep_time", prepTime);
+    recipeEntity.setProperty("author_id", author_id);
+    return recipeEntity;
+  }
 
   public String getName() {
     return name;

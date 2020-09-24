@@ -96,13 +96,13 @@ public class UserDetailsServlet extends HttpServlet {
       FetchOptions.Builder.withDefaults()
     );
     for (Entity entity : recipesEntityList) {
-      recipesList.add(buildRecipe(entity));
+      recipesList.add(new Recipe(entity));
     }
 
     return recipesList;
   }
 
-private Recipe buildRecipe(Entity recipeEntity) {
+  private Recipe buildRecipe(Entity recipeEntity) {
     Long id = recipeEntity.getKey().getId();
     String authorName = new String();
     String name = (String) recipeEntity.getProperty("title");

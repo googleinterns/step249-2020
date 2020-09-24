@@ -46,10 +46,10 @@ public class RecipeDetailsServlet extends HttpServlet {
     Entity recipeEntity = null;
     try {
       recipeEntity = getRecipeById(datastore, request.getParameter("id"));
+      setRecipePropertiesInRequest(request, recipeEntity);
     } catch (EntityNotFoundException e) {
       request.setAttribute("error", 1);
     }
-    setRecipePropertiesInRequest(request, recipeEntity);
     request.getRequestDispatcher("/recipe.jsp").forward(request, response);
   }
 

@@ -125,10 +125,21 @@ public class SearchServlet extends HttpServlet {
         ArrayList<String> matchingIngredients = returnMatchingIngredients(
           document
         );
-        Recipe recipe = buildRecipe(
+        String authorName = new String();
+        try {
+          authorName =
+            getUserNameById(
+              (Long) recipeEntity.getProperty("author_id"),
+              datastore
+            );
+        } catch (EntityNotFoundException e) {
+          authorName = "";
+        }
+
+        Recipe recipe = new Recipe(
           recipeEntity,
           matchingIngredients,
-          datastore
+          authorName
         );
         matchingRecipes.add(recipe);
       } catch (EntityNotFoundException e) {
@@ -209,43 +220,6 @@ public class SearchServlet extends HttpServlet {
     }
 
     return searchString;
-  }
-
-  /**
-   * Build a Recipe Object with the given Entity.
-   */
-  private Recipe buildRecipe(
-    Entity recipeEntity,
-    ArrayList<String> ingredientsMatching,
-    DatastoreService datastore
-  ) {
-    Long id = recipeEntity.getKey().getId();
-    String authorName = new String();
-    String name = (String) recipeEntity.getProperty("title");
-    String imgURL = (String) recipeEntity.getProperty("imgURL");
-    String description = (String) recipeEntity.getProperty("description");
-    String difficulty = (String) recipeEntity.getProperty("difficulty");
-    Integer prep_time =
-      ((Long) recipeEntity.getProperty("prep_time")).intValue();
-    Long authorId = (Long) recipeEntity.getProperty("author_id");
-
-    try {
-      authorName = getUserNameById(authorId, datastore);
-    } catch (EntityNotFoundException e) {
-      authorName = "";
-    }
-
-    Recipe recipe = new Recipe();
-    recipe.setId(id);
-    recipe.setName(name);
-    recipe.setImage(imgURL);
-    recipe.setDescription(description);
-    recipe.setMatchingIngredients(ingredientsMatching);
-    recipe.setPrepTime(prep_time);
-    recipe.setDifficulty(StringUtils.capitalize(difficulty));
-    recipe.setAuthor(authorName);
-
-    return recipe;
   }
 
   /**
