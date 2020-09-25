@@ -7,13 +7,13 @@ In the second half of our internship we worked on a full stack web development p
 We designed and implemented "Piece Of Cake" a platform where everyone, regardless of their tech abilities can post and share their favourite recipes. We believe that information about how to cook good and healthy food should be accessible to as wide of an audience as possible that is why we have decided to make searching for/accessing recipes available to all users of the website regardless of whether they have an account or not.
 
 The website consists of the following pages: <br>
-* Home/Search, for the users to search for recipes; <br>
-* Results list,  for displaying the recipes matching the search parameters; <br>
-* Recipe details, for displaying all the details about the selected recipe; <br>
-* User profile creation/edit; <br>
-* User profile display, for other users to check the profile of a certain user and the recipes that user published; <br>
-* Recipe creation/edit, for the registered users to upload a recipe and to post it; <br>
-* About/Terms/How search works pages (in the footer). <br>
+* Home/Search, for the users to search for recipes <br>
+* Results list,  for displaying the recipes matching the search parameters <br>
+* Recipe details, for displaying all the details about the selected recipe <br>
+* User profile creation/edit <br>
+* User profile display, for other users to check the profile of a certain user and the recipes that user published <br>
+* Recipe creation/edit, for the registered users to upload a recipe and to post it <br>
+* About/Terms/How search works pages (in the footer) <br>
 
 How to run Piece of Cake
 ----------
