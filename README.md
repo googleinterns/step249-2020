@@ -15,24 +15,24 @@ The website consists of the following pages: <br>
 * Recipe creation/edit, for the registered users to upload a recipe and to post it; <br>
 * About/Terms/How search works pages (in the footer). <br>
 
-Our Users
+How to run Piece of Cake
 ----------
 
-**Casual Users:**
+Make sure to have MAVEN installed. To run the project on your local instance do:  **maven package appengine:run**
 
-Mainly searching for recipes. They do not have an account. Visit the website sporadically, only when looking for recipe inspiration.
+If you are running this on a Google Cloud Shell instance the project will work out of the box, otherwise it may need some tweaking (The APIs shoud in theory be accessible externally but we had some problem with Blobstore when running the project not on GCS).
 
-**Recipe Creators:**
+The project can be depoyed from a GCS instance by doing: **maven package appengine:deploy**
 
-Use the site to post recipes. They have an account and use it mainly to search for recipes. In addition they want to modify their own existing recipes or post brand new recipe to the site.
+It's a piece of cake :)
 
 
-
-Demo for casual user
+Searching for a recipe demo
 --------------------
+
 ![alt-text](demo/demo_user.gif)
 
-Demo for recipe creator
+Posting a recipe demo
 -----------------------
 
 ![alt-text](demo/demo_creator.gif)
